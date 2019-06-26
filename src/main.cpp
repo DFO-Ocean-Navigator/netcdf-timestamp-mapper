@@ -6,9 +6,9 @@
 #include <optional>
 #include <filesystem>
 
+#include "Database.hpp"
 
 namespace fs = std::filesystem;
-using FilePathVec = std::vector<fs::path>;
 
 
 struct [[nodiscard]] TimestampFilenamePair {
@@ -22,7 +22,7 @@ struct [[nodiscard]] TimestampFilenamePair {
     using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
     const auto options{ fs::directory_options::follow_directory_symlink };
 
-    FilePathVec paths;
+    std::vector<fs::path> paths;
 
     for (const auto& file : recursive_directory_iterator(inputDirectory, options)) {
         if (fs::path(file).extension() == ".nc") {
@@ -37,7 +37,7 @@ auto createOutputDirectory(const std::string& path) {
     return fs::create_directory(path);
 }
 
-std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
+[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
 
     try {
         cxxopts::Options options("NetCDF DB Mapper", "One line description of MyProgram");
@@ -58,15 +58,30 @@ std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
     }
 }
 
+/// Convert given dataset name to lower-case and swap spaces with underscores.
+[[nodiscard]] auto sanitizeDatasetName(const std::string& datasetName) {
+    std::string res;
+    res.resize(datasetName.size());
+
+    std::transform(datasetName.cbegin(), datasetName.cend(), res.begin(), ::tolower);
+
+    std::replace(res.begin(), res.end(), ' ', '_');
+
+    return res;
+}
+
 int main(int argc, char** argv) {
 
     const auto& result{ parseCmdLineOptions(argc, argv)};
-
     if (!result) {
         return EXIT_FAILURE;
     }
 
-    const auto& inputDirectory{ (*result)["input-dir"].as<std::string>() };
+    auto inputDirectory{ (*result)["input-dir"].as<std::string>() };
+    // Account for directory paths with no trailing forward-slash
+    if (inputDirectory.back() != '/') {
+        inputDirectory.insert(inputDirectory.end(), '/');
+    }
     if (!fs::exists(inputDirectory)) {
         std::cerr << "Input directory (" << inputDirectory << ") not found." << std::endl;
         return EXIT_FAILURE;
@@ -74,11 +89,18 @@ int main(int argc, char** argv) {
 
     const auto& outputDirectory{ (*result)["output-dir"].as<std::string>() };
     if (!createOutputDirectory(outputDirectory)) {
-        std::cerr << "Failed to create output director: " << outputDirectory << std::endl;
+        std::cerr << "Failed to create output directory: " << outputDirectory << std::endl;
         return EXIT_FAILURE;
     }
 
+    const auto& datasetName{ sanitizeDatasetName((*result)["dataset-name"].as<std::string>()) };
+
     const auto& filePaths{ getFiles(inputDirectory) };
+    if (filePaths.empty()) {
+        std::cout << "No .nc files found in " << inputDirectory << ". Exiting..." << std::endl;
+        return 0;
+    }
+
 
     return 0;
 }
