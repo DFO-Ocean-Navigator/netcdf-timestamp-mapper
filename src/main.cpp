@@ -44,7 +44,7 @@ auto createOutputDirectory(const std::string& path) {
 
         options.add_options()
         ("d,input-dir", "Input directory.", cxxopts::value<std::string>())
-        ("n,dataset-name", "Dataset name.", cxxopts::value<std::string>())
+        ("n,dataset-name", "Dataset name (no spaces).", cxxopts::value<std::string>())
         ("o,output-dir", "Output directory.", cxxopts::value<std::string>())
         ;
 
@@ -53,19 +53,20 @@ auto createOutputDirectory(const std::string& path) {
         return std::make_optional(result);
 
     } catch(const cxxopts::OptionException& e) {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
+        return std::nullopt;
+    } catch(...) {
+        std::cerr << "Unhandled execption." << std::endl;
         return std::nullopt;
     }
 }
 
-/// Convert given dataset name to lower-case and swap spaces with underscores.
+/// Convert given dataset name to lower-case.
 [[nodiscard]] auto sanitizeDatasetName(const std::string& datasetName) {
     std::string res;
     res.resize(datasetName.size());
 
     std::transform(datasetName.cbegin(), datasetName.cend(), res.begin(), ::tolower);
-
-    std::replace(res.begin(), res.end(), ' ', '_');
 
     return res;
 }
@@ -75,7 +76,7 @@ int main(int argc, char** argv) {
     const auto& result{ parseCmdLineOptions(argc, argv)};
     if (!result) {
         return EXIT_FAILURE;
-    }
+    } 
 
     auto inputDirectory{ (*result)["input-dir"].as<std::string>() };
     // Account for directory paths with no trailing forward-slash
@@ -88,10 +89,12 @@ int main(int argc, char** argv) {
     }
 
     const auto& outputDirectory{ (*result)["output-dir"].as<std::string>() };
+    /*
     if (!createOutputDirectory(outputDirectory)) {
         std::cerr << "Failed to create output directory: " << outputDirectory << std::endl;
         return EXIT_FAILURE;
     }
+    */
 
     const auto& datasetName{ sanitizeDatasetName((*result)["dataset-name"].as<std::string>()) };
 
@@ -101,6 +104,7 @@ int main(int argc, char** argv) {
         return 0;
     }
 
+    Database db{ outputDirectory, datasetName };
 
     return 0;
 }

@@ -24,7 +24,7 @@ Database::Database(const std::string& path, const std::string& datasetName) {
         throw std::runtime_error(sqlite3_errmsg(m_DBHandle));
     }
 
-    createDatabase(datasetName);
+    createOneToOneTable();
 }
 
 Database::~Database() {
@@ -43,17 +43,9 @@ void Database::closeConnection() {
     }
 }
 
-void Database::createDatabase(const std::string& dbName) {
-    std::stringstream fmt;
-    fmt << "CREATE DATABASE IF NOT EXISTS " << dbName << ";";
-
-    execStatement(fmt.str());
-}
-
 void Database::execStatement(const std::string& sqlStatement) {
     
     char* errorMsg{ nullptr };
-    
     sqlite3_exec(m_DBHandle,
                     sqlStatement.c_str(),
                     nullptr,
@@ -63,5 +55,23 @@ void Database::execStatement(const std::string& sqlStatement) {
 
     if (errorMsg) {
         std::cerr << errorMsg << std::endl;
+        sqlite3_free(errorMsg);
     }
+}
+
+void Database::createOneToOneTable() {
+    constexpr auto createTableQuery{
+        "CREATE TABLE IF NOT EXISTS Filepaths ("
+            "timestamp DATETIME NOT NULL, "
+            "filepath VARCHAR(4096) NOT NULL, "
+            "PRIMARY KEY(timestamp)"
+        ");"
+    };
+
+    constexpr auto createIndexQuery{
+        "CREATE INDEX IF NOT EXISTS idx_timestamp ON Filepaths(timestamp);"
+    };
+
+    execStatement(createTableQuery);
+    execStatement(createIndexQuery);
 }

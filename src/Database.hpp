@@ -19,9 +19,9 @@ private:
     ///
     void closeConnection();
     ///
-    void createDatabase(const std::string& dbName);
-    ///
     void execStatement(const std::string& sqlStatement);
+    /// Creates a table that maps timestamps to file names 1:1.
+    void createOneToOneTable();
 
     sqlite3* m_DBHandle{ nullptr };
 };
