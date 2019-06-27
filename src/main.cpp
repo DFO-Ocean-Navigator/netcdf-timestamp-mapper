@@ -33,8 +33,16 @@ struct [[nodiscard]] TimestampFilenamePair {
         return paths;
 }
 
-auto createOutputDirectory(const std::string& path) {
-    return fs::create_directory(path);
+auto createOutputDirectory(const std::string& path) noexcept {
+    std::error_code e;
+    fs::create_directory(path, e);
+
+    if (e) {
+        std::cerr << e.message() << std::endl;
+        return false;
+    }
+    return true;
+
 }
 
 [[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
@@ -89,18 +97,17 @@ int main(int argc, char** argv) {
     }
 
     const auto& outputDirectory{ (*result)["output-dir"].as<std::string>() };
-    /*
     if (!createOutputDirectory(outputDirectory)) {
         std::cerr << "Failed to create output directory: " << outputDirectory << std::endl;
         return EXIT_FAILURE;
     }
-    */
+    
 
     const auto& datasetName{ sanitizeDatasetName((*result)["dataset-name"].as<std::string>()) };
 
     const auto& filePaths{ getFiles(inputDirectory) };
     if (filePaths.empty()) {
-        std::cout << "No .nc files found in " << inputDirectory << ". Exiting..." << std::endl;
+        std::cout << "No .nc files found in " << inputDirectory << ".\nExiting..." << std::endl;
         return 0;
     }
 
