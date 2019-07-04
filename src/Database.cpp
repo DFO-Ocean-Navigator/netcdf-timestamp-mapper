@@ -8,6 +8,8 @@
 
 namespace fs = std::filesystem;
 
+namespace tsm {
+
 Database::Database(const std::string& path, const std::string& datasetName) {
 
     configureSQLITE();
@@ -75,3 +77,5 @@ void Database::createOneToOneTable() {
     execStatement(createTableQuery);
     execStatement(createIndexQuery);
 }
+
+} // namespace tsm

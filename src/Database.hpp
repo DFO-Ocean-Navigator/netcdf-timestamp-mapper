@@ -6,6 +6,8 @@
 struct sqlite3;
 struct sqlite3_stmt;
 
+namespace tsm {
+
 class Database {
 
 public:
@@ -25,3 +27,5 @@ private:
 
     sqlite3* m_DBHandle{ nullptr };
 };
+
+} // namespace tsm
