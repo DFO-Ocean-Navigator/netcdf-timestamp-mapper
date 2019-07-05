@@ -2,10 +2,16 @@
 
 #include <filesystem>
 #include <algorithm>
+#include <cctype>
 
 #include "Database.hpp"
 
 namespace tsm {
+
+enum DATASET_TYPE {
+    HISTORICAL = 0,
+    FORECAST
+};
 
 class TimestampMapper {
 
@@ -13,6 +19,7 @@ public:
     TimestampMapper(const std::filesystem::path& inputDir,
                     const std::filesystem::path& outputDir,
                     const std::string& datasetName,
+                    const DATASET_TYPE datasetType,
                     const bool regenIndices);
 
     ///
@@ -49,10 +56,13 @@ private:
     const std::filesystem::path m_inputDir;
     const std::filesystem::path m_outputDir;
     const std::string m_datasetName;
+    const DATASET_TYPE m_datasetType;
     const bool m_regenIndices{ false };
 
     const std::filesystem::path m_filesToIndexPath;
     const bool m_indexFileExists{ false };
+
+    Database m_database;
 };
 
 } // namespace tsm

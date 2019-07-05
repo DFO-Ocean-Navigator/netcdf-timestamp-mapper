@@ -5,9 +5,11 @@
 #include <iostream>
 #include <optional>
 
-[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
+/***********************************************************************************/
+[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char **argv) {
 
-    try {
+    try
+    {
         cxxopts::Options options("NetCDF DB Mapper", "One line description of MyProgram");
 
         options.add_options()
@@ -20,17 +22,22 @@
         const auto& result{ options.parse(argc, argv) };
 
         return std::make_optional(result);
-
-    } catch(const cxxopts::OptionException& e) {
+    }
+    catch (const cxxopts::OptionException &e)
+    {
         std::cerr << e.what() << std::endl;
         return std::nullopt;
-    } catch(...) {
+    }
+    catch (...)
+    {
         std::cerr << "Unhandled execption." << std::endl;
         return std::nullopt;
     }
 }
 
-int main(int argc, char** argv) {
+/***********************************************************************************/
+int main(int argc, char **argv)
+{
 
     const auto& result{ parseCmdLineOptions(argc, argv) };
     if (!result) {
@@ -40,6 +47,7 @@ int main(int argc, char** argv) {
     tsm::TimestampMapper mapper{(*result)["input-dir"].as<std::string>(),
                                 (*result)["output-dir"].as<std::string>(),
                                 (*result)["dataset-name"].as<std::string>(),
+                                tsm::DATASET_TYPE::HISTORICAL,
                                 (*result)["regen-indices"].as<bool>()
                                 };
 

@@ -10,18 +10,23 @@ namespace fs = std::filesystem;
 
 namespace tsm {
 
+/***********************************************************************************/
 TimestampMapper::TimestampMapper(const std::filesystem::path& inputDir,
                                  const std::filesystem::path& outputDir,
                                  const std::string& datasetName,
+                                 const DATASET_TYPE datasetType,
                                  const bool regenIndices) : m_inputDir{ sanitizeDirectoryPath(inputDir) },
                                                             m_outputDir{ sanitizeDirectoryPath(outputDir) },
-                                                            m_datasetName{ sanitizeDatasetName(datasetName) },
+                                                            m_datasetName{ datasetName },
+                                                            m_datasetType{ datasetType },
                                                             m_regenIndices{ regenIndices },
                                                             m_filesToIndexPath{ m_inputDir / "files_to_index.txt" },
-                                                            m_indexFileExists{ fileOrDirExists(m_filesToIndexPath) }
+                                                            m_indexFileExists{ fileOrDirExists(m_filesToIndexPath) },
+                                                            m_database{ m_inputDir, m_outputDir, m_datasetName }
 {
 }
 
+/***********************************************************************************/
 bool TimestampMapper::exec() {
     if (!fileOrDirExists(m_inputDir)) {
         std::cerr << "Input directory " << m_inputDir << " does not exist." << std::endl;
@@ -52,9 +57,15 @@ bool TimestampMapper::exec() {
         return false;
     }
 
+    if (!m_database.open()) {
+        std::cerr << "Failed to open sqlite database." << std::endl;
+        return false;
+    }
+
     return true;
 }
 
+/***********************************************************************************/
 bool TimestampMapper::createDirectory(const std::filesystem::path& path) const noexcept {
     std::error_code e;
     fs::create_directory(path, e);
@@ -66,6 +77,7 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
     return true;
 }
 
+/***********************************************************************************/
 std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile) const {
     std::vector<fs::path> paths;
 
