@@ -1,0 +1,90 @@
+.TH "tsm::Database" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::Database
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Database\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDatabase\fP (const std::filesystem::path &inputPath, const std::filesystem::path &outputPath, const std::string &datasetName)"
+.br
+.ti -1c
+.RI "\fB~Database\fP ()"
+.br
+.ti -1c
+.RI "bool \fBopen\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBconfigureSQLITE\fP ()"
+.br
+.ti -1c
+.RI "void \fBcloseConnection\fP ()"
+.br
+.ti -1c
+.RI "void \fBexecStatement\fP (const std::string &sqlStatement)"
+.br
+.ti -1c
+.RI "void \fBcreateOneToOneTable\fP ()"
+.br
+.RI "Creates a table that maps timestamps to file names 1:1\&. "
+.ti -1c
+.RI "void \fBcreateManyToOneTable\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "sqlite3 * \fBm_DBHandle\fP { nullptr }"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_inputPath\fP"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_outputFilePath\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::Database::Database (const std::filesystem::path & inputPath, const std::filesystem::path & outputPath, const std::string & datasetName)"
+
+.SS "tsm::Database::~Database ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void tsm::Database::closeConnection ()\fC [private]\fP"
+
+.SS "void tsm::Database::configureSQLITE ()\fC [private]\fP"
+
+.SS "void tsm::Database::createManyToOneTable ()\fC [private]\fP"
+
+.SS "void tsm::Database::createOneToOneTable ()\fC [private]\fP"
+
+.PP
+Creates a table that maps timestamps to file names 1:1\&. 
+.SS "void tsm::Database::execStatement (const std::string & sqlStatement)\fC [private]\fP"
+
+.SS "bool tsm::Database::open ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "sqlite3* tsm::Database::m_DBHandle { nullptr }\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::Database::m_inputPath\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::Database::m_outputFilePath\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

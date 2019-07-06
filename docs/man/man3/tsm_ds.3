@@ -1,0 +1,55 @@
+.TH "tsm::ds" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBTimestampFilenamePair\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "using \fBtimestamp_t\fP = unsigned long long"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile)"
+.br
+.ti -1c
+.RI "auto \fBconvertNCTimeToISOExtended\fP (const \fBtimestamp_t\fP timestamp)"
+.br
+.ti -1c
+.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const std::filesystem::path &path)"
+.br
+.ti -1c
+.RI "std::optional< std::vector< \fBTimestampFilenamePair\fP > > \fBcreatePairs\fP (const std::vector< std::filesystem::path > &paths)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "using \fBtsm::ds::timestamp_t\fP = typedef unsigned long long"
+
+.SH "Function Documentation"
+.PP 
+.SS "auto tsm::ds::convertNCTimeToISOExtended (const \fBtimestamp_t\fP timestamp)"
+
+.SS "std::optional<std::vector<\fBTimestampFilenamePair\fP> > tsm::ds::createPairs (const std::vector< std::filesystem::path > & paths)"
+
+.SS "std::optional<std::string> tsm::ds::findTimeDim (const netCDF::NcFile & ncFile)"
+
+.SS "std::optional<std::vector<\fBtimestamp_t\fP> > tsm::ds::getTimestampValues (const std::filesystem::path & path)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

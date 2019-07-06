@@ -1,0 +1,66 @@
+.TH "src/DatasetUitls.hpp" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/DatasetUitls.hpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <ncFile\&.h>\fP
+.br
+\fC#include <ncDim\&.h>\fP
+.br
+\fC#include <ncVar\&.h>\fP
+.br
+\fC#include <boost/date_time/gregorian/gregorian\&.hpp>\fP
+.br
+\fC#include <boost/date_time/posix_time/posix_time\&.hpp>\fP
+.br
+\fC#include <optional>\fP
+.br
+\fC#include <filesystem>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBtsm::ds::TimestampFilenamePair\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBtsm\fP"
+.br
+.ti -1c
+.RI " \fBtsm::ds\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "using \fBtsm::ds::timestamp_t\fP = unsigned long long"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "std::optional< std::string > \fBtsm::ds::findTimeDim\fP (const netCDF::NcFile &ncFile)"
+.br
+.ti -1c
+.RI "auto \fBtsm::ds::convertNCTimeToISOExtended\fP (const timestamp_t timestamp)"
+.br
+.ti -1c
+.RI "std::optional< std::vector< timestamp_t > > \fBtsm::ds::getTimestampValues\fP (const std::filesystem::path &path)"
+.br
+.ti -1c
+.RI "std::optional< std::vector< TimestampFilenamePair > > \fBtsm::ds::createPairs\fP (const std::vector< std::filesystem::path > &paths)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

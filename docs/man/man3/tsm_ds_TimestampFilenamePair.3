@@ -1,0 +1,63 @@
+.TH "tsm::ds::TimestampFilenamePair" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds::TimestampFilenamePair
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <DatasetUitls\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTimestampFilenamePair\fP (const std::vector< std::string > &timestamps, const std::filesystem::path &path)"
+.br
+.ti -1c
+.RI "\fBTimestampFilenamePair\fP (const \fBTimestampFilenamePair\fP &)=default"
+.br
+.ti -1c
+.RI "\fBTimestampFilenamePair\fP (\fBTimestampFilenamePair\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBTimestampFilenamePair\fP & \fBoperator=\fP (const \fBTimestampFilenamePair\fP &)=default"
+.br
+.ti -1c
+.RI "\fBTimestampFilenamePair\fP & \fBoperator=\fP (\fBTimestampFilenamePair\fP &&)=default"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< std::string > \fBTimestamps\fP"
+.br
+.ti -1c
+.RI "std::filesystem::path \fBNCFilePath\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::ds::TimestampFilenamePair::TimestampFilenamePair (const std::vector< std::string > & timestamps, const std::filesystem::path & path)\fC [inline]\fP"
+
+.SS "tsm::ds::TimestampFilenamePair::TimestampFilenamePair (const \fBTimestampFilenamePair\fP &)\fC [default]\fP"
+
+.SS "tsm::ds::TimestampFilenamePair::TimestampFilenamePair (\fBTimestampFilenamePair\fP &&)\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBTimestampFilenamePair\fP& tsm::ds::TimestampFilenamePair::operator= (const \fBTimestampFilenamePair\fP &)\fC [default]\fP"
+
+.SS "\fBTimestampFilenamePair\fP& tsm::ds::TimestampFilenamePair::operator= (\fBTimestampFilenamePair\fP &&)\fC [default]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::filesystem::path tsm::ds::TimestampFilenamePair::NCFilePath"
+
+.SS "std::vector<std::string> tsm::ds::TimestampFilenamePair::Timestamps"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

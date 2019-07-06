@@ -1,0 +1,107 @@
+.TH "tsm::TimestampMapper" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::TimestampMapper
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <TimestampMapper\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const \fBDATASET_TYPE\fP datasetType, const bool regenIndices)"
+.br
+.ti -1c
+.RI "bool \fBexec\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const"
+.br
+.ti -1c
+.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const"
+.br
+.ti -1c
+.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const"
+.br
+.ti -1c
+.RI "bool \fBcreateDirectory\fP (const std::filesystem::path &path) const noexcept"
+.br
+.ti -1c
+.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile) const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "const std::filesystem::path \fBm_inputDir\fP"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_outputDir\fP"
+.br
+.ti -1c
+.RI "const std::string \fBm_datasetName\fP"
+.br
+.ti -1c
+.RI "const \fBDATASET_TYPE\fP \fBm_datasetType\fP"
+.br
+.ti -1c
+.RI "const bool \fBm_regenIndices\fP { false }"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_filesToIndexPath\fP"
+.br
+.ti -1c
+.RI "const bool \fBm_indexFileExists\fP { false }"
+.br
+.ti -1c
+.RI "\fBDatabase\fP \fBm_database\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const \fBDATASET_TYPE\fP datasetType, const bool regenIndices)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "bool tsm::TimestampMapper::createDirectory (const std::filesystem::path & path) const\fC [private]\fP, \fC [noexcept]\fP"
+
+.SS "std::vector< fs::path > tsm::TimestampMapper::createFileList (const std::filesystem::path & inputDirOrIndexFile) const\fC [private]\fP"
+
+.SS "bool tsm::TimestampMapper::exec ()"
+
+.SS "auto tsm::TimestampMapper::fileOrDirExists (const std::filesystem::path & path) const\fC [inline]\fP, \fC [private]\fP"
+
+.SS "auto tsm::TimestampMapper::sanitizeDatasetName (const std::string & datasetName) const\fC [inline]\fP, \fC [private]\fP"
+
+.SS "auto tsm::TimestampMapper::sanitizeDirectoryPath (const std::string & dirPath) const\fC [inline]\fP, \fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBDatabase\fP tsm::TimestampMapper::m_database\fC [private]\fP"
+
+.SS "const std::string tsm::TimestampMapper::m_datasetName\fC [private]\fP"
+
+.SS "const \fBDATASET_TYPE\fP tsm::TimestampMapper::m_datasetType\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::TimestampMapper::m_filesToIndexPath\fC [private]\fP"
+
+.SS "const bool tsm::TimestampMapper::m_indexFileExists { false }\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::TimestampMapper::m_inputDir\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::TimestampMapper::m_outputDir\fC [private]\fP"
+
+.SS "const bool tsm::TimestampMapper::m_regenIndices { false }\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
