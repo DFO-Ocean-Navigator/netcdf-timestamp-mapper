@@ -1,12 +1,18 @@
 #include "Database.hpp"
 
+#include "DatasetUitls.hpp"
+
 #include <sqlite3.h>
+#include <boost/format.hpp>
 
 #include <stdexcept>
 #include <filesystem>
 #include <iostream>
 
 namespace fs = std::filesystem;
+
+// Required queries:
+// SELECT filepath FROM Timestamps INNER JOIN Filepaths WHERE timestamp='2193091200';
 
 namespace tsm {
 
@@ -39,6 +45,35 @@ bool Database::open() {
     createManyToOneTable();
 
     return true;
+}
+
+/***********************************************************************************/
+void Database::insertData(const std::vector<ds::TimestampFilenamePair>& data) {
+
+    for (const auto& pair : data) {
+        // Insert filepath into its table to auto-generate the filepath_id.
+        const auto& insertFilePathQuery{ 
+            (boost::format("INSERT INTO Filepaths(filepath) VALUES ('%s');") % pair.NCFilePath.string()).str()
+        };
+        execStatement(insertFilePathQuery);
+
+        // Now insert timestamp into its table and extract the above generated filepath_id as the foreign key.
+        // TODO: reduce lookups by selecting the filepath_id before looping. Need to refactor execStatement to accept an optional callback which
+        // will store the resulting value.
+        for (const auto ts : pair.Timestamps) {
+            const auto& insertTimestampQuery{
+                (boost::format("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = '%s'), %d);")
+                                                                                                                % pair.NCFilePath.string()
+                                                                                                                % ts).str()
+            };
+            execStatement(insertTimestampQuery);
+        }
+    }
+}
+
+/***********************************************************************************/
+void Database::insertData() {
+
 }
 
 /***********************************************************************************/
@@ -93,10 +128,12 @@ void Database::createOneToOneTable() {
 
 /***********************************************************************************/
 void Database::createManyToOneTable() {
-    constexpr auto createTableQuery{
+    constexpr auto createTimestampTableQuery{
         "CREATE TABLE IF NOT EXISTS Timestamps ("
             "timestamp_id INT AUTO_INCREMENT PRIMARY KEY,"
-            "timestamp INT NOT NULL"
+            "filepath_id INT, "
+            "timestamp INT NOT NULL, "
+            "FOREIGN KEY (filepath_id) REFERENCES Filepaths(filepath_id)"
         ");"
     };
 
@@ -104,23 +141,20 @@ void Database::createManyToOneTable() {
         "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
     };
 
+    constexpr auto createForeignKeyIndex{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key on Timestamps(filepath_id);"
+    };
+
     constexpr auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
             "filepath_id INT AUTO_INCREMENT PRIMARY KEY, "
-            "timestamp_id INT, "
-            "filepath VARCHAR(4096) NOT NULL, "
-            "FOREIGN KEY (timestamp_id) REFERENCES Timestamps(timestamp_id)"
+            "filepath VARCHAR(4096) NOT NULL"
         ");"
     };
 
-    // Create index on foreign key
-    constexpr auto createForeignKeyIndex{
-        "CREATE INDEX IF NOT EXISTS idx_foreign_key on Filepaths(timestamp_id);"
-    };
-
-    execStatement(createTableQuery);
-    execStatement(createTimestampIndexQuery);
     execStatement(createFilepathsTableQuery);
+    execStatement(createTimestampTableQuery);
+    execStatement(createTimestampIndexQuery);
     execStatement(createForeignKeyIndex);
 }
 

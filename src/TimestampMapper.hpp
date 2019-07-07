@@ -53,6 +53,9 @@ private:
     [[nodiscard]] std::vector<std::filesystem::path> 
                                         createFileList(const std::filesystem::path& inputDirOrIndexFile) const;
 
+    ///
+    void deleteIndexFile();
+
     const std::filesystem::path m_inputDir;
     const std::filesystem::path m_outputDir;
     const std::string m_datasetName;
@@ -60,7 +63,7 @@ private:
     const bool m_regenIndices{ false };
 
     const std::filesystem::path m_filesToIndexPath;
-    const bool m_indexFileExists{ false };
+    bool m_indexFileExists{ false };
 
     Database m_database;
 };

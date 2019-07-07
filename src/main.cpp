@@ -13,7 +13,7 @@
         cxxopts::Options options("NetCDF DB Mapper", "One line description of MyProgram");
 
         options.add_options()
-        ("d,input-dir", "Input directory.", cxxopts::value<std::string>())
+        ("i,input-dir", "Input directory.", cxxopts::value<std::string>())
         ("n,dataset-name", "Dataset name (no spaces).", cxxopts::value<std::string>())
         ("o,output-dir", "Output directory.", cxxopts::value<std::string>())
         ("regen-indices", "Regenerate indices", cxxopts::value<bool>()->implicit_value("false"))

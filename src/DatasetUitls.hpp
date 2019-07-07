@@ -12,11 +12,11 @@
 namespace tsm {
 namespace ds {
 
-using timestamp_t = unsigned long long;
+using timestamp_t = unsigned long long; //<
 
 ///
 struct [[nodiscard]] TimestampFilenamePair {
-    TimestampFilenamePair(const std::vector<std::string>& timestamps, const std::filesystem::path& path) :  Timestamps{timestamps},
+    TimestampFilenamePair(const std::vector<timestamp_t>& timestamps, const std::filesystem::path& path) :  Timestamps{timestamps},
                                                                                                             NCFilePath{path} {}
     TimestampFilenamePair(const TimestampFilenamePair&) = default;
     TimestampFilenamePair(TimestampFilenamePair&&) = default;
@@ -24,12 +24,12 @@ struct [[nodiscard]] TimestampFilenamePair {
     TimestampFilenamePair& operator=(const TimestampFilenamePair&) = default;
     TimestampFilenamePair& operator=(TimestampFilenamePair&&) = default;
 
-    std::vector<std::string> Timestamps;
+    std::vector<timestamp_t> Timestamps;
     std::filesystem::path NCFilePath;
 };
 
 ///
-[[nodiscard]] std::optional<std::string> findTimeDim(const netCDF::NcFile& ncFile) {
+[[nodiscard]] inline std::optional<std::string> findTimeDim(const netCDF::NcFile& ncFile) {
     for (const auto& dim : ncFile.getDims()) {
         if (dim.first.find("time") != std::string::npos) {
             return std::make_optional(dim.first);
@@ -40,7 +40,7 @@ struct [[nodiscard]] TimestampFilenamePair {
 }
 
 ///
-[[nodiscard]] auto convertNCTimeToISOExtended(const timestamp_t timestamp) {
+[[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) {
     namespace bg = boost::gregorian;
     namespace bp = boost::posix_time;
 
@@ -51,7 +51,7 @@ struct [[nodiscard]] TimestampFilenamePair {
 }
 
 ///
-[[nodiscard]] std::optional<std::vector<timestamp_t>> getTimestampValues(const std::filesystem::path& path) {
+[[nodiscard]] inline std::optional<std::vector<timestamp_t>> getTimestampValues(const std::filesystem::path& path) {
 
     // Open NC file
     netCDF::NcFile f{path, netCDF::NcFile::read};
@@ -75,7 +75,7 @@ struct [[nodiscard]] TimestampFilenamePair {
 }
 
 ///
-[[nodiscard]] std::optional<std::vector<TimestampFilenamePair>> createPairs(const std::vector<std::filesystem::path>& paths) {
+[[nodiscard]] inline std::optional<std::vector<TimestampFilenamePair>> createPairs(const std::vector<std::filesystem::path>& paths) {
 
     std::vector<TimestampFilenamePair> pairs;
     pairs.reserve(paths.size());
@@ -89,12 +89,12 @@ struct [[nodiscard]] TimestampFilenamePair {
         const auto& vals{ timestamps.value() }; // Get underlyng vector
 
         // Allocate memory for iso timestamps
-        std::vector<std::string> isoTimestamps(vals.size());
+        //std::vector<std::string> isoTimestamps(vals.size());
 
         // Convert raw timestamps to ISO Extended.
-        std::transform(vals.cbegin(), vals.cend(), isoTimestamps.begin(), convertNCTimeToISOExtended);
+        //std::transform(vals.cbegin(), vals.cend(), isoTimestamps.begin(), convertNCTimeToISOExtended);
 
-        pairs.emplace_back(isoTimestamps, path);
+        pairs.emplace_back(vals, path);
     }
    
     return std::make_optional(pairs);

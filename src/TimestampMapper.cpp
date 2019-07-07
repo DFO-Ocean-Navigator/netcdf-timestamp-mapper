@@ -62,6 +62,10 @@ bool TimestampMapper::exec() {
         return false;
     }
 
+    m_database.insertData(*pairs);
+
+    deleteIndexFile();
+
     return true;
 }
 
@@ -109,6 +113,14 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
     }
 
     return paths;
+}
+
+/***********************************************************************************/
+void TimestampMapper::deleteIndexFile() {
+    if (m_indexFileExists) {
+        fs::remove(m_filesToIndexPath);
+        m_indexFileExists = false;
+    }
 }
 
 } // namespace tsm
