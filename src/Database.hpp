@@ -34,7 +34,7 @@ private:
     /// Close connection to database.
     void closeConnection();
     ///
-    void execStatement(const std::string& sqlStatement);
+    void execStatement(const std::string& sqlStatement, int (*callback)(void*, int, char**, char**) = nullptr);
     /// Creates a table that maps timestamps to file names 1:1.
     void createOneToOneTable();
     ///

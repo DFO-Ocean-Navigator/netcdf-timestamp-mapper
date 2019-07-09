@@ -92,15 +92,14 @@ void Database::closeConnection() {
 }
 
 /***********************************************************************************/
-void Database::execStatement(const std::string& sqlStatement) {
+void Database::execStatement(const std::string& sqlStatement, int (*callback)(void *, int, char **, char **) /* = nullptr */) {
     
     char* errorMsg{ nullptr };
     sqlite3_exec(m_DBHandle,
-                    sqlStatement.c_str(),
-                    nullptr,
-                    nullptr,
-                    &errorMsg
-    );
+                 sqlStatement.c_str(),
+                 callback,
+                 nullptr,
+                 &errorMsg);
 
     if (errorMsg) {
         std::cerr << errorMsg << std::endl;
