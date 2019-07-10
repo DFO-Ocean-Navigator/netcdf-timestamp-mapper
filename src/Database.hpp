@@ -31,6 +31,8 @@ public:
 private:
     ///
     void configureSQLITE();
+    ///
+    void configureDBConnection();
     /// Close connection to database.
     void closeConnection();
     ///

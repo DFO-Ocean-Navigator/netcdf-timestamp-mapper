@@ -42,6 +42,8 @@ bool Database::open() {
         return false;
     }
 
+    configureDBConnection();
+
     createManyToOneTable();
 
     return true;
@@ -84,8 +86,15 @@ void Database::configureSQLITE() {
 }
 
 /***********************************************************************************/
+void Database::configureDBConnection() {
+    execStatement("PRAGMA journal_mode = MEMORY");
+    execStatement("PRAGMA synchronous = OFF");
+}
+
+/***********************************************************************************/
 void Database::closeConnection() {
     if (m_DBHandle) {
+        execStatement("PRAGMA optimize");
         sqlite3_close(m_DBHandle);
         m_DBHandle = nullptr;
     }
