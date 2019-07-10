@@ -1,9 +1,9 @@
 
 ## Dependencies
 
-* >= Ubuntu 16.04
-* >= Boost 1.70
-* >= GCC 8 (for C++17 support)
+* Ubuntu 16.04 or newer.
+* Boost 1.70 or newer.
+* GCC 8 (for C++17 support) or newer.
 * Headers and libraries in `install_deps.sh`
 
 ## Notes
