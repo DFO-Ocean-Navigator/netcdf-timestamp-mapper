@@ -120,8 +120,8 @@ void Database::execStatement(const std::string& sqlStatement, int (*callback)(vo
 void Database::createOneToOneTable() {
     constexpr auto createTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
-            "timestamp_id INT AUTO_INCREMENT PRIMARY KEY, "
-            "timestamp INT NOT NULL, "
+            "timestamp_id INTEGER PRIMARY KEY, "
+            "timestamp INTEGER NOT NULL, "
             "filepath VARCHAR(4096) NOT NULL, "
         ");"
     };
@@ -138,9 +138,9 @@ void Database::createOneToOneTable() {
 void Database::createManyToOneTable() {
     constexpr auto createTimestampTableQuery{
         "CREATE TABLE IF NOT EXISTS Timestamps ("
-            "timestamp_id INT AUTO_INCREMENT PRIMARY KEY,"
-            "filepath_id INT, "
-            "timestamp INT NOT NULL, "
+            "timestamp_id INTEGER PRIMARY KEY,"
+            "filepath_id INTEGER, "
+            "timestamp INTEGER NOT NULL, "
             "FOREIGN KEY (filepath_id) REFERENCES Filepaths(filepath_id)"
         ");"
     };
@@ -155,7 +155,7 @@ void Database::createManyToOneTable() {
 
     constexpr auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
-            "filepath_id INT AUTO_INCREMENT PRIMARY KEY, "
+            "filepath_id INTEGER PRIMARY KEY, "
             "filepath VARCHAR(4096) NOT NULL"
         ");"
     };
