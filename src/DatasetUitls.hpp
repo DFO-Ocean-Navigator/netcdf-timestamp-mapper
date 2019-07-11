@@ -53,25 +53,36 @@ struct [[nodiscard]] TimestampFilenamePair {
 ///
 [[nodiscard]] inline std::optional<std::vector<timestamp_t>> getTimestampValues(const std::filesystem::path& path) {
 
-    // Open NC file
-    netCDF::NcFile f{path, netCDF::NcFile::read};
+    try {
+        // Open NC file
+        netCDF::NcFile f{path, netCDF::NcFile::read};
 
-    auto timeDim{ findTimeDim(f) };
-    if (!timeDim) {
-        return std::nullopt;
+        auto timeDim{ findTimeDim(f) };
+        if (!timeDim) {
+            return std::nullopt;
+        }
+
+        // Get timestamp values
+        netCDF::NcDim dim;
+        netCDF::NcVar var;
+        f.getCoordVar(*timeDim, dim, var);
+
+        std::vector<timestamp_t> vals(dim.getSize());
+        var.getVar(vals.data());
+
+        // NcFile destructor will close the file and release resources
+
+        return std::make_optional(vals);
+    }
+    catch (const netCDF::exceptions::NcException& e) {
+        std::cerr << "NetCDF error in " << path << std::endl;
+        std::cerr << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cerr << "Unhandled exception." << std::endl;
     }
 
-    // Get timestamp values
-    netCDF::NcDim dim;
-    netCDF::NcVar var;
-    f.getCoordVar(*timeDim, dim, var);
-
-    std::vector<timestamp_t> vals(dim.getSize());
-    var.getVar(vals.data());
-
-    // NcFile destructor will close the file and release resources
-
-    return std::make_optional(vals);
+    return std::nullopt;
 }
 
 ///
@@ -84,7 +95,8 @@ struct [[nodiscard]] TimestampFilenamePair {
        
         const auto timestamps{ getTimestampValues(path) };
         if (!timestamps) {
-            return std::nullopt;
+            std::cerr << "Error finding time dimention in " << path << ". This file will NOT be indexed." << std::endl;
+            continue;
         }
         const auto& vals{ timestamps.value() }; // Get underlyng vector
 
