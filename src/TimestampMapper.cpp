@@ -45,23 +45,27 @@ bool TimestampMapper::exec() {
         std::cout << "List of non-indexed files not found. Continuing with complete indexing operation..." << std::endl;
     }
 
+    std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_filesToIndexPath : m_inputDir) << "..." << std::endl;
     const auto& filePaths{ createFileList(m_indexFileExists ? m_filesToIndexPath : m_inputDir) };
     if (filePaths.empty()) {
         std::cout << "No .nc files found." << "\nExiting..." << std::endl;
         return false;
     }
 
+    std::cout << "Scanning .nc files for timestamps..." << std::endl;
     const auto& pairs{ ds::createPairs(filePaths) };
     if (!pairs) {
         std::cerr << "Failed to find time dimension in one of the NetCDF files." << std::endl;
         return false;
     }
 
+    std::cout << "Opening database..." << std::endl;
     if (!m_database.open()) {
         std::cerr << "Failed to open sqlite database." << std::endl;
         return false;
     }
 
+    std::cout << "Inserting new values into database..." << std::endl;
     m_database.insertData(*pairs);
 
     deleteIndexFile();
