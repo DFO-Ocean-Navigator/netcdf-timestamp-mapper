@@ -1,54 +1,41 @@
 #include "TimestampMapper.hpp"
 
-#include <cxxopts/include/cxxopts.hpp>
-
-#include <iostream>
-#include <optional>
+#include "CLIOptions.hpp"
 
 /***********************************************************************************/
-[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char **argv) {
+int main(int argc, char** argv) {
+    using namespace tsm::cli;
 
-    try
-    {
-        cxxopts::Options options("NetCDF DB Mapper", "One line description of MyProgram");
-
-        options.add_options()
-        ("i,input-dir", "Input directory.", cxxopts::value<std::string>())
-        ("n,dataset-name", "Dataset name (no spaces).", cxxopts::value<std::string>())
-        ("o,output-dir", "Output directory.", cxxopts::value<std::string>())
-        ("regen-indices", "Regenerate indices", cxxopts::value<bool>()->implicit_value("false"))
-        ;
-
-        const auto& result{ options.parse(argc, argv) };
-
-        return std::make_optional(result);
-    }
-    catch (const cxxopts::OptionException &e)
-    {
-        std::cerr << e.what() << std::endl;
-        return std::nullopt;
-    }
-    catch (...)
-    {
-        std::cerr << "Unhandled execption." << std::endl;
-        return std::nullopt;
-    }
-}
-
-/***********************************************************************************/
-int main(int argc, char **argv)
-{
+    std::iostream::sync_with_stdio(false);
 
     const auto& result{ parseCmdLineOptions(argc, argv) };
     if (!result) {
         return EXIT_FAILURE;
     }
 
-    tsm::TimestampMapper mapper{(*result)["input-dir"].as<std::string>(),
-                                (*result)["output-dir"].as<std::string>(),
-                                (*result)["dataset-name"].as<std::string>(),
-                                tsm::DATASET_TYPE::HISTORICAL,
-                                (*result)["regen-indices"].as<bool>()
+    if ((*result).count("help")) {
+        printHelp();
+        return 0;
+    }
+
+    const CLIOptions opts{ *result };
+
+    if (opts.Forecast == opts.Historical) {
+        std::cerr << "ONE of -forecast OR -historical is required." << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    if (opts.VarsCombined == opts.VarsSplit) {
+        std::cerr << "ONE of -variables-combined OR -variables-split is required." << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    tsm::TimestampMapper mapper{opts.InputDir,
+                                opts.OutputDir,
+                                opts.DatasetName,
+                                opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL, 
+                                opts.VarsSplit ? tsm::ds::VARIABLE_LAYOUT::SPLIT : tsm::ds::VARIABLE_LAYOUT::COMBINED,
+                                opts.RegenIndices
                                 };
 
     return mapper.exec();

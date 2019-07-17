@@ -1,6 +1,6 @@
 #pragma once
 
-namespace tsm {
+namespace tsm::ds {
 
 using timestamp_t = unsigned long long;
 

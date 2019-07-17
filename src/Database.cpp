@@ -1,6 +1,6 @@
 #include "Database.hpp"
 
-#include "DatasetUitls.hpp"
+#include "DatasetDesc.hpp"
 
 #include <sqlite3.h>
 #include <boost/format.hpp>
@@ -50,32 +50,29 @@ bool Database::open() {
 }
 
 /***********************************************************************************/
-void Database::insertData(const std::vector<ds::TimestampFilenamePair>& data) {
+void Database::insertData(const ds::DatasetDesc& datasetDesc) {
 
-    for (const auto& pair : data) {
+    execStatement("BEGIN TRANSACTION");
+    for (const auto& ncFile : datasetDesc.m_ncFiles) {
         // Insert filepath into its table to auto-generate the filepath_id.
         const auto& insertFilePathQuery{ 
-            (boost::format("INSERT INTO Filepaths(filepath) VALUES ('%s');") % pair.NCFilePath.string()).str()
+            (boost::format("INSERT INTO Filepaths(filepath) VALUES ('%s');") % ncFile.NCFilePath.string()).str()
         };
         execStatement(insertFilePathQuery);
 
         // Now insert timestamp into its table and extract the above generated filepath_id as the foreign key.
         // TODO: reduce lookups by selecting the filepath_id before looping. Need to refactor execStatement to accept an optional callback which
         // will store the resulting value.
-        for (const auto ts : pair.Timestamps) {
+        for (const auto ts : ncFile.Timestamps) {
             const auto& insertTimestampQuery{
                 (boost::format("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = '%s'), %d);")
-                                                                                                                % pair.NCFilePath.string()
+                                                                                                                % ncFile.NCFilePath.string()
                                                                                                                 % ts).str()
             };
             execStatement(insertTimestampQuery);
         }
     }
-}
-
-/***********************************************************************************/
-void Database::insertData() {
-
+    execStatement("END TRANSACTION");
 }
 
 /***********************************************************************************/

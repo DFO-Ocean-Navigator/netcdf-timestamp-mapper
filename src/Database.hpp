@@ -1,7 +1,5 @@
 #pragma once
 
-#include "DatasetUitls.hpp"
-
 #include <string>
 #include <filesystem>
 
@@ -9,7 +7,7 @@
 struct sqlite3;
 struct sqlite3_stmt;
 namespace tsm::ds {
-struct TimestampFilenamePair;
+class DatasetDesc;
 }
 
 namespace tsm {
@@ -24,9 +22,7 @@ public:
     ///
     [[nodiscard]] bool open();
     ///
-    void insertData(const std::vector<ds::TimestampFilenamePair>& data);
-    ///
-    void insertData();
+    void insertData(const ds::DatasetDesc& datasetDesc);
 
 private:
     ///
