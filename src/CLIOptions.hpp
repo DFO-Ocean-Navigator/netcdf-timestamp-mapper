@@ -22,8 +22,8 @@ namespace tsm::cli {
         ("regen-indices", "Regenerate indices.", cxxopts::value<bool>()->implicit_value("false"))
         ("f,forecast", "Forecast dataset type.", cxxopts::value<bool>()->implicit_value("false"))
         ("h,historical", "Historical dataset type.", cxxopts::value<bool>()->implicit_value("false"))
-        ("vc,variables-combined", "Dataset variables are all in one file.", cxxopts::value<bool>()->implicit_value("false"))
-        ("vs,variables-split", "Dataset variables are split across multiple files.", cxxopts::value<bool>()->implicit_value("false"))
+        ("variables-combined", "Dataset variables are all in one file.", cxxopts::value<bool>()->implicit_value("false"))
+        ("variables-split", "Dataset variables are split across multiple files.", cxxopts::value<bool>()->implicit_value("false"))
         ("h,help", "Print help.")
         ;
 
