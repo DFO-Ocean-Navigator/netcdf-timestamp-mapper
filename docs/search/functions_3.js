@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fileordirexists',['fileOrDirExists',['../classtsm_1_1_timestamp_mapper.html#a75a59c81e38ad6ddaef8bf26cbe945ed',1,'tsm::TimestampMapper']]],
-  ['findtimedim',['findTimeDim',['../namespacetsm_1_1ds.html#a19f094a2971ba2f62d76148f6f91d9e2',1,'tsm::ds']]]
+  ['fileordirexists',['fileOrDirExists',['../classtsm_1_1_timestamp_mapper.html#aac1b2a7d04244182681e179b7f71102c',1,'tsm::TimestampMapper']]],
+  ['findtimedim',['findTimeDim',['../classtsm_1_1ds_1_1_dataset_desc.html#a88905a9cfcc9e4a0858a15dfa0471d45',1,'tsm::ds::DatasetDesc']]]
 ];

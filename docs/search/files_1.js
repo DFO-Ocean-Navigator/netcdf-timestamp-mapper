@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['main_2ecpp',['main.cpp',['../main_8cpp.html',1,'']]]
+  ['database_2ecpp',['Database.cpp',['../_database_8cpp.html',1,'']]],
+  ['database_2ehpp',['Database.hpp',['../_database_8hpp.html',1,'']]],
+  ['datasetdesc_2ecpp',['DatasetDesc.cpp',['../_dataset_desc_8cpp.html',1,'']]],
+  ['datasetdesc_2ehpp',['DatasetDesc.hpp',['../_dataset_desc_8hpp.html',1,'']]]
 ];

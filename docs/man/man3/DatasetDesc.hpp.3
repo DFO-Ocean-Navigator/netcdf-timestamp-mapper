@@ -1,0 +1,57 @@
+.TH "src/DatasetDesc.hpp" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/DatasetDesc.hpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'NCFileDesc\&.hpp'\fP
+.br
+\fC#include <ncFile\&.h>\fP
+.br
+\fC#include <boost/date_time/gregorian/gregorian\&.hpp>\fP
+.br
+\fC#include <boost/date_time/posix_time/posix_time\&.hpp>\fP
+.br
+\fC#include <set>\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <optional>\fP
+.br
+\fC#include <filesystem>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBtsm::ds::DatasetDesc\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBtsm\fP"
+.br
+.ti -1c
+.RI " \fBtsm::ds\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBtsm::ds::DATASET_TYPE\fP { \fBtsm::ds::HISTORICAL\fP = 0, \fBtsm::ds::FORECAST\fP }"
+.br
+.ti -1c
+.RI "enum \fBtsm::ds::VARIABLE_LAYOUT\fP { \fBtsm::ds::COMBINED\fP = 0, \fBtsm::ds::SPLIT\fP }"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

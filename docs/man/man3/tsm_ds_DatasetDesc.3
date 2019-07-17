@@ -1,0 +1,93 @@
+.TH "tsm::ds::DatasetDesc" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds::DatasetDesc \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <DatasetDesc\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDatasetDesc\fP (const std::vector< std::filesystem::path > &filePaths, const \fBDATASET_TYPE\fP type, const \fBVARIABLE_LAYOUT\fP layout)"
+.br
+.ti -1c
+.RI "auto \fBoperator!\fP () const "
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile) const "
+.br
+.ti -1c
+.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const std::filesystem::path &path) const "
+.br
+.ti -1c
+.RI "auto \fBconvertNCTimeToISOExtended\fP (const \fBtimestamp_t\fP timestamp)"
+.br
+.ti -1c
+.RI "void \fBcreateAndAppendNCFileDesc\fP (const std::filesystem::path &path)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBNCFileDesc\fP > \fBm_ncFiles\fP"
+.br
+.ti -1c
+.RI "std::set< std::string > \fBm_variables\fP"
+.br
+.ti -1c
+.RI "const \fBDATASET_TYPE\fP \fBm_datasetType\fP"
+.br
+.ti -1c
+.RI "const \fBVARIABLE_LAYOUT\fP \fBm_varLayout\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fB::tsm::Database\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::ds::DatasetDesc::DatasetDesc (const std::vector< std::filesystem::path > & filePaths, const \fBDATASET_TYPE\fP type, const \fBVARIABLE_LAYOUT\fP layout)\fC [explicit]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "auto tsm::ds::DatasetDesc::convertNCTimeToISOExtended (const \fBtimestamp_t\fP timestamp)\fC [inline]\fP, \fC [private]\fP"
+
+.SS "void tsm::ds::DatasetDesc::createAndAppendNCFileDesc (const std::filesystem::path & path)\fC [private]\fP"
+
+.SS "std::optional< std::string > tsm::ds::DatasetDesc::findTimeDim (const netCDF::NcFile & ncFile) const\fC [inline]\fP, \fC [private]\fP"
+
+.SS "std::optional< std::vector< \fBtimestamp_t\fP > > tsm::ds::DatasetDesc::getTimestampValues (const std::filesystem::path & path) const\fC [private]\fP"
+
+.SS "auto tsm::ds::DatasetDesc::operator! () const\fC [inline]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class ::\fBtsm::Database\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "const \fBDATASET_TYPE\fP tsm::ds::DatasetDesc::m_datasetType\fC [private]\fP"
+
+.SS "std::vector<\fBNCFileDesc\fP> tsm::ds::DatasetDesc::m_ncFiles\fC [private]\fP"
+
+.SS "std::set<std::string> tsm::ds::DatasetDesc::m_variables\fC [private]\fP"
+
+.SS "const \fBVARIABLE_LAYOUT\fP tsm::ds::DatasetDesc::m_varLayout\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

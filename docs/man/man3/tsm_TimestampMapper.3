@@ -1,8 +1,8 @@
-.TH "tsm::TimestampMapper" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::TimestampMapper" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::TimestampMapper
+tsm::TimestampMapper \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -12,7 +12,7 @@ tsm::TimestampMapper
 
 .in +1c
 .ti -1c
-.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const \fBDATASET_TYPE\fP datasetType, const bool regenIndices)"
+.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const \fBds::DATASET_TYPE\fP datasetType, const \fBds::VARIABLE_LAYOUT\fP variableLayout, const bool regenIndices)"
 .br
 .ti -1c
 .RI "bool \fBexec\fP ()"
@@ -22,19 +22,22 @@ tsm::TimestampMapper
 
 .in +1c
 .ti -1c
-.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const"
+.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const "
 .br
 .ti -1c
-.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const"
+.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const "
 .br
 .ti -1c
-.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const"
+.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const "
 .br
 .ti -1c
 .RI "bool \fBcreateDirectory\fP (const std::filesystem::path &path) const noexcept"
 .br
 .ti -1c
-.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile) const"
+.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile) const "
+.br
+.ti -1c
+.RI "void \fBdeleteIndexFile\fP ()"
 .br
 .in -1c
 .SS "Private Attributes"
@@ -50,7 +53,10 @@ tsm::TimestampMapper
 .RI "const std::string \fBm_datasetName\fP"
 .br
 .ti -1c
-.RI "const \fBDATASET_TYPE\fP \fBm_datasetType\fP"
+.RI "const \fBds::DATASET_TYPE\fP \fBm_datasetType\fP"
+.br
+.ti -1c
+.RI "const \fBds::VARIABLE_LAYOUT\fP \fBm_variableLayout\fP"
 .br
 .ti -1c
 .RI "const bool \fBm_regenIndices\fP { false }"
@@ -59,7 +65,7 @@ tsm::TimestampMapper
 .RI "const std::filesystem::path \fBm_filesToIndexPath\fP"
 .br
 .ti -1c
-.RI "const bool \fBm_indexFileExists\fP { false }"
+.RI "bool \fBm_indexFileExists\fP { false }"
 .br
 .ti -1c
 .RI "\fBDatabase\fP \fBm_database\fP"
@@ -67,13 +73,15 @@ tsm::TimestampMapper
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const \fBDATASET_TYPE\fP datasetType, const bool regenIndices)"
+.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const \fBds::DATASET_TYPE\fP datasetType, const \fBds::VARIABLE_LAYOUT\fP variableLayout, const bool regenIndices)"
 
 .SH "Member Function Documentation"
 .PP 
 .SS "bool tsm::TimestampMapper::createDirectory (const std::filesystem::path & path) const\fC [private]\fP, \fC [noexcept]\fP"
 
 .SS "std::vector< fs::path > tsm::TimestampMapper::createFileList (const std::filesystem::path & inputDirOrIndexFile) const\fC [private]\fP"
+
+.SS "void tsm::TimestampMapper::deleteIndexFile ()\fC [private]\fP"
 
 .SS "bool tsm::TimestampMapper::exec ()"
 
@@ -89,17 +97,19 @@ tsm::TimestampMapper
 
 .SS "const std::string tsm::TimestampMapper::m_datasetName\fC [private]\fP"
 
-.SS "const \fBDATASET_TYPE\fP tsm::TimestampMapper::m_datasetType\fC [private]\fP"
+.SS "const \fBds::DATASET_TYPE\fP tsm::TimestampMapper::m_datasetType\fC [private]\fP"
 
 .SS "const std::filesystem::path tsm::TimestampMapper::m_filesToIndexPath\fC [private]\fP"
 
-.SS "const bool tsm::TimestampMapper::m_indexFileExists { false }\fC [private]\fP"
+.SS "bool tsm::TimestampMapper::m_indexFileExists { false }\fC [private]\fP"
 
 .SS "const std::filesystem::path tsm::TimestampMapper::m_inputDir\fC [private]\fP"
 
 .SS "const std::filesystem::path tsm::TimestampMapper::m_outputDir\fC [private]\fP"
 
 .SS "const bool tsm::TimestampMapper::m_regenIndices { false }\fC [private]\fP"
+
+.SS "const \fBds::VARIABLE_LAYOUT\fP tsm::TimestampMapper::m_variableLayout\fC [private]\fP"
 
 
 .SH "Author"

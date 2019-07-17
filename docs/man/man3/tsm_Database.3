@@ -1,8 +1,8 @@
-.TH "tsm::Database" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::Database" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::Database
+tsm::Database \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -20,6 +20,9 @@ tsm::Database
 .ti -1c
 .RI "bool \fBopen\fP ()"
 .br
+.ti -1c
+.RI "void \fBinsertData\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.br
 .in -1c
 .SS "Private Member Functions"
 
@@ -28,15 +31,19 @@ tsm::Database
 .RI "void \fBconfigureSQLITE\fP ()"
 .br
 .ti -1c
-.RI "void \fBcloseConnection\fP ()"
+.RI "void \fBconfigureDBConnection\fP ()"
 .br
 .ti -1c
-.RI "void \fBexecStatement\fP (const std::string &sqlStatement)"
+.RI "void \fBcloseConnection\fP ()"
+.br
+.RI "\fIClose connection to database\&. \fP"
+.ti -1c
+.RI "void \fBexecStatement\fP (const std::string &sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)"
 .br
 .ti -1c
 .RI "void \fBcreateOneToOneTable\fP ()"
 .br
-.RI "Creates a table that maps timestamps to file names 1:1\&. "
+.RI "\fICreates a table that maps timestamps to file names 1:1\&. \fP"
 .ti -1c
 .RI "void \fBcreateManyToOneTable\fP ()"
 .br
@@ -64,6 +71,10 @@ tsm::Database
 .PP 
 .SS "void tsm::Database::closeConnection ()\fC [private]\fP"
 
+.PP
+Close connection to database\&. 
+.SS "void tsm::Database::configureDBConnection ()\fC [private]\fP"
+
 .SS "void tsm::Database::configureSQLITE ()\fC [private]\fP"
 
 .SS "void tsm::Database::createManyToOneTable ()\fC [private]\fP"
@@ -72,7 +83,9 @@ tsm::Database
 
 .PP
 Creates a table that maps timestamps to file names 1:1\&. 
-.SS "void tsm::Database::execStatement (const std::string & sqlStatement)\fC [private]\fP"
+.SS "void tsm::Database::execStatement (const std::string & sqlStatement, int(*)(void *, int, char **, char **) callback = \fCnullptr\fP)\fC [private]\fP"
+
+.SS "void tsm::Database::insertData (const \fBds::DatasetDesc\fP & datasetDesc)"
 
 .SS "bool tsm::Database::open ()"
 

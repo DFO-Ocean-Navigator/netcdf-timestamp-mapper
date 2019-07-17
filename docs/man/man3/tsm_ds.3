@@ -1,8 +1,8 @@
-.TH "tsm::ds" 3 "Sat Jul 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::ds
+tsm::ds \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -10,7 +10,10 @@ tsm::ds
 
 .in +1c
 .ti -1c
-.RI "struct \fBTimestampFilenamePair\fP"
+.RI "class \fBDatasetDesc\fP"
+.br
+.ti -1c
+.RI "struct \fBNCFileDesc\fP"
 .br
 .in -1c
 .SS "Typedefs"
@@ -20,36 +23,40 @@ tsm::ds
 .RI "using \fBtimestamp_t\fP = unsigned long long"
 .br
 .in -1c
-.SS "Functions"
+.SS "Enumerations"
 
 .in +1c
 .ti -1c
-.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile)"
+.RI "enum \fBDATASET_TYPE\fP { \fBHISTORICAL\fP = 0, \fBFORECAST\fP }"
 .br
 .ti -1c
-.RI "auto \fBconvertNCTimeToISOExtended\fP (const \fBtimestamp_t\fP timestamp)"
-.br
-.ti -1c
-.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const std::filesystem::path &path)"
-.br
-.ti -1c
-.RI "std::optional< std::vector< \fBTimestampFilenamePair\fP > > \fBcreatePairs\fP (const std::vector< std::filesystem::path > &paths)"
+.RI "enum \fBVARIABLE_LAYOUT\fP { \fBCOMBINED\fP = 0, \fBSPLIT\fP }"
 .br
 .in -1c
 .SH "Typedef Documentation"
 .PP 
 .SS "using \fBtsm::ds::timestamp_t\fP = typedef unsigned long long"
 
-.SH "Function Documentation"
+.SH "Enumeration Type Documentation"
 .PP 
-.SS "auto tsm::ds::convertNCTimeToISOExtended (const \fBtimestamp_t\fP timestamp)"
+.SS "enum \fBtsm::ds::DATASET_TYPE\fP"
 
-.SS "std::optional<std::vector<\fBTimestampFilenamePair\fP> > tsm::ds::createPairs (const std::vector< std::filesystem::path > & paths)"
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIHISTORICAL \fP\fP
+.TP
+\fB\fIFORECAST \fP\fP
+.SS "enum \fBtsm::ds::VARIABLE_LAYOUT\fP"
 
-.SS "std::optional<std::string> tsm::ds::findTimeDim (const netCDF::NcFile & ncFile)"
-
-.SS "std::optional<std::vector<\fBtimestamp_t\fP> > tsm::ds::getTimestampValues (const std::filesystem::path & path)"
-
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fICOMBINED \fP\fP
+.TP
+\fB\fISPLIT \fP\fP
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

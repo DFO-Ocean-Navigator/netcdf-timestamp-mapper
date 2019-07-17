@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['database',['Database',['../classtsm_1_1_database.html',1,'tsm']]]
+  ['clioptions',['CLIOptions',['../structtsm_1_1cli_1_1_c_l_i_options.html',1,'tsm::cli']]]
 ];

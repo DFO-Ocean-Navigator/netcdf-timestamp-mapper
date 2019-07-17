@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['forecast',['FORECAST',['../namespacetsm.html#abf618c5cc372c832b7c6ed56c3e11b9aaba5bbc173c9ff09c0dbbeab7b9464fda',1,'tsm']]]
+  ['combined',['COMBINED',['../namespacetsm_1_1ds.html#a24d497dad64a092c22c284b61608dfd6a44e638eaac6feed592fe47540e9e9341',1,'tsm::ds']]]
 ];
