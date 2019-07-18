@@ -4,7 +4,7 @@
 #include <utility>
 #include <chrono>
 
-namespace Utils {
+namespace tsm::utils {
 
 /// https://stackoverflow.com/a/24469673/2231969
 template <class Func, class... Args>
@@ -44,4 +44,4 @@ inline auto timer(Func func, Args&& ... args) -> typename std::enable_if_t<
     return elapsed.count();
 }
 
-} // namespace Utils
+} // namespace tsm::utils

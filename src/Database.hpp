@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DeletedUniquePtr.hpp"
+
 #include <string>
 #include <filesystem>
 
@@ -13,6 +15,7 @@ class DatasetDesc;
 namespace tsm {
 
 class Database {
+    using stmtPtr = utils::deleted_unique_ptr<sqlite3_stmt>; 
 
 public:
     
@@ -31,8 +34,12 @@ private:
     void configureDBConnection();
     /// Close connection to database.
     void closeConnection();
-    ///
+    /// Ideal for 1-shot SQL statements (like setting PRAGMAs, etc.).
     void execStatement(const std::string& sqlStatement, int (*callback)(void*, int, char**, char**) = nullptr);
+    /// Ideal for repetitive SQL statements.
+    stmtPtr prepareStatement(const std::string& sqlStatement);
+    ///
+    void insertHistoricalCombined(const ds::DatasetDesc& datasetDesc);
     /// Creates a table that maps timestamps to file names 1:1.
     void createOneToOneTable();
     ///

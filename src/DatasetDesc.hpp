@@ -39,13 +39,30 @@ public:
         return m_ncFiles.empty();
     }
 
+    ///
+    inline auto isHistoricalCombined() const noexcept {
+        return m_datasetType == DATASET_TYPE::HISTORICAL && m_varLayout == VARIABLE_LAYOUT::COMBINED;
+    }
+    ///
+    inline auto isHistoricalSplit() const noexcept {
+        return m_datasetType == DATASET_TYPE::HISTORICAL && m_varLayout == VARIABLE_LAYOUT::SPLIT;
+    }
+    ///
+    inline auto isForecastCombined() const noexcept {
+        return m_datasetType == DATASET_TYPE::FORECAST && m_varLayout == VARIABLE_LAYOUT::COMBINED;
+    }
+    ///
+    inline auto isForecastSplit() const noexcept {
+        return m_datasetType == DATASET_TYPE::FORECAST && m_varLayout == VARIABLE_LAYOUT::SPLIT;
+    }
+
 private:
     ///
     [[nodiscard]] inline std::optional<std::string> findTimeDim(const netCDF::NcFile& ncFile) const;
     ///
     [[nodiscard]] std::optional<std::vector<timestamp_t>> getTimestampValues(const std::filesystem::path& path) const;
     ///
-    [[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) {
+    [[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) const {
         namespace bg = boost::gregorian;
         namespace bp = boost::posix_time;
 
