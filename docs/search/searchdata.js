@@ -1,12 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: ":cdefghimnoprstuv~",
+  0: ":cdefghimnoprstv~",
   1: "cdnt",
-  2: "tu",
+  2: "t",
   3: "cdmnt",
   4: "cdefgimnopst~",
   5: "dfhimnortv",
-  6: "t",
+  6: "dst",
   7: "dv",
   8: "cfhs",
   9: ":"

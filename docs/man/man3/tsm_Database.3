@@ -1,4 +1,4 @@
-.TH "tsm::Database" 3 "Wed Jul 17 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::Database" 3 "Thu Jul 18 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,13 @@ tsm::Database \-
 .RI "void \fBinsertData\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
 .in -1c
+.SS "Private Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBstmtPtr\fP = \fButils::deleted_unique_ptr\fP< sqlite3_stmt >"
+.br
+.in -1c
 .SS "Private Member Functions"
 
 .in +1c
@@ -39,6 +46,14 @@ tsm::Database \-
 .RI "\fIClose connection to database\&. \fP"
 .ti -1c
 .RI "void \fBexecStatement\fP (const std::string &sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)"
+.br
+.RI "\fIIdeal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. \fP"
+.ti -1c
+.RI "\fBstmtPtr\fP \fBprepareStatement\fP (const std::string &sqlStatement)"
+.br
+.RI "\fIIdeal for repetitive SQL statements\&. \fP"
+.ti -1c
+.RI "void \fBinsertHistoricalCombined\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
 .ti -1c
 .RI "void \fBcreateOneToOneTable\fP ()"
@@ -61,6 +76,10 @@ tsm::Database \-
 .RI "const std::filesystem::path \fBm_outputFilePath\fP"
 .br
 .in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "using \fBtsm::Database::stmtPtr\fP =  \fButils::deleted_unique_ptr\fP<sqlite3_stmt>\fC [private]\fP"
+
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "tsm::Database::Database (const std::filesystem::path & inputPath, const std::filesystem::path & outputPath, const std::string & datasetName)"
@@ -85,10 +104,18 @@ Close connection to database\&.
 Creates a table that maps timestamps to file names 1:1\&. 
 .SS "void tsm::Database::execStatement (const std::string & sqlStatement, int(*)(void *, int, char **, char **) callback = \fCnullptr\fP)\fC [private]\fP"
 
+.PP
+Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. 
 .SS "void tsm::Database::insertData (const \fBds::DatasetDesc\fP & datasetDesc)"
+
+.SS "void tsm::Database::insertHistoricalCombined (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
 
 .SS "bool tsm::Database::open ()"
 
+.SS "\fBDatabase::stmtPtr\fP tsm::Database::prepareStatement (const std::string & sqlStatement)\fC [private]\fP"
+
+.PP
+Ideal for repetitive SQL statements\&. 
 .SH "Member Data Documentation"
 .PP 
 .SS "sqlite3* tsm::Database::m_DBHandle { nullptr }\fC [private]\fP"

@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('classtsm_1_1_database.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classtsm_1_1_database-members.html">List of all members</a>  </div>
@@ -129,6 +130,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a37eed7cf174ce412d039f977b51c02ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#a37eed7cf174ce412d039f977b51c02ff">insertData</a> (const <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html">ds::DatasetDesc</a> &amp;datasetDesc)</td></tr>
 <tr class="separator:a37eed7cf174ce412d039f977b51c02ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:aa9cef6b1485cb990ef7916b7c83c7399"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#aa9cef6b1485cb990ef7916b7c83c7399">stmtPtr</a> = <a class="el" href="namespacetsm_1_1utils.html#af7c4e5224ac0a8e2ba72d0f148a591c2">utils::deleted_unique_ptr</a>&lt; sqlite3_stmt &gt;</td></tr>
+<tr class="separator:aa9cef6b1485cb990ef7916b7c83c7399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aaa98cec5ac15640f94dbe78015960383"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#aaa98cec5ac15640f94dbe78015960383">configureSQLITE</a> ()</td></tr>
@@ -139,7 +145,13 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a788ff55a770147e2a1758089dacc9ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close connection to database.  <a href="#a788ff55a770147e2a1758089dacc9ba6">More...</a><br /></td></tr>
 <tr class="separator:a788ff55a770147e2a1758089dacc9ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2fc9ad098b97dbfd21a349b9fbba762"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#af2fc9ad098b97dbfd21a349b9fbba762">execStatement</a> (const std::string &amp;sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)</td></tr>
+<tr class="memdesc:af2fc9ad098b97dbfd21a349b9fbba762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ideal for 1-shot SQL statements (like setting PRAGMAs, etc.).  <a href="#af2fc9ad098b97dbfd21a349b9fbba762">More...</a><br /></td></tr>
 <tr class="separator:af2fc9ad098b97dbfd21a349b9fbba762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f668edca071234dddb665b205307bf0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtsm_1_1_database.html#aa9cef6b1485cb990ef7916b7c83c7399">stmtPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#a3f668edca071234dddb665b205307bf0">prepareStatement</a> (const std::string &amp;sqlStatement)</td></tr>
+<tr class="memdesc:a3f668edca071234dddb665b205307bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ideal for repetitive SQL statements.  <a href="#a3f668edca071234dddb665b205307bf0">More...</a><br /></td></tr>
+<tr class="separator:a3f668edca071234dddb665b205307bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683d73caa34981480f240a53858c7fcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#a683d73caa34981480f240a53858c7fcb">insertHistoricalCombined</a> (const <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html">ds::DatasetDesc</a> &amp;datasetDesc)</td></tr>
+<tr class="separator:a683d73caa34981480f240a53858c7fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcf6fb4bdacbb1a1551426abf3d51910"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#afcf6fb4bdacbb1a1551426abf3d51910">createOneToOneTable</a> ()</td></tr>
 <tr class="memdesc:afcf6fb4bdacbb1a1551426abf3d51910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a table that maps timestamps to file names 1:1.  <a href="#afcf6fb4bdacbb1a1551426abf3d51910">More...</a><br /></td></tr>
 <tr class="separator:afcf6fb4bdacbb1a1551426abf3d51910"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +167,27 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a10d9b91d97063f4e7ae67e5efa5e4478"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_database.html#a10d9b91d97063f4e7ae67e5efa5e4478">m_outputFilePath</a></td></tr>
 <tr class="separator:a10d9b91d97063f4e7ae67e5efa5e4478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="aa9cef6b1485cb990ef7916b7c83c7399"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classtsm_1_1_database.html#aa9cef6b1485cb990ef7916b7c83c7399">tsm::Database::stmtPtr</a> =  <a class="el" href="namespacetsm_1_1utils.html#af7c4e5224ac0a8e2ba72d0f148a591c2">utils::deleted_unique_ptr</a>&lt;sqlite3_stmt&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7da921c449709c6fe1ba3a044c2a4596"></a>
 <div class="memitem">
@@ -355,6 +388,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Ideal for 1-shot SQL statements (like setting PRAGMAs, etc.). </p>
+
 </div>
 </div>
 <a class="anchor" id="a37eed7cf174ce412d039f977b51c02ff"></a>
@@ -373,6 +408,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a683d73caa34981480f240a53858c7fcb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tsm::Database::insertHistoricalCombined </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html">ds::DatasetDesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>datasetDesc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abec432fec729638bf5aa84f61271e58b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -385,6 +444,32 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3f668edca071234dddb665b205307bf0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classtsm_1_1_database.html#aa9cef6b1485cb990ef7916b7c83c7399">Database::stmtPtr</a> tsm::Database::prepareStatement </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>sqlStatement</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ideal for repetitive SQL statements. </p>
 
 </div>
 </div>

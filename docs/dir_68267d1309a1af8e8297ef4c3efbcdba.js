@@ -7,6 +7,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     ] ],
     [ "DatasetDesc.cpp", "_dataset_desc_8cpp.html", null ],
     [ "DatasetDesc.hpp", "_dataset_desc_8hpp.html", "_dataset_desc_8hpp" ],
+    [ "DeletedUniquePtr.hpp", "_deleted_unique_ptr_8hpp.html", "_deleted_unique_ptr_8hpp" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
     [ "NCFileDesc.hpp", "_n_c_file_desc_8hpp.html", [
       [ "NCFileDesc", "structtsm_1_1ds_1_1_n_c_file_desc.html", "structtsm_1_1ds_1_1_n_c_file_desc" ]
