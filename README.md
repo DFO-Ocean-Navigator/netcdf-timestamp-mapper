@@ -3,7 +3,7 @@
 
 * Ubuntu 16.04 or newer.
 * Boost 1.70 or newer.
-* GCC 9 (for C++17 support) or newer.
+* GCC 9 (for C++20 support) or newer.
 * Headers and libraries in `install_deps.sh`
 
 ## Notes

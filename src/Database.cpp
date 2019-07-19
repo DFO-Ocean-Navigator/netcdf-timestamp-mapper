@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <filesystem>
 #include <iostream>
+#include <unordered_set>
 
 namespace fs = std::filesystem;
 
@@ -44,8 +45,6 @@ bool Database::open() {
 
     configureDBConnection();
 
-    createManyToOneTable();
-
     return true;
 }
 
@@ -58,7 +57,7 @@ void Database::insertData(const ds::DatasetDesc& datasetDesc) {
     }
 
     if (datasetDesc.isHistoricalSplit()) {
-
+        insertHistoricalSplit(datasetDesc);
         return;
     }
 
@@ -81,7 +80,7 @@ void Database::insertData(const ds::DatasetDesc& datasetDesc) {
 /***********************************************************************************/
 void Database::configureSQLITE() {
     sqlite3_config(SQLITE_CONFIG_LOG, [](void* pArg, int iErrCode, const char* zMsg) {
-        std::cerr << iErrCode << " " << zMsg << std::endl;
+        std::cerr << "SQLITE Error: "  << iErrCode << " " << zMsg << std::endl;
     });
 }
 
@@ -111,7 +110,7 @@ void Database::execStatement(const std::string& sqlStatement, int (*callback)(vo
                  &errorMsg);
 
     if (errorMsg) {
-        std::cerr << errorMsg << std::endl;
+        std::cerr << "SQLITE Error: " << errorMsg << std::endl;
         sqlite3_free(errorMsg);
     }
 }
@@ -127,6 +126,8 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
 
 /***********************************************************************************/
 void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
+
+    createHistoricalCombinedTable();
     
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
     auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), @TS);") };
@@ -136,7 +137,6 @@ void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
         
         // Insert filepath into its table to auto-generate the filepath_id.
         sqlite3_bind_text(&(*insertFilePathStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
-        
         sqlite3_step(&(*insertFilePathStmt)); // Execute statement
         sqlite3_clear_bindings(&(*insertFilePathStmt));
         sqlite3_reset(&(*insertFilePathStmt));
@@ -158,27 +158,51 @@ void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
     execStatement("END TRANSACTION");
 }
 
+
 /***********************************************************************************/
-void Database::createOneToOneTable() {
-    constexpr auto createTableQuery{
-        "CREATE TABLE IF NOT EXISTS Filepaths ("
-            "timestamp_id INTEGER PRIMARY KEY, "
-            "timestamp INTEGER NOT NULL, "
-            "filepath VARCHAR(4096) NOT NULL, "
-        ");"
-    };
+void Database::insertHistoricalSplit(const ds::DatasetDesc& datasetDesc) {
 
-    constexpr auto createIndexQuery{
-        "CREATE INDEX IF NOT EXISTS idx_timestamp ON Filepaths(timestamp);"
-    };
+    createHistoricalSplitTable();
 
-    execStatement(createTableQuery);
-    execStatement(createIndexQuery);
+    auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
+    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
+    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, variable_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), (), @TS);") };
+
+    std::unordered_set<std::string> insertedVariables;
+
+    execStatement("BEGIN TRANSACTION");
+    for (const auto& ncFile : datasetDesc.m_ncFiles) {
+
+        // Insert filepath into its table to auto-generate the filepath_id.
+        sqlite3_bind_text(&(*insertFilePathStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_step(&(*insertFilePathStmt)); // Execute statement
+        sqlite3_clear_bindings(&(*insertFilePathStmt));
+        sqlite3_reset(&(*insertFilePathStmt));
+
+        // Insert variables into their table
+        for (const auto& variable : ncFile.Variables) {
+            if (insertedVariables.contains(variable)) { // skip already inserted variables
+                continue;
+            }
+            sqlite3_bind_text(&(*insertVariableStmt), 1, variable.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_step(&(*insertVariableStmt)); // Execute statement
+            sqlite3_clear_bindings(&(*insertVariableStmt));
+            sqlite3_reset(&(*insertVariableStmt));
+
+            insertedVariables.insert(variable);
+        }
+
+        // Insert timestamps
+        for (const auto ts : ncFile.Timestamps) {
+            
+        }
+    }
+    execStatement("END TRANSACTION");
 }
 
 /***********************************************************************************/
-void Database::createManyToOneTable() {
-    constexpr auto createTimestampTableQuery{
+void Database::createHistoricalCombinedTable() {
+    const auto createTimestampTableQuery{
         "CREATE TABLE IF NOT EXISTS Timestamps ("
             "timestamp_id INTEGER PRIMARY KEY,"
             "filepath_id INTEGER, "
@@ -187,25 +211,77 @@ void Database::createManyToOneTable() {
         ");"
     };
 
-    constexpr auto createTimestampIndexQuery{
+    const auto createTimestampIndexQuery{
         "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
     };
 
-    constexpr auto createForeignKeyIndex{
+    const auto createForeignKeyIndexQuery{
         "CREATE INDEX IF NOT EXISTS idx_foreign_key on Timestamps(filepath_id);"
     };
 
-    constexpr auto createFilepathsTableQuery{
+    const auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
             "filepath_id INTEGER PRIMARY KEY, "
-            "filepath VARCHAR(4096) NOT NULL"
+            "filepath TEXT NOT NULL"
         ");"
     };
 
     execStatement(createFilepathsTableQuery);
     execStatement(createTimestampTableQuery);
     execStatement(createTimestampIndexQuery);
-    execStatement(createForeignKeyIndex);
+    execStatement(createForeignKeyIndexQuery);
+}
+
+/***********************************************************************************/
+void Database::createHistoricalSplitTable() {
+    const auto createFilepathsTableQuery{
+        "CREATE TABLE IF NOT EXISTS Filepaths ("
+            "filepath_id INTEGER PRIMARY KEY, "
+            "filepath TEXT NOT NULL"
+        ");"
+    };
+
+    const auto createVariablesTableQuery{
+        "CREATE TABLE IF NOT EXISTS Variables ("
+            "variable_id INTEGER PRIMARY KEY,"
+            "variable TEXT UNIQUE NOT NULL"
+        ");"
+    };
+
+    const auto createTimestampTableQuery{
+        "CREATE TABLE IF NOT EXISTS Timestamps ("
+            "timestamp_id INTEGER PRIMARY KEY, "
+            "filepath_id INTEGER, "
+            "variable_id INTEGER, "
+            "timestamp INTEGER NOT NULL, "
+            "FOREIGN KEY (filepath_id) REFERENCES Filepaths(filepath_id), "
+            "FOREIGN KEY (variable_id) REFERENCES Variables(variable_id)"
+        ");"
+    };
+
+    const auto createForeignKeyIndexFPQuery{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_fp on Timestamps(filepath_id);"
+    };
+
+    const auto createForeignKeyIndexVarQuery{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_var on Timestamps(variable_id);"
+    };
+
+    const auto createTimestampIndexQuery{
+        "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
+    };
+
+    const auto createVariableIndexQuery{
+        "CREATE INDEX IF NOT EXISTS idx_variable ON Variables(variable);"
+    };
+
+    execStatement(createFilepathsTableQuery);
+    execStatement(createVariablesTableQuery);
+    execStatement(createTimestampTableQuery);
+    execStatement(createForeignKeyIndexFPQuery);
+    execStatement(createForeignKeyIndexVarQuery);
+    execStatement(createTimestampIndexQuery);
+    execStatement(createVariableIndexQuery);
 }
 
 } // namespace tsm

@@ -6,7 +6,6 @@
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include <set>
 #include <vector>
 #include <string>
 #include <optional>
@@ -57,10 +56,14 @@ public:
     }
 
 private:
+    ////
+    [[nodiscard]] std::optional<netCDF::NcFile> openNCFile(const std::filesystem::path& path) const;
     ///
     [[nodiscard]] inline std::optional<std::string> findTimeDim(const netCDF::NcFile& ncFile) const;
     ///
-    [[nodiscard]] std::optional<std::vector<timestamp_t>> getTimestampValues(const std::filesystem::path& path) const;
+    [[nodiscard]] std::optional<std::vector<timestamp_t>> getTimestampValues(const netCDF::NcFile& ncFile) const;
+    ///
+    [[nodiscard]] std::vector<std::string> getNCFileVariableNames(const netCDF::NcFile& ncFile) const;
     ///
     [[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) const {
         namespace bg = boost::gregorian;
@@ -75,7 +78,6 @@ private:
     void createAndAppendNCFileDesc(const std::filesystem::path& path);
 
     std::vector<NCFileDesc> m_ncFiles;
-    std::set<std::string> m_variables;
 
     const DATASET_TYPE m_datasetType;
     const VARIABLE_LAYOUT m_varLayout;

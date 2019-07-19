@@ -11,9 +11,9 @@ struct [[nodiscard]] NCFileDesc {
     NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::filesystem::path& path) :  Timestamps{timestamps},
                                                                                                  NCFilePath{path} {}
 
-    NCFileDesc(const std::vector<timestamp_t>& timestamps, std::vector<unsigned int>& variableIndices, const std::filesystem::path& path) :  Timestamps{timestamps},
-                                                                                                                                             Variables{variableIndices},
-                                                                                                                                             NCFilePath{path} {}
+    NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<std::string>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
+                                                                                                                                            Variables{variables},
+                                                                                                                                            NCFilePath{path} {}
 
     NCFileDesc(const NCFileDesc&) = default;
     NCFileDesc(NCFileDesc&&) = default;
@@ -26,7 +26,7 @@ struct [[nodiscard]] NCFileDesc {
     }
 
     const std::vector<timestamp_t> Timestamps;
-    const std::vector<unsigned int> Variables;
+    const std::vector<std::string> Variables;
     const std::filesystem::path NCFilePath;
 };
 

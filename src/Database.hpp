@@ -40,10 +40,12 @@ private:
     stmtPtr prepareStatement(const std::string& sqlStatement);
     ///
     void insertHistoricalCombined(const ds::DatasetDesc& datasetDesc);
-    /// Creates a table that maps timestamps to file names 1:1.
-    void createOneToOneTable();
     ///
-    void createManyToOneTable();
+    void insertHistoricalSplit(const ds::DatasetDesc& datasetDesc);
+    ///
+    void createHistoricalCombinedTable();
+    ///
+    void createHistoricalSplitTable();
 
     sqlite3* m_DBHandle{ nullptr };
     const std::filesystem::path m_inputPath;

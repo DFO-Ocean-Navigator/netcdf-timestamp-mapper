@@ -4,6 +4,7 @@
 #include <ncVar.h>
 
 #include <iostream>
+#include <algorithm>
 
 namespace tsm::ds {
 
@@ -13,9 +14,26 @@ DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, co
                                                                                                                                         m_varLayout{ layout } {
     m_ncFiles.reserve(filePaths.size());
 
+    // TODO: openMP pragma this thing
     for (const auto& path : filePaths) {
         createAndAppendNCFileDesc(path);
     }
+}
+
+/***********************************************************************************/
+std::optional<netCDF::NcFile> DatasetDesc::openNCFile(const std::filesystem::path& path) const {
+    try {
+        return std::make_optional<netCDF::NcFile>(path, netCDF::NcFile::read);
+    }
+    catch (const netCDF::exceptions::NcException& e) {
+        std::cerr << "NetCDF error in: " << path << std::endl;
+        std::cerr << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cerr << "Unhandled exception." << std::endl;
+    }
+
+    return std::nullopt;
 }
 
 /***********************************************************************************/
@@ -30,12 +48,9 @@ std::optional<std::string> DatasetDesc::findTimeDim(const netCDF::NcFile& ncFile
 }
 
 /***********************************************************************************/
-std::optional<std::vector<timestamp_t>> DatasetDesc::getTimestampValues(const std::filesystem::path& path) const {
+std::optional<std::vector<timestamp_t>> DatasetDesc::getTimestampValues(const netCDF::NcFile& ncFile) const {
     try {
-        // Open NC file
-        netCDF::NcFile f{path, netCDF::NcFile::read};
-
-        auto timeDim{ findTimeDim(f) };
+        auto timeDim{ findTimeDim(ncFile) };
         if (!timeDim) {
             return std::nullopt;
         }
@@ -43,17 +58,15 @@ std::optional<std::vector<timestamp_t>> DatasetDesc::getTimestampValues(const st
         // Get timestamp values
         netCDF::NcDim dim;
         netCDF::NcVar var;
-        f.getCoordVar(*timeDim, dim, var);
+        ncFile.getCoordVar(*timeDim, dim, var);
 
         std::vector<timestamp_t> vals(dim.getSize());
         var.getVar(vals.data());
 
-        // NcFile destructor will close the file and release resources
-
         return std::make_optional(vals);
     }
     catch (const netCDF::exceptions::NcException& e) {
-        std::cerr << "NetCDF error in " << path << std::endl;
+        std::cerr << "Error in getting time dimention values:" << std::endl;
         std::cerr << e.what() << std::endl;
     }
     catch (...) {
@@ -64,17 +77,70 @@ std::optional<std::vector<timestamp_t>> DatasetDesc::getTimestampValues(const st
 }
 
 /***********************************************************************************/
+std::vector<std::string> DatasetDesc::getNCFileVariableNames(const netCDF::NcFile& ncFile) const {
+    std::vector<std::string> variableNames;
+
+    const auto varCount{ ncFile.getVarCount() };
+    if (varCount < 1) {
+        return variableNames;
+    }
+    variableNames.reserve(static_cast<std::size_t>(varCount));
+
+    for (const auto& pair : ncFile.getVars()) {
+        variableNames.emplace_back(pair.first); // Variable names are stored in first value.
+    }
+
+    // Filter out non-data variables (time, lat/lon, etc)
+    const static std::array<std::string, 7> filterPatterns{ "time", "depth", "x", "y", "polar_stereo", "lat", "lon" };
+    const auto res = std::remove_if(variableNames.begin(), variableNames.end(), [](const auto& varName) {
+        for (const auto& pattern : filterPatterns) {
+            if (varName.find(pattern) != std::string::npos) {
+                return true;
+            }
+        }
+        return false;
+    });
+    variableNames.erase(res, variableNames.end()); // Chain erase to actually drop the filtered items from the vector
+
+    // Cool way to print container contents to the console...
+    //std::copy(variableNames.cbegin(), variableNames.cend(), std::ostream_iterator<std::string>(std::cout, ", "));
+
+    return variableNames;
+}
+
+/***********************************************************************************/
 void DatasetDesc::createAndAppendNCFileDesc(const std::filesystem::path& path) {
+
+    const auto& ncFile{ openNCFile(path) };
+    if (!ncFile) {
+        return;
+    }
     
-    const auto timestamps{ getTimestampValues(path) };
+    const auto timestamps{ getTimestampValues(*ncFile) };
     if (!timestamps) {
         std::cerr << "Error finding time dimension in " << path << ". This file will NOT be indexed." << std::endl;
         return;
     }
-    
     const auto& vals{ timestamps.value() }; // Get underlyng vector
 
-    m_ncFiles.emplace_back(vals, path);
+    if (isHistoricalCombined()) {
+        m_ncFiles.emplace_back(vals, path);
+        return;
+    }
+
+    if (isHistoricalSplit()) {
+        const auto& variables{ getNCFileVariableNames(*ncFile) };
+        if (variables.empty()) {
+            std::cout << "No data variables found in: " << path << std::endl;
+            return;
+        }
+
+        m_ncFiles.emplace_back(vals, variables, path);
+        return;
+    }
+
+
+    // NcFile destructor will close the file and release resources
 }
 
 } // namespace tsm::ds

@@ -27,9 +27,7 @@ namespace tsm::cli {
         ("help", "Print help.")
         ;
 
-        const auto& result{ options.parse(argc, argv) };
-
-        return std::make_optional(result);
+        return std::make_optional(options.parse(argc, argv));
     }
     catch (const cxxopts::OptionException &e)
     {
