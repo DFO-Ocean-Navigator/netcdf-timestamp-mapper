@@ -3,8 +3,8 @@
 #include "NCFileDesc.hpp"
 
 #include <ncFile.h>
-#include <boost/date_time/gregorian/gregorian.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+//#include <boost/date_time/gregorian/gregorian.hpp>
+//#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <vector>
 #include <string>
@@ -56,7 +56,7 @@ public:
     }
 
 private:
-    ////
+    ///
     [[nodiscard]] std::optional<netCDF::NcFile> openNCFile(const std::filesystem::path& path) const;
     ///
     [[nodiscard]] inline std::optional<std::string> findTimeDim(const netCDF::NcFile& ncFile) const;
@@ -65,6 +65,7 @@ private:
     ///
     [[nodiscard]] std::vector<std::string> getNCFileVariableNames(const netCDF::NcFile& ncFile) const;
     ///
+    /*
     [[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) const {
         namespace bg = boost::gregorian;
         namespace bp = boost::posix_time;
@@ -74,6 +75,7 @@ private:
 
         return bp::to_iso_extended_string(timeSinceEpoch);
     }
+    */
     ///
     void createAndAppendNCFileDesc(const std::filesystem::path& path);
 

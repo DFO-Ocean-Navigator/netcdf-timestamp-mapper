@@ -1,0 +1,33 @@
+.TH "src/Timer.hpp" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/Timer.hpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <type_traits>\fP
+.br
+\fC#include <utility>\fP
+.br
+\fC#include <chrono>\fP
+.br
+
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBtsm::utils\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class Func , class\&.\&.\&. Args> auto \fBtsm::utils::timer\fP (Func func, Args &&\&.\&.\&. args) \-> typename std::enable_if_t< !std::is_same_v< decltype(func(std::forward< Args >(args)\&.\&.\&.)), void >, std::pair< double, decltype(func(std::forward< Args >(args)\&.\&.\&.)) > >"
+.br
+.RI "https://stackoverflow.com/a/24469673/2231969 "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

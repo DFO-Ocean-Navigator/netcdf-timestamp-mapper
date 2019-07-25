@@ -1,0 +1,57 @@
+.TH "tsm::ds::Sqlite3Statement" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds::Sqlite3Statement \- COnvenience wrapper around sqlite3_stmt\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Sqlite3Statement\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSqlite3Statement\fP (const std::string &statement)"
+.br
+.ti -1c
+.RI "\fB~Sqlite3Statement\fP ()"
+.br
+.ti -1c
+.RI "void \fBbind\fP ()"
+.br
+.ti -1c
+.RI "void \fBexec\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "sqlite3_stmt * \fBm_stmt\fP { nullptr }"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+COnvenience wrapper around sqlite3_stmt\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::ds::Sqlite3Statement::Sqlite3Statement (const std::string & statement)\fC [explicit]\fP"
+
+.SS "tsm::ds::Sqlite3Statement::~Sqlite3Statement ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void tsm::ds::Sqlite3Statement::bind ()"
+
+.SS "void tsm::ds::Sqlite3Statement::exec ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "sqlite3_stmt* tsm::ds::Sqlite3Statement::m_stmt { nullptr }\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

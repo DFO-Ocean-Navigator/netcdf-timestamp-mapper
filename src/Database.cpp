@@ -3,10 +3,8 @@
 #include "DatasetDesc.hpp"
 
 #include <sqlite3.h>
-#include <boost/format.hpp>
 
 #include <stdexcept>
-#include <filesystem>
 #include <iostream>
 #include <unordered_set>
 
@@ -62,7 +60,7 @@ void Database::insertData(const ds::DatasetDesc& datasetDesc) {
     }
 
     if (datasetDesc.isForecastCombined()) {
-        
+
         return;
     }
 
@@ -73,8 +71,6 @@ void Database::insertData(const ds::DatasetDesc& datasetDesc) {
 
     std::cout << "Nothing done." << std::endl;
     return;
-
-    
 }
 
 /***********************************************************************************/
@@ -101,7 +97,7 @@ void Database::closeConnection() {
 
 /***********************************************************************************/
 void Database::execStatement(const std::string& sqlStatement, int (*callback)(void *, int, char **, char **) /* = nullptr */) {
-    
+
     char* errorMsg{ nullptr };
     sqlite3_exec(m_DBHandle,
                  sqlStatement.c_str(),
@@ -128,13 +124,13 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
 void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
 
     createHistoricalCombinedTable();
-    
+
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
     auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), @TS);") };
 
     execStatement("BEGIN TRANSACTION");
     for (const auto& ncFile : datasetDesc.m_ncFiles) {
-        
+
         // Insert filepath into its table to auto-generate the filepath_id.
         sqlite3_bind_text(&(*insertFilePathStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
         sqlite3_step(&(*insertFilePathStmt)); // Execute statement

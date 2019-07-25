@@ -1,0 +1,135 @@
+.TH "tsm::Database" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::Database
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Database\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDatabase\fP (const std::filesystem::path &inputPath, const std::filesystem::path &outputPath, const std::string &datasetName)"
+.br
+.ti -1c
+.RI "\fB~Database\fP ()"
+.br
+.ti -1c
+.RI "bool \fBopen\fP ()"
+.br
+.RI "Opens database\&. "
+.ti -1c
+.RI "void \fBinsertData\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.br
+.in -1c
+.SS "Private Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBstmtPtr\fP = \fButils::deleted_unique_ptr\fP< sqlite3_stmt >"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBconfigureSQLITE\fP ()"
+.br
+.ti -1c
+.RI "void \fBconfigureDBConnection\fP ()"
+.br
+.ti -1c
+.RI "void \fBcloseConnection\fP ()"
+.br
+.RI "Close connection to database\&. "
+.ti -1c
+.RI "void \fBexecStatement\fP (const std::string &sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)"
+.br
+.RI "Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. "
+.ti -1c
+.RI "\fBstmtPtr\fP \fBprepareStatement\fP (const std::string &sqlStatement)"
+.br
+.RI "Ideal for repetitive SQL statements\&. "
+.ti -1c
+.RI "void \fBinsertHistoricalCombined\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.br
+.ti -1c
+.RI "void \fBinsertHistoricalSplit\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.br
+.ti -1c
+.RI "void \fBcreateHistoricalCombinedTable\fP ()"
+.br
+.ti -1c
+.RI "void \fBcreateHistoricalSplitTable\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "sqlite3 * \fBm_DBHandle\fP { nullptr }"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_inputPath\fP"
+.br
+.ti -1c
+.RI "const std::filesystem::path \fBm_outputFilePath\fP"
+.br
+.in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "using \fBtsm::Database::stmtPtr\fP =  \fButils::deleted_unique_ptr\fP<sqlite3_stmt>\fC [private]\fP"
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::Database::Database (const std::filesystem::path & inputPath, const std::filesystem::path & outputPath, const std::string & datasetName)"
+
+.SS "tsm::Database::~Database ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void tsm::Database::closeConnection ()\fC [private]\fP"
+
+.PP
+Close connection to database\&. 
+.SS "void tsm::Database::configureDBConnection ()\fC [private]\fP"
+
+.SS "void tsm::Database::configureSQLITE ()\fC [private]\fP"
+
+.SS "void tsm::Database::createHistoricalCombinedTable ()\fC [private]\fP"
+
+.SS "void tsm::Database::createHistoricalSplitTable ()\fC [private]\fP"
+
+.SS "void tsm::Database::execStatement (const std::string & sqlStatement, int(*)(void *, int, char **, char **) callback = \fCnullptr\fP)\fC [private]\fP"
+
+.PP
+Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. 
+.SS "void tsm::Database::insertData (const \fBds::DatasetDesc\fP & datasetDesc)"
+
+.SS "void tsm::Database::insertHistoricalCombined (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
+
+.SS "void tsm::Database::insertHistoricalSplit (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
+
+.SS "bool tsm::Database::open ()"
+
+.PP
+Opens database\&. 
+.SS "\fBDatabase::stmtPtr\fP tsm::Database::prepareStatement (const std::string & sqlStatement)\fC [private]\fP"
+
+.PP
+Ideal for repetitive SQL statements\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "sqlite3* tsm::Database::m_DBHandle { nullptr }\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::Database::m_inputPath\fC [private]\fP"
+
+.SS "const std::filesystem::path tsm::Database::m_outputFilePath\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

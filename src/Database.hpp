@@ -22,7 +22,7 @@ public:
     Database(const std::filesystem::path& inputPath, const std::filesystem::path& outputPath, const std::string& datasetName);
     ~Database();
 
-    ///
+    /// Opens database.
     [[nodiscard]] bool open();
     ///
     void insertData(const ds::DatasetDesc& datasetDesc);

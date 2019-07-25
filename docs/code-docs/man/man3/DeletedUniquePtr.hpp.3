@@ -1,0 +1,31 @@
+.TH "src/DeletedUniquePtr.hpp" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/DeletedUniquePtr.hpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <memory>\fP
+.br
+\fC#include <functional>\fP
+.br
+
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBtsm::utils\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "template<typename T > using \fBtsm::utils::deleted_unique_ptr\fP = std::unique_ptr< T, std::function< void(T *)> >"
+.br
+.RI "Template wrapper around a unique_ptr to allow passing a custom deleter lambda\&. "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
