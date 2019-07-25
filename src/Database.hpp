@@ -15,10 +15,10 @@ class DatasetDesc;
 namespace tsm {
 
 class Database {
-    using stmtPtr = utils::deleted_unique_ptr<sqlite3_stmt>; 
+    using stmtPtr = utils::deleted_unique_ptr<sqlite3_stmt>;
 
 public:
-    
+
     Database(const std::filesystem::path& inputPath, const std::filesystem::path& outputPath, const std::string& datasetName);
     ~Database();
 

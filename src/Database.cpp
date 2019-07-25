@@ -166,7 +166,10 @@ void Database::insertHistoricalSplit(const ds::DatasetDesc& datasetDesc) {
 
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
     auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
-    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, variable_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), (), @TS);") };
+    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, variable_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), \
+                                                                                                                    (SELECT variable_id FROM Variables WHERE variable = @VR), \
+                                                                                                                    @TS); \
+                                                ")};
 
     std::unordered_set<std::string> insertedVariables;
 
@@ -189,12 +192,22 @@ void Database::insertHistoricalSplit(const ds::DatasetDesc& datasetDesc) {
             sqlite3_clear_bindings(&(*insertVariableStmt));
             sqlite3_reset(&(*insertVariableStmt));
 
-            insertedVariables.insert(variable);
-        }
+             // Insert timestamps
+            for (const auto ts : ncFile.Timestamps) {
+                std::stringstream ss;
+                ss << ts;
 
-        // Insert timestamps
-        for (const auto ts : ncFile.Timestamps) {
-            
+                sqlite3_bind_text(&(*insertTimestampStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(&(*insertTimestampStmt), 2, variable.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(&(*insertTimestampStmt), 3, ss.str().c_str(), -1, SQLITE_TRANSIENT);
+
+                sqlite3_step(&(*insertTimestampStmt));
+                sqlite3_clear_bindings(&(*insertTimestampStmt));
+                sqlite3_reset(&(*insertTimestampStmt));
+
+            }
+
+            insertedVariables.insert(variable);
         }
     }
     execStatement("END TRANSACTION");

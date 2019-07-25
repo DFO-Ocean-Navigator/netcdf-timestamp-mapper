@@ -15,8 +15,9 @@ DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, co
     m_ncFiles.reserve(filePaths.size());
 
     // TODO: openMP pragma this thing
-    for (const auto& path : filePaths) {
-        createAndAppendNCFileDesc(path);
+    #pragma omp parallel for
+    for (auto i = 0; i < filePaths.size(); ++i) {
+        createAndAppendNCFileDesc(filePaths[i]);
     }
 }
 
