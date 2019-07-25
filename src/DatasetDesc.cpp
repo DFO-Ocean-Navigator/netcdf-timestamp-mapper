@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <regex>
 
 namespace tsm::ds {
 
@@ -15,7 +16,7 @@ DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, co
     m_ncFiles.reserve(filePaths.size());
 
     // TODO: openMP pragma this thing
-    #pragma omp parallel for
+    //#pragma omp parallel for
     for (auto i = 0; i < filePaths.size(); ++i) {
         createAndAppendNCFileDesc(filePaths[i]);
     }
@@ -92,14 +93,9 @@ std::vector<std::string> DatasetDesc::getNCFileVariableNames(const netCDF::NcFil
     }
 
     // Filter out non-data variables (time, lat/lon, etc)
-    const static std::array<std::string, 7> filterPatterns{ "time", "depth", "x", "y", "polar_stereo", "lat", "lon" };
+    const static std::regex filterPattern{ "^(.)*(time|depth|lat|lon|polar|^x|^y)+(.)*$" }; // https://regexr.com/4i448
     const auto res = std::remove_if(variableNames.begin(), variableNames.end(), [](const auto& varName) {
-        for (const auto& pattern : filterPatterns) {
-            if (varName.find(pattern) != std::string::npos) {
-                return true;
-            }
-        }
-        return false;
+        return std::regex_match(varName, filterPattern);
     });
     variableNames.erase(res, variableNames.end()); // Chain erase to actually drop the filtered items from the vector
 
@@ -116,7 +112,7 @@ void DatasetDesc::createAndAppendNCFileDesc(const std::filesystem::path& path) {
     if (!ncFile) {
         return;
     }
-    
+
     const auto timestamps{ getTimestampValues(*ncFile) };
     if (!timestamps) {
         std::cerr << "Error finding time dimension in " << path << ". This file will NOT be indexed." << std::endl;
