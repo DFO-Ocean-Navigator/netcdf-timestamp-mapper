@@ -126,7 +126,10 @@ void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
     createHistoricalCombinedTable();
 
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
+    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
     auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), @TS);") };
+
+    std::unordered_set<std::string> insertedVariables;
 
     execStatement("BEGIN TRANSACTION");
     for (const auto& ncFile : datasetDesc.m_ncFiles) {
@@ -136,6 +139,18 @@ void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
         sqlite3_step(&(*insertFilePathStmt)); // Execute statement
         sqlite3_clear_bindings(&(*insertFilePathStmt));
         sqlite3_reset(&(*insertFilePathStmt));
+
+        for (const auto& variable : ncFile.Variables) {
+            if (insertedVariables.contains(variable)) { // skip already inserted variables
+                continue;
+            }
+            sqlite3_bind_text(&(*insertVariableStmt), 1, variable.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_step(&(*insertVariableStmt)); // Execute statement
+            sqlite3_clear_bindings(&(*insertVariableStmt));
+            sqlite3_reset(&(*insertVariableStmt));
+
+            insertedVariables.insert(variable);
+        }
 
         // Now insert timestamp into its table and extract the above generated filepath_id as the foreign key.
         // TODO: reduce lookups by selecting the filepath_id before looping. Need to refactor execStatement to accept an optional callback which
@@ -220,6 +235,13 @@ void Database::createHistoricalCombinedTable() {
         ");"
     };
 
+    const auto createVariablesTableQuery{
+        "CREATE TABLE IF NOT EXISTS Variables ("
+            "variable_id INTEGER PRIMARY KEY,"
+            "variable TEXT UNIQUE NOT NULL"
+        ");"
+    };
+
     const auto createTimestampIndexQuery{
         "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
     };
@@ -236,6 +258,7 @@ void Database::createHistoricalCombinedTable() {
     };
 
     execStatement(createFilepathsTableQuery);
+    execStatement(createVariablesTableQuery);
     execStatement(createTimestampTableQuery);
     execStatement(createTimestampIndexQuery);
     execStatement(createForeignKeyIndexQuery);

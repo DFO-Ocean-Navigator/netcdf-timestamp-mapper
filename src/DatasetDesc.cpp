@@ -92,12 +92,14 @@ std::vector<std::string> DatasetDesc::getNCFileVariableNames(const netCDF::NcFil
         variableNames.emplace_back(pair.first); // Variable names are stored in first value.
     }
 
+    /*
     // Filter out non-data variables (time, lat/lon, etc)
     const static std::regex filterPattern{ "^(.)*(time|depth|lat|lon|polar|^x|^y)+(.)*$" }; // https://regexr.com/4i448
     const auto res = std::remove_if(variableNames.begin(), variableNames.end(), [](const auto& varName) {
         return std::regex_match(varName, filterPattern);
     });
     variableNames.erase(res, variableNames.end()); // Chain erase to actually drop the filtered items from the vector
+    */
 
     // Cool way to print container contents to the console...
     //std::copy(variableNames.cbegin(), variableNames.cend(), std::ostream_iterator<std::string>(std::cout, ", "));
@@ -120,22 +122,9 @@ void DatasetDesc::createAndAppendNCFileDesc(const std::filesystem::path& path) {
     }
     const auto& vals{ timestamps.value() }; // Get underlyng vector
 
-    if (isHistoricalCombined()) {
-        m_ncFiles.emplace_back(vals, path);
-        return;
-    }
+    const auto& variables{ getNCFileVariableNames(*ncFile) };
 
-    if (isHistoricalSplit()) {
-        const auto& variables{ getNCFileVariableNames(*ncFile) };
-        if (variables.empty()) {
-            std::cout << "No data variables found in: " << path << std::endl;
-            return;
-        }
-
-        m_ncFiles.emplace_back(vals, variables, path);
-        return;
-    }
-
+    m_ncFiles.emplace_back(vals, variables, path);
 
     // NcFile destructor will close the file and release resources
 }

@@ -71,7 +71,10 @@ bool TimestampMapper::exec() {
     std::cout << "Inserting new values into database..." << std::endl;
     m_database.insertData(datasetDesc);
 
+    std::cout << "Deleting files_to_index.txt (if exists)." << std::endl;
     deleteIndexFile();
+
+    std::cout << "All done." << std::endl;
 
     return true;
 }
@@ -92,6 +95,7 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
 std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile) const {
     std::vector<fs::path> paths;
 
+    // If file_to_index.txt exists, pull the file paths from there.
     if (inputDirOrIndexFile.extension() == ".txt") {
         std::ifstream f(inputDirOrIndexFile);
 

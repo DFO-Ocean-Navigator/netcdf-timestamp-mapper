@@ -19,7 +19,8 @@ public:
                     const ds::VARIABLE_LAYOUT variableLayout,
                     const bool regenIndices);
 
-    ///
+    /// Runs the tool.
+    /// Returns true on success, false on failure.
     bool exec();
 
 private:

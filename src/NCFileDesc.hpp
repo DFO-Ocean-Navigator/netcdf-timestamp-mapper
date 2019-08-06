@@ -8,9 +8,6 @@
 namespace tsm::ds {
 
 struct [[nodiscard]] NCFileDesc {
-    NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::filesystem::path& path) :  Timestamps{timestamps},
-                                                                                                 NCFilePath{path} {}
-
     NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<std::string>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
                                                                                                                                             Variables{variables},
                                                                                                                                             NCFilePath{path} {}
