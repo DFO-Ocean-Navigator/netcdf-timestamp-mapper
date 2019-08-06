@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['_7edatabase',['~Database',['../classtsm_1_1_database.html#a3867f2f3e50a42189504e65bf18936ad',1,'tsm::Database']]],
-  ['_7esqlite3statement',['~Sqlite3Statement',['../classtsm_1_1ds_1_1_sqlite3_statement.html#adaca5198670507dab2aaf999b308269a',1,'tsm::ds::Sqlite3Statement']]]
+  ['variable_5flayout',['VARIABLE_LAYOUT',['../namespacetsm_1_1ds.html#a24d497dad64a092c22c284b61608dfd6',1,'tsm::ds']]],
+  ['variables',['Variables',['../structtsm_1_1ds_1_1_n_c_file_desc.html#ae3f0ea41a10e558bed0ddcbeb86c5897',1,'tsm::ds::NCFileDesc']]],
+  ['varscombined',['VarsCombined',['../structtsm_1_1cli_1_1_c_l_i_options.html#a1c30aa80c2cf973fd85ebcf211e6eb50',1,'tsm::cli::CLIOptions']]],
+  ['varssplit',['VarsSplit',['../structtsm_1_1cli_1_1_c_l_i_options.html#aae6126d9747f5a0dd1bcb526d47585bf',1,'tsm::cli::CLIOptions']]]
 ];

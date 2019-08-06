@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['open',['open',['../classtsm_1_1_database.html#abec432fec729638bf5aa84f61271e58b',1,'tsm::Database']]],
-  ['openncfile',['openNCFile',['../classtsm_1_1ds_1_1_dataset_desc.html#aa9007659b4de9db6aedc6d3802d03a79',1,'tsm::ds::DatasetDesc']]],
-  ['operator_21',['operator!',['../classtsm_1_1ds_1_1_dataset_desc.html#a8d2d5309c407d08d4b557a22fc70ce90',1,'tsm::ds::DatasetDesc::operator!()'],['../structtsm_1_1ds_1_1_n_c_file_desc.html#aaa6b7d6e9ec7d9528252d7f36d4dee91',1,'tsm::ds::NCFileDesc::operator!()']]],
-  ['operator_3d',['operator=',['../structtsm_1_1ds_1_1_n_c_file_desc.html#a0e49e59450c757dd83b7a8a683156eed',1,'tsm::ds::NCFileDesc::operator=(const NCFileDesc &amp;)=default'],['../structtsm_1_1ds_1_1_n_c_file_desc.html#aa5fba92b4420c16fe373b9ae0f2da8c3',1,'tsm::ds::NCFileDesc::operator=(NCFileDesc &amp;&amp;)=default']]],
-  ['outputdir',['OutputDir',['../structtsm_1_1cli_1_1_c_l_i_options.html#a6d817b6c51f8c0b47470f6db3cb9f12e',1,'tsm::cli::CLIOptions']]]
+  ['ncfiledesc',['NCFileDesc',['../structtsm_1_1ds_1_1_n_c_file_desc.html',1,'tsm::ds']]],
+  ['ncfiledesc',['NCFileDesc',['../structtsm_1_1ds_1_1_n_c_file_desc.html#a52bce7ecf8383a72a486e41e21d3fd25',1,'tsm::ds::NCFileDesc::NCFileDesc(const std::vector&lt; timestamp_t &gt; &amp;timestamps, const std::vector&lt; std::string &gt; &amp;variables, const std::filesystem::path &amp;path)'],['../structtsm_1_1ds_1_1_n_c_file_desc.html#a6c4f649b061fdef12cd84b66120d8202',1,'tsm::ds::NCFileDesc::NCFileDesc(const NCFileDesc &amp;)=default'],['../structtsm_1_1ds_1_1_n_c_file_desc.html#ace77473717e396434fd1357ad2b963a5',1,'tsm::ds::NCFileDesc::NCFileDesc(NCFileDesc &amp;&amp;)=default']]],
+  ['ncfiledesc_2ehpp',['NCFileDesc.hpp',['../_n_c_file_desc_8hpp.html',1,'']]],
+  ['ncfilepath',['NCFilePath',['../structtsm_1_1ds_1_1_n_c_file_desc.html#adbd5f6f480aa50528b65394b35335518',1,'tsm::ds::NCFileDesc']]]
 ];

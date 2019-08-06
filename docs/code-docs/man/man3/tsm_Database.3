@@ -1,8 +1,8 @@
-.TH "tsm::Database" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::Database" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::Database
+tsm::Database \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -20,7 +20,7 @@ tsm::Database
 .ti -1c
 .RI "bool \fBopen\fP ()"
 .br
-.RI "Opens database\&. "
+.RI "\fIOpens database\&. \fP"
 .ti -1c
 .RI "void \fBinsertData\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
@@ -44,15 +44,15 @@ tsm::Database
 .ti -1c
 .RI "void \fBcloseConnection\fP ()"
 .br
-.RI "Close connection to database\&. "
+.RI "\fIClose connection to database\&. \fP"
 .ti -1c
 .RI "void \fBexecStatement\fP (const std::string &sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)"
 .br
-.RI "Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. "
+.RI "\fIIdeal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. \fP"
 .ti -1c
 .RI "\fBstmtPtr\fP \fBprepareStatement\fP (const std::string &sqlStatement)"
 .br
-.RI "Ideal for repetitive SQL statements\&. "
+.RI "\fIIdeal for repetitive SQL statements\&. \fP"
 .ti -1c
 .RI "void \fBinsertHistoricalCombined\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br

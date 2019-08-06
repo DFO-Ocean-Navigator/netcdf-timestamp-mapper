@@ -1,8 +1,8 @@
-.TH "tsm::ds::NCFileDesc" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::NCFileDesc" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::ds::NCFileDesc
+tsm::ds::NCFileDesc \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -11,9 +11,6 @@ tsm::ds::NCFileDesc
 .SS "Public Member Functions"
 
 .in +1c
-.ti -1c
-.RI "\fBNCFileDesc\fP (const std::vector< \fBtimestamp_t\fP > &timestamps, const std::filesystem::path &path)"
-.br
 .ti -1c
 .RI "\fBNCFileDesc\fP (const std::vector< \fBtimestamp_t\fP > &timestamps, const std::vector< std::string > &variables, const std::filesystem::path &path)"
 .br
@@ -30,7 +27,7 @@ tsm::ds::NCFileDesc
 .RI "\fBNCFileDesc\fP & \fBoperator=\fP (\fBNCFileDesc\fP &&)=default"
 .br
 .ti -1c
-.RI "auto \fBoperator!\fP () const"
+.RI "auto \fBoperator!\fP () const "
 .br
 .in -1c
 .SS "Public Attributes"
@@ -48,8 +45,6 @@ tsm::ds::NCFileDesc
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::ds::NCFileDesc::NCFileDesc (const std::vector< \fBtimestamp_t\fP > & timestamps, const std::filesystem::path & path)\fC [inline]\fP"
-
 .SS "tsm::ds::NCFileDesc::NCFileDesc (const std::vector< \fBtimestamp_t\fP > & timestamps, const std::vector< std::string > & variables, const std::filesystem::path & path)\fC [inline]\fP"
 
 .SS "tsm::ds::NCFileDesc::NCFileDesc (const \fBNCFileDesc\fP &)\fC [default]\fP"

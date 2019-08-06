@@ -1,8 +1,8 @@
-.TH "tsm::TimestampMapper" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::TimestampMapper" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::TimestampMapper
+tsm::TimestampMapper \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -22,19 +22,19 @@ tsm::TimestampMapper
 
 .in +1c
 .ti -1c
-.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const"
+.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const "
 .br
 .ti -1c
-.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const"
+.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const "
 .br
 .ti -1c
-.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const"
+.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const "
 .br
 .ti -1c
 .RI "bool \fBcreateDirectory\fP (const std::filesystem::path &path) const noexcept"
 .br
 .ti -1c
-.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile) const"
+.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile) const "
 .br
 .ti -1c
 .RI "void \fBdeleteIndexFile\fP ()"
@@ -84,7 +84,7 @@ tsm::TimestampMapper
 .SS "void tsm::TimestampMapper::deleteIndexFile ()\fC [private]\fP"
 
 .SS "bool tsm::TimestampMapper::exec ()"
-
+Runs the tool\&. Returns true on success, false on failure\&. 
 .SS "auto tsm::TimestampMapper::fileOrDirExists (const std::filesystem::path & path) const\fC [inline]\fP, \fC [private]\fP"
 
 .SS "auto tsm::TimestampMapper::sanitizeDatasetName (const std::string & datasetName) const\fC [inline]\fP, \fC [private]\fP"

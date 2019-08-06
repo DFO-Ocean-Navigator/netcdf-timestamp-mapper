@@ -1,0 +1,88 @@
+.TH "tsm::utils::ProgressBar" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::utils::ProgressBar \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ProgressBar\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBProgressBar\fP (std::size_t expectedIterations, const std::string &initialMessage='')"
+.br
+.ti -1c
+.RI "\fB~ProgressBar\fP ()"
+.br
+.ti -1c
+.RI "\fBProgressBar\fP (const \fBProgressBar\fP &o)=delete"
+.br
+.ti -1c
+.RI "\fBProgressBar\fP & \fBoperator=\fP (const \fBProgressBar\fP &o)=delete"
+.br
+.ti -1c
+.RI "void \fBendProgressBar\fP ()"
+.br
+.ti -1c
+.RI "void \fBprintNewMessage\fP (const std::string &message)"
+.br
+.ti -1c
+.RI "void \fBupdateLastPrintedMessage\fP (const std::string &message)"
+.br
+.ti -1c
+.RI "void \fBoperator++\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::size_t \fBmTotalIterations\fP"
+.br
+.ti -1c
+.RI "std::size_t \fBmNumberOfTicks\fP"
+.br
+.ti -1c
+.RI "bool \fBmEnded\fP"
+.br
+.ti -1c
+.RI "std::size_t \fBmLengthOfLastPrintedMessage\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::utils::ProgressBar::ProgressBar (std::size_t expectedIterations, const std::string & initialMessage = \fC''\fP)"
+Constructor\&. It takes two values: the expected number of iterations whose progress we want to monitor and an initial message to be displayed on top of the bar (which can be updated with \fBupdateLastPrintedMessage()\fP)\&. 
+.SS "tsm::utils::ProgressBar::~ProgressBar ()"
+Destructor to guarantee RAII\&. 
+.SS "tsm::utils::ProgressBar::ProgressBar (const \fBProgressBar\fP & o)\fC [delete]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void tsm::utils::ProgressBar::endProgressBar ()"
+Must be invoked when the progress bar is no longer needed to restore the position of the cursor to the end of the output\&. It is automatically invoked when the object is destroyed\&. 
+.SS "void tsm::utils::ProgressBar::operator++ ()"
+Overloaded prefix operator, used to indicate that the has been a new iteration\&. 
+.SS "\fBProgressBar\fP& tsm::utils::ProgressBar::operator= (const \fBProgressBar\fP & o)\fC [delete]\fP"
+
+.SS "void tsm::utils::ProgressBar::printNewMessage (const std::string & message)"
+Prints a new message under the last printed message, without overwriting it\&. This moves the progress bar down to be placed under the newly written message\&. 
+.SS "void tsm::utils::ProgressBar::updateLastPrintedMessage (const std::string & message)"
+Prints a message while the progress bar is on the screen on top on the last printed message\&. Since the cursor is right at the beginning of the progress bar, it moves the cursor up by one line before printing, and then returns it to its original position\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "bool tsm::utils::ProgressBar::mEnded\fC [private]\fP"
+
+.SS "std::size_t tsm::utils::ProgressBar::mLengthOfLastPrintedMessage\fC [private]\fP"
+
+.SS "std::size_t tsm::utils::ProgressBar::mNumberOfTicks\fC [private]\fP"
+
+.SS "std::size_t tsm::utils::ProgressBar::mTotalIterations\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

@@ -1,26 +1,33 @@
-.TH "tsm::utils" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::utils" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::utils
+tsm::utils \- 
 .SH SYNOPSIS
 .br
 .PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBProgressBar\fP"
+.br
+.in -1c
 .SS "Typedefs"
 
 .in +1c
 .ti -1c
 .RI "template<typename T > using \fBdeleted_unique_ptr\fP = std::unique_ptr< T, std::function< void(T *)> >"
 .br
-.RI "Template wrapper around a unique_ptr to allow passing a custom deleter lambda\&. "
+.RI "\fITemplate wrapper around a unique_ptr to allow passing a custom deleter lambda\&. \fP"
 .in -1c
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "template<class Func , class\&.\&.\&. Args> auto \fBtimer\fP (Func func, Args &&\&.\&.\&. args) \-> typename std::enable_if_t< !std::is_same_v< decltype(func(std::forward< Args >(args)\&.\&.\&.)), void >, std::pair< double, decltype(func(std::forward< Args >(args)\&.\&.\&.)) > >"
+.RI "template<class Func , class\&.\&.\&. Args> auto \fBtimer\fP (Func func, Args &&\&.\&.\&.args) \-> typename std::enable_if_t< !std::is_same_v< decltype(func(std::forward< Args >(args)\&.\&.\&.)), void >, std::pair< double, decltype(func(std::forward< Args >(args)\&.\&.\&.)) > >"
 .br
-.RI "https://stackoverflow.com/a/24469673/2231969 "
+.RI "\fIhttps://stackoverflow.com/a/24469673/2231969 \fP"
 .in -1c
 .SH "Typedef Documentation"
 .PP 

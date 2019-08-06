@@ -1,5 +1,6 @@
 <map id="src/DatasetDesc.cpp" name="src/DatasetDesc.cpp">
-<area shape="rect" id="node2" href="$_dataset_desc_8hpp.html" title="DatasetDesc.hpp" alt="" coords="230,80,354,107"/>
-<area shape="rect" id="node3" href="$_n_c_file_desc_8hpp.html" title="NCFileDesc.hpp" alt="" coords="99,155,218,181"/>
-<area shape="rect" id="node4" href="$_type_timestamp_8hpp.html" title="TypeTimestamp.hpp" alt="" coords="88,229,229,256"/>
+<area shape="rect" id="node2" href="$_dataset_desc_8hpp.html" title="DatasetDesc.hpp" alt="" coords="206,80,330,107"/>
+<area shape="rect" id="node10" href="$_progress_bar_8hpp.html" title="ProgressBar.hpp" alt="" coords="362,80,481,107"/>
+<area shape="rect" id="node3" href="$_n_c_file_desc_8hpp.html" title="NCFileDesc.hpp" alt="" coords="209,155,327,181"/>
+<area shape="rect" id="node4" href="$_type_timestamp_8hpp.html" title="TypeTimestamp.hpp" alt="" coords="171,229,312,256"/>
 </map>

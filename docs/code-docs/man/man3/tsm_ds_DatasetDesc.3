@@ -1,8 +1,8 @@
-.TH "tsm::ds::DatasetDesc" 3 "Thu Jul 25 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::DatasetDesc" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::ds::DatasetDesc
+tsm::ds::DatasetDesc \- 
 .SH SYNOPSIS
 .br
 .PP
@@ -15,7 +15,7 @@ tsm::ds::DatasetDesc
 .RI "\fBDatasetDesc\fP (const std::vector< std::filesystem::path > &filePaths, const \fBDATASET_TYPE\fP type, const \fBVARIABLE_LAYOUT\fP layout)"
 .br
 .ti -1c
-.RI "auto \fBoperator!\fP () const"
+.RI "auto \fBoperator!\fP () const "
 .br
 .ti -1c
 .RI "auto \fBisHistoricalCombined\fP () const noexcept"
@@ -34,16 +34,16 @@ tsm::ds::DatasetDesc
 
 .in +1c
 .ti -1c
-.RI "std::optional< netCDF::NcFile > \fBopenNCFile\fP (const std::filesystem::path &path) const"
+.RI "std::optional< netCDF::NcFile > \fBopenNCFile\fP (const std::filesystem::path &path) const "
 .br
 .ti -1c
-.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile) const"
+.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile) const "
 .br
 .ti -1c
-.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const netCDF::NcFile &ncFile) const"
+.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const netCDF::NcFile &ncFile) const "
 .br
 .ti -1c
-.RI "std::vector< std::string > \fBgetNCFileVariableNames\fP (const netCDF::NcFile &ncFile) const"
+.RI "std::vector< std::string > \fBgetNCFileVariableNames\fP (const netCDF::NcFile &ncFile) const "
 .br
 .ti -1c
 .RI "void \fBcreateAndAppendNCFileDesc\fP (const std::filesystem::path &path)"
