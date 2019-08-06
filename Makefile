@@ -1,5 +1,5 @@
 
-common := g++-9 -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/DatasetDesc.cpp src/Database.cpp src/main.cpp -std=c++2a -fopenmp -lstdc++fs -lnetcdf_c++4 -lsqlite3 -I./src/ThirdParty/ -I/opt/tools/boost/boost_1_70_0/include/ -pedantic-errors -Wall -Wextra -O3 -march=native
+common := g++-9 -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/main.cpp -std=c++2a -fopenmp -lstdc++fs -lnetcdf_c++4 -lsqlite3 -I./src/ThirdParty/ -I/opt/tools/boost/boost_1_70_0/include/ -pedantic-errors -Wall -Wextra -O3 -march=native
 
 create_output_dir := mkdir -p ./build
 

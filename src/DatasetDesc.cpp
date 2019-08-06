@@ -1,5 +1,7 @@
 #include "DatasetDesc.hpp"
 
+#include "ProgressBar.hpp"
+
 #include <ncDim.h>
 #include <ncVar.h>
 
@@ -17,8 +19,10 @@ DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, co
 
     // TODO: openMP pragma this thing
     //#pragma omp parallel for
+    tsm::utils::ProgressBar pb{ filePaths.size() };
     for (auto i = 0; i < filePaths.size(); ++i) {
         createAndAppendNCFileDesc(filePaths[i]);
+        ++pb;
     }
 }
 
