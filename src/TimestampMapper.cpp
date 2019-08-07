@@ -15,13 +15,11 @@ TimestampMapper::TimestampMapper(const std::filesystem::path& inputDir,
                                  const std::filesystem::path& outputDir,
                                  const std::string& datasetName,
                                  const ds::DATASET_TYPE datasetType,
-                                 const ds::VARIABLE_LAYOUT variableLayout,
                                  const bool regenIndices) : 
                                                         m_inputDir{ sanitizeDirectoryPath(inputDir) },
                                                         m_outputDir{ sanitizeDirectoryPath(outputDir) },
                                                         m_datasetName{ datasetName },
                                                         m_datasetType{ datasetType },
-                                                        m_variableLayout{ variableLayout },
                                                         m_regenIndices{ regenIndices },
                                                         m_filesToIndexPath{ m_inputDir / "files_to_index.txt" },
                                                         m_indexFileExists{ fileOrDirExists(m_filesToIndexPath) },
@@ -56,7 +54,7 @@ bool TimestampMapper::exec() {
     }
 
     std::cout << "Building dataset description from  " << filePaths.size() << " .nc file(s)." << std::endl;
-    const ds::DatasetDesc datasetDesc{ filePaths, m_datasetType, m_variableLayout };
+    const ds::DatasetDesc datasetDesc{ filePaths, m_datasetType };
     if (!datasetDesc) {
         std::cerr << "Failed to find time dimension in any of the NetCDF files." << std::endl;
         return false;

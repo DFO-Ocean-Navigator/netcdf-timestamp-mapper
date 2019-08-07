@@ -16,7 +16,6 @@ public:
                     const std::filesystem::path& outputDir,
                     const std::string& datasetName,
                     const ds::DATASET_TYPE datasetType,
-                    const ds::VARIABLE_LAYOUT variableLayout,
                     const bool regenIndices);
 
     /// Runs the tool.
@@ -58,7 +57,6 @@ private:
     const std::filesystem::path m_outputDir;
     const std::string m_datasetName;
     const ds::DATASET_TYPE m_datasetType;
-    const ds::VARIABLE_LAYOUT m_variableLayout;
     const bool m_regenIndices{ false };
 
     const std::filesystem::path m_filesToIndexPath;

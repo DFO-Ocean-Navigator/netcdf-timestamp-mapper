@@ -25,16 +25,10 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    if (opts.VarsCombined == opts.VarsSplit) {
-        std::cerr << "ONE of -variables-combined OR -variables-split is required." << std::endl;
-        return EXIT_FAILURE;
-    }
-
     tsm::TimestampMapper mapper{opts.InputDir,
                                 opts.OutputDir,
                                 opts.DatasetName,
                                 opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL, 
-                                opts.VarsSplit ? tsm::ds::VARIABLE_LAYOUT::SPLIT : tsm::ds::VARIABLE_LAYOUT::COMBINED,
                                 opts.RegenIndices
                                 };
 

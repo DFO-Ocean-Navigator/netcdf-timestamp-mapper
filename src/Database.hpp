@@ -41,11 +41,11 @@ private:
     ///
     void insertHistoricalCombined(const ds::DatasetDesc& datasetDesc);
     ///
-    void insertHistoricalSplit(const ds::DatasetDesc& datasetDesc);
+    void insertHistorical(const ds::DatasetDesc& datasetDesc);
     ///
-    void createHistoricalCombinedTable();
+    void populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc);
     ///
-    void createHistoricalSplitTable();
+    void createHistoricalTable();
 
     sqlite3* m_DBHandle{ nullptr };
     const std::filesystem::path m_inputPath;

@@ -49,23 +49,12 @@ bool Database::open() {
 /***********************************************************************************/
 void Database::insertData(const ds::DatasetDesc& datasetDesc) {
 
-    if (datasetDesc.isHistoricalCombined()) {
-        insertHistoricalCombined(datasetDesc);
+    if (datasetDesc.isHistorical()) {
+        insertHistorical(datasetDesc);
         return;
     }
 
-    if (datasetDesc.isHistoricalSplit()) {
-        insertHistoricalSplit(datasetDesc);
-        return;
-    }
-
-    if (datasetDesc.isForecastCombined()) {
-
-        return;
-    }
-
-    if (datasetDesc.isForecastSplit()) {
-
+    if (datasetDesc.isForecast()) {
         return;
     }
 
@@ -84,6 +73,7 @@ void Database::configureSQLITE() {
 void Database::configureDBConnection() {
     execStatement("PRAGMA journal_mode = MEMORY");
     execStatement("PRAGMA synchronous = OFF");
+    execStatement("PRAGMA foreign_keys = ON;");
 }
 
 /***********************************************************************************/
@@ -121,68 +111,16 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
 }
 
 /***********************************************************************************/
-void Database::insertHistoricalCombined(const ds::DatasetDesc& datasetDesc) {
+void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
 
-    createHistoricalCombinedTable();
-
-    auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
-    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
-    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), @TS);") };
-
-    std::unordered_set<std::string> insertedVariables;
-
-    execStatement("BEGIN TRANSACTION");
-    for (const auto& ncFile : datasetDesc.m_ncFiles) {
-
-        // Insert filepath into its table to auto-generate the filepath_id.
-        sqlite3_bind_text(&(*insertFilePathStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
-        sqlite3_step(&(*insertFilePathStmt)); // Execute statement
-        sqlite3_clear_bindings(&(*insertFilePathStmt));
-        sqlite3_reset(&(*insertFilePathStmt));
-
-        for (const auto& variable : ncFile.Variables) {
-            if (insertedVariables.contains(variable)) { // skip already inserted variables
-                continue;
-            }
-            sqlite3_bind_text(&(*insertVariableStmt), 1, variable.c_str(), -1, SQLITE_TRANSIENT);
-            sqlite3_step(&(*insertVariableStmt)); // Execute statement
-            sqlite3_clear_bindings(&(*insertVariableStmt));
-            sqlite3_reset(&(*insertVariableStmt));
-
-            insertedVariables.insert(variable);
-        }
-
-        // Now insert timestamp into its table and extract the above generated filepath_id as the foreign key.
-        // TODO: reduce lookups by selecting the filepath_id before looping. Need to refactor execStatement to accept an optional callback which
-        // will store the resulting value.
-        for (const auto ts : ncFile.Timestamps) {
-            std::stringstream ss;
-            ss << ts; // timestamp_t to const char* the proper way.
-            sqlite3_bind_text(&(*insertTimestampStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(&(*insertTimestampStmt), 2, ss.str().c_str(), -1, SQLITE_TRANSIENT);
-
-            sqlite3_step(&(*insertTimestampStmt));
-            sqlite3_clear_bindings(&(*insertTimestampStmt));
-            sqlite3_reset(&(*insertTimestampStmt));
-        }
-    }
-    execStatement("END TRANSACTION");
-}
-
-
-/***********************************************************************************/
-void Database::insertHistoricalSplit(const ds::DatasetDesc& datasetDesc) {
-
-    createHistoricalSplitTable();
+    createHistoricalTable();
 
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
     auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
-    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(filepath_id, variable_id, timestamp) VALUES ((SELECT filepath_id FROM Filepaths WHERE filepath = @PT), \
-                                                                                                                    (SELECT variable_id FROM Variables WHERE variable = @VR), \
-                                                                                                                    @TS); \
-                                                ")};
+    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(timestamp) VALUES (@TS);") };
 
     std::unordered_set<std::string> insertedVariables;
+    std::unordered_set<ds::timestamp_t> insertedTimestamps;
 
     execStatement("BEGIN TRANSACTION");
     for (const auto& ncFile : datasetDesc.m_ncFiles) {
@@ -202,118 +140,127 @@ void Database::insertHistoricalSplit(const ds::DatasetDesc& datasetDesc) {
             sqlite3_step(&(*insertVariableStmt)); // Execute statement
             sqlite3_clear_bindings(&(*insertVariableStmt));
             sqlite3_reset(&(*insertVariableStmt));
+            
+            insertedVariables.insert(variable);
+        }
 
-             // Insert timestamps
+         // Insert timestamps
+        for (const auto ts : ncFile.Timestamps) {
+            if (insertedTimestamps.contains(ts)) {
+                continue;
+            }
+                
+            std::stringstream ss;
+            ss << ts;
+
+            sqlite3_bind_text(&(*insertTimestampStmt), 1, ss.str().c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_step(&(*insertTimestampStmt));
+            sqlite3_clear_bindings(&(*insertTimestampStmt));
+            sqlite3_reset(&(*insertTimestampStmt));
+
+            insertedTimestamps.insert(ts);
+        }
+    }
+    execStatement("END TRANSACTION");
+
+    populateHistoricalJoinTable(datasetDesc);
+}
+
+/***********************************************************************************/
+void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
+    auto insertJoinTableStmt{ prepareStatement("INSERT INTO TimestampVariableFilepath(filepath_id, variable_id, timestamp_id) VALUES ((SELECT id FROM Filepaths WHERE filepath = @PT), \
+                                                                                                                                    (SELECT id FROM Variables WHERE variable = @VR), \
+                                                                                                                                    (SELECT id from Timestamps WHERE timestamp = @TS)); \
+                                                ")};
+
+    execStatement("BEGIN TRANSACTION");
+
+    for (const auto& ncFile : datasetDesc.m_ncFiles) {
+        for (const auto& variable : ncFile.Variables) {
             for (const auto ts : ncFile.Timestamps) {
                 std::stringstream ss;
                 ss << ts;
 
-                sqlite3_bind_text(&(*insertTimestampStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
-                sqlite3_bind_text(&(*insertTimestampStmt), 2, variable.c_str(), -1, SQLITE_TRANSIENT);
-                sqlite3_bind_text(&(*insertTimestampStmt), 3, ss.str().c_str(), -1, SQLITE_TRANSIENT);
-
-                sqlite3_step(&(*insertTimestampStmt));
-                sqlite3_clear_bindings(&(*insertTimestampStmt));
-                sqlite3_reset(&(*insertTimestampStmt));
-
+                sqlite3_bind_text(&(*insertJoinTableStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(&(*insertJoinTableStmt), 2, variable.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(&(*insertJoinTableStmt), 3, ss.str().c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_step(&(*insertJoinTableStmt)); // Execute statement
+                sqlite3_clear_bindings(&(*insertJoinTableStmt));
+                sqlite3_reset(&(*insertJoinTableStmt));
             }
-
-            insertedVariables.insert(variable);
         }
     }
+
     execStatement("END TRANSACTION");
 }
 
 /***********************************************************************************/
-void Database::createHistoricalCombinedTable() {
-    const auto createTimestampTableQuery{
-        "CREATE TABLE IF NOT EXISTS Timestamps ("
-            "timestamp_id INTEGER PRIMARY KEY,"
-            "filepath_id INTEGER, "
-            "timestamp INTEGER NOT NULL, "
-            "FOREIGN KEY (filepath_id) REFERENCES Filepaths(filepath_id)"
-        ");"
-    };
-
-    const auto createVariablesTableQuery{
-        "CREATE TABLE IF NOT EXISTS Variables ("
-            "variable_id INTEGER PRIMARY KEY,"
-            "variable TEXT UNIQUE NOT NULL"
-        ");"
-    };
-
-    const auto createTimestampIndexQuery{
-        "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
-    };
-
-    const auto createForeignKeyIndexQuery{
-        "CREATE INDEX IF NOT EXISTS idx_foreign_key on Timestamps(filepath_id);"
-    };
-
+void Database::createHistoricalTable() {
     const auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
-            "filepath_id INTEGER PRIMARY KEY, "
-            "filepath TEXT NOT NULL"
-        ");"
-    };
-
-    execStatement(createFilepathsTableQuery);
-    execStatement(createVariablesTableQuery);
-    execStatement(createTimestampTableQuery);
-    execStatement(createTimestampIndexQuery);
-    execStatement(createForeignKeyIndexQuery);
-}
-
-/***********************************************************************************/
-void Database::createHistoricalSplitTable() {
-    const auto createFilepathsTableQuery{
-        "CREATE TABLE IF NOT EXISTS Filepaths ("
-            "filepath_id INTEGER PRIMARY KEY, "
+            "id INTEGER PRIMARY KEY, "
             "filepath TEXT NOT NULL"
         ");"
     };
 
     const auto createVariablesTableQuery{
         "CREATE TABLE IF NOT EXISTS Variables ("
-            "variable_id INTEGER PRIMARY KEY,"
+            "id INTEGER PRIMARY KEY,"
             "variable TEXT UNIQUE NOT NULL"
         ");"
     };
 
     const auto createTimestampTableQuery{
         "CREATE TABLE IF NOT EXISTS Timestamps ("
-            "timestamp_id INTEGER PRIMARY KEY, "
+            "id INTEGER PRIMARY KEY,"
+            "timestamp INTEGER UNIQUE NOT NULL"
+        ");"
+    };
+
+    const auto createJoinTableQuery{
+        "CREATE TABLE IF NOT EXISTS TimestampVariableFilepath ("
             "filepath_id INTEGER, "
             "variable_id INTEGER, "
-            "timestamp INTEGER NOT NULL, "
-            "FOREIGN KEY (filepath_id) REFERENCES Filepaths(filepath_id), "
-            "FOREIGN KEY (variable_id) REFERENCES Variables(variable_id)"
+            "timestamp_id INTEGER, "
+            "FOREIGN KEY (timestamp_id) REFERENCES Timestamps(id), "
+            "FOREIGN KEY (filepath_id) REFERENCES Filepaths(id), "
+            "FOREIGN KEY (variable_id) REFERENCES Variables(id), "
+            "PRIMARY KEY(filepath_id, variable_id, timestamp_id)"
         ");"
     };
 
     const auto createForeignKeyIndexFPQuery{
-        "CREATE INDEX IF NOT EXISTS idx_foreign_key_fp on Timestamps(filepath_id);"
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_fp on TimestampVariableFilepath(timestamp_id);"
     };
 
     const auto createForeignKeyIndexVarQuery{
-        "CREATE INDEX IF NOT EXISTS idx_foreign_key_var on Timestamps(variable_id);"
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_var on TimestampVariableFilepath(variable_id);"
+    };
+
+    const auto createForeignKeyTimestampIndexQuery{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_time ON TimestampVariableFilepath(timestamp_id);"
     };
 
     const auto createTimestampIndexQuery{
         "CREATE INDEX IF NOT EXISTS idx_timestamp ON Timestamps(timestamp);"
     };
 
-    const auto createVariableIndexQuery{
-        "CREATE INDEX IF NOT EXISTS idx_variable ON Variables(variable);"
+    const auto createFilePathIndexQuery{
+        "CREATE INDEX IF NOT EXISTS idx_filepath ON Filepaths(filepath);"
     };
+
+    // No need to create an index on the Variables.variable column since it's
+    // always very small (i.e. < 30 rows).
 
     execStatement(createFilepathsTableQuery);
     execStatement(createVariablesTableQuery);
     execStatement(createTimestampTableQuery);
+    execStatement(createJoinTableQuery);
     execStatement(createForeignKeyIndexFPQuery);
     execStatement(createForeignKeyIndexVarQuery);
+    execStatement(createForeignKeyTimestampIndexQuery);
     execStatement(createTimestampIndexQuery);
-    execStatement(createVariableIndexQuery);
+    execStatement(createFilePathIndexQuery);
 }
 
 } // namespace tsm

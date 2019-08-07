@@ -22,37 +22,24 @@ enum DATASET_TYPE {
     FORECAST
 };
 
-enum VARIABLE_LAYOUT {
-    COMBINED = 0,
-    SPLIT
-};
-
 class DatasetDesc {
 
 friend class ::tsm::Database;
 
 public:
-    explicit DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type, const VARIABLE_LAYOUT layout);
+    explicit DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type);
 
     inline auto operator!() const {
         return m_ncFiles.empty();
     }
 
     ///
-    inline auto isHistoricalCombined() const noexcept {
-        return m_datasetType == DATASET_TYPE::HISTORICAL && m_varLayout == VARIABLE_LAYOUT::COMBINED;
+    inline auto isHistorical() const noexcept {
+        return m_datasetType == DATASET_TYPE::HISTORICAL;
     }
     ///
-    inline auto isHistoricalSplit() const noexcept {
-        return m_datasetType == DATASET_TYPE::HISTORICAL && m_varLayout == VARIABLE_LAYOUT::SPLIT;
-    }
-    ///
-    inline auto isForecastCombined() const noexcept {
-        return m_datasetType == DATASET_TYPE::FORECAST && m_varLayout == VARIABLE_LAYOUT::COMBINED;
-    }
-    ///
-    inline auto isForecastSplit() const noexcept {
-        return m_datasetType == DATASET_TYPE::FORECAST && m_varLayout == VARIABLE_LAYOUT::SPLIT;
+    inline auto isForecast() const noexcept {
+        return m_datasetType == DATASET_TYPE::FORECAST;
     }
 
 private:
@@ -82,7 +69,6 @@ private:
     std::vector<NCFileDesc> m_ncFiles;
 
     const DATASET_TYPE m_datasetType;
-    const VARIABLE_LAYOUT m_varLayout;
 };
 
 } // namespace tsm::ds

@@ -22,8 +22,6 @@ namespace tsm::cli {
         ("regen-indices", "Regenerate indices.", cxxopts::value<bool>())
         ("f,forecast", "Forecast dataset type.", cxxopts::value<bool>())
         ("h,historical", "Historical dataset type.", cxxopts::value<bool>())
-        ("c,variables-combined", "Dataset variables are all in one file.", cxxopts::value<bool>())
-        ("s,variables-split", "Dataset variables are split across multiple files.", cxxopts::value<bool>())
         ("help", "Print help.")
         ;
 
@@ -53,9 +51,7 @@ struct [[nodiscard]] CLIOptions {
                                                                 OutputDir{ result["output-dir"].as<std::string>() },
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
                                                                 Forecast{ result.count("forecast") > 0 },
-                                                                Historical{ result.count("historical") > 0 },
-                                                                VarsCombined{ result.count("variables-combined") > 0 },
-                                                                VarsSplit{ result.count("variables-split") > 0 } {}
+                                                                Historical{ result.count("historical") > 0 } {}
 
     const std::string InputDir;
     const std::string DatasetName;
@@ -63,8 +59,6 @@ struct [[nodiscard]] CLIOptions {
     const bool RegenIndices{ false };
     const bool Forecast{ false };
     const bool Historical{ false };
-    const bool VarsCombined{ false};
-    const bool VarsSplit{ false };
 };
 
 } // namespace tsm::cli

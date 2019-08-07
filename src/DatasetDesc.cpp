@@ -12,9 +12,7 @@
 namespace tsm::ds {
 
 /***********************************************************************************/
-DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type, const VARIABLE_LAYOUT layout) :
-                                                                                                                                        m_datasetType{ type },
-                                                                                                                                        m_varLayout{ layout } {
+DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type) : m_datasetType{ type } {
     m_ncFiles.reserve(filePaths.size());
 
     // TODO: openMP pragma this thing
