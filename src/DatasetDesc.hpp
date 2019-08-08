@@ -50,7 +50,7 @@ private:
     ///
     [[nodiscard]] std::optional<std::vector<timestamp_t>> getTimestampValues(const netCDF::NcFile& ncFile) const;
     ///
-    [[nodiscard]] std::vector<std::string> getNCFileVariableNames(const netCDF::NcFile& ncFile) const;
+    [[nodiscard]] std::vector<VariableDesc> getNCFileVariables(const netCDF::NcFile& ncFile) const;
     ///
     /*
     [[nodiscard]] inline auto convertNCTimeToISOExtended(const timestamp_t timestamp) const {

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "DeletedUniquePtr.hpp"
+#include "VariableDesc.hpp"
 
 #include <string>
+#include <unordered_set>
 #include <filesystem>
 
 // Forward declarations
@@ -43,7 +45,15 @@ private:
     ///
     void insertHistorical(const ds::DatasetDesc& datasetDesc);
     ///
+    void createDimensionsTable();
+    ///
+    void createVariablesTable();
+    ///
+    void createVariablesDimensionsTable();
+    ///
     void populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc);
+    ///
+    void populateVarsDimTable(const std::unordered_set<ds::VariableDesc>& insertedVariables);
     ///
     void createHistoricalTable();
 

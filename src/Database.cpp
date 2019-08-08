@@ -116,11 +116,13 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
     createHistoricalTable();
 
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
-    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable) VALUES (@VS);") };
+    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable, units) VALUES (@VS, @UT);") };
     auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(timestamp) VALUES (@TS);") };
+    auto insertDimStmt{ prepareStatement("INSERT INTO Dimensions(name) VALUES (@DM);") };
 
-    std::unordered_set<std::string> insertedVariables;
     std::unordered_set<ds::timestamp_t> insertedTimestamps;
+    std::unordered_set<std::string> insertedDimensions;
+    std::unordered_set<ds::VariableDesc> insertedVariables;
 
     execStatement("BEGIN TRANSACTION");
     for (const auto& ncFile : datasetDesc.m_ncFiles) {
@@ -136,10 +138,24 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
             if (insertedVariables.contains(variable)) { // skip already inserted variables
                 continue;
             }
-            sqlite3_bind_text(&(*insertVariableStmt), 1, variable.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertVariableStmt), 1, variable.Name.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertVariableStmt), 2, variable.Units.c_str(), -1, SQLITE_TRANSIENT);
             sqlite3_step(&(*insertVariableStmt)); // Execute statement
             sqlite3_clear_bindings(&(*insertVariableStmt));
             sqlite3_reset(&(*insertVariableStmt));
+
+            for (const auto& dim : variable.Dimensions) {
+                if (insertedDimensions.contains(dim)) {
+                    continue;
+                }
+
+                sqlite3_bind_text(&(*insertDimStmt), 1, dim.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_step(&(*insertDimStmt)); // Execute statement
+                sqlite3_clear_bindings(&(*insertDimStmt));
+                sqlite3_reset(&(*insertDimStmt));
+
+                insertedDimensions.insert(dim);
+            }
             
             insertedVariables.insert(variable);
         }
@@ -164,6 +180,57 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
     execStatement("END TRANSACTION");
 
     populateHistoricalJoinTable(datasetDesc);
+    populateVarsDimTable(insertedVariables);
+}
+
+/***********************************************************************************/
+void Database::createDimensionsTable() {
+    const auto createDimsTableQuery{
+        "CREATE TABLE IF NOT EXISTS Dimensions ("
+            "id INTEGER PRIMARY KEY, "
+            "name TEXT NOT NULL"
+        ");"
+    };
+
+    execStatement(createDimsTableQuery);
+}
+
+/***********************************************************************************/
+void Database::createVariablesTable() {
+    const auto createVariablesTableQuery{
+        "CREATE TABLE IF NOT EXISTS Variables ("
+            "id INTEGER PRIMARY KEY,"
+            "variable TEXT UNIQUE NOT NULL, "
+            "units TEXT"
+        ");"
+    };
+
+    execStatement(createVariablesTableQuery);
+}
+
+/***********************************************************************************/
+void Database::createVariablesDimensionsTable() {
+    const auto createVarsDimsTable{
+        "CREATE TABLE IF NOT EXISTS VarsDims ("
+            "variable_id INTEGER, "
+            "dim_id INTEGER, "
+            "FOREIGN KEY(variable_id) REFERENCES Variables(id),"
+            "FOREIGN KEY(dim_id) REFERENCES Dimensions(id),"
+            "PRIMARY KEY(variable_id, dim_id)"
+        ");"
+    };
+
+    const auto createForeignKeyIndexVarQuery{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_vardim_var ON VarsDims(variable_id);"
+    };
+
+    const auto createForeignKeyIndexDimQuery{
+        "CREATE INDEX IF NOT EXISTS idx_foreign_key_vardim_dim ON VarsDims(dim_id);"
+    };
+
+    execStatement(createVarsDimsTable);
+    execStatement(createForeignKeyIndexDimQuery);
+    execStatement(createForeignKeyIndexVarQuery);
 }
 
 /***********************************************************************************/
@@ -182,7 +249,7 @@ void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
                 ss << ts;
 
                 sqlite3_bind_text(&(*insertJoinTableStmt), 1, ncFile.NCFilePath.c_str(), -1, SQLITE_TRANSIENT);
-                sqlite3_bind_text(&(*insertJoinTableStmt), 2, variable.c_str(), -1, SQLITE_TRANSIENT);
+                sqlite3_bind_text(&(*insertJoinTableStmt), 2, variable.Name.c_str(), -1, SQLITE_TRANSIENT);
                 sqlite3_bind_text(&(*insertJoinTableStmt), 3, ss.str().c_str(), -1, SQLITE_TRANSIENT);
                 sqlite3_step(&(*insertJoinTableStmt)); // Execute statement
                 sqlite3_clear_bindings(&(*insertJoinTableStmt));
@@ -195,18 +262,37 @@ void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
 }
 
 /***********************************************************************************/
+void Database::populateVarsDimTable(const std::unordered_set<ds::VariableDesc>& insertedVariables) {
+
+    auto insertStmt{ prepareStatement("INSERT INTO VarsDims(variable_id, dim_id) VALUES ((SELECT id from Variables WHERE variable = @VR), \
+                                                                                        (SELECT id FROM Dimensions WHERE name = @DM) ); \
+                                        ") };
+
+    execStatement("BEGIN TRANSACTION");
+
+    for (const auto& var : insertedVariables) {
+        for (const auto& dim : var.Dimensions) {
+            sqlite3_bind_text(&(*insertStmt), 1, var.Name.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertStmt), 2, dim.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_step(&(*insertStmt)); // Execute statement
+            sqlite3_clear_bindings(&(*insertStmt));
+            sqlite3_reset(&(*insertStmt));
+        }
+    }
+
+    execStatement("END TRANSACTION");
+}
+
+/***********************************************************************************/
 void Database::createHistoricalTable() {
+    createDimensionsTable();
+    createVariablesTable();
+    createVariablesDimensionsTable();
+
     const auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
             "id INTEGER PRIMARY KEY, "
             "filepath TEXT NOT NULL"
-        ");"
-    };
-
-    const auto createVariablesTableQuery{
-        "CREATE TABLE IF NOT EXISTS Variables ("
-            "id INTEGER PRIMARY KEY,"
-            "variable TEXT UNIQUE NOT NULL"
         ");"
     };
 
@@ -253,7 +339,6 @@ void Database::createHistoricalTable() {
     // always very small (i.e. < 30 rows).
 
     execStatement(createFilepathsTableQuery);
-    execStatement(createVariablesTableQuery);
     execStatement(createTimestampTableQuery);
     execStatement(createJoinTableQuery);
     execStatement(createForeignKeyIndexFPQuery);

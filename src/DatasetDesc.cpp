@@ -15,8 +15,6 @@ namespace tsm::ds {
 DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type) : m_datasetType{ type } {
     m_ncFiles.reserve(filePaths.size());
 
-    // TODO: openMP pragma this thing
-    //#pragma omp parallel for
     tsm::utils::ProgressBar pb{ filePaths.size() };
     for (auto i = 0; i < filePaths.size(); ++i) {
         createAndAppendNCFileDesc(filePaths[i]);
@@ -81,17 +79,33 @@ std::optional<std::vector<timestamp_t>> DatasetDesc::getTimestampValues(const ne
 }
 
 /***********************************************************************************/
-std::vector<std::string> DatasetDesc::getNCFileVariableNames(const netCDF::NcFile& ncFile) const {
-    std::vector<std::string> variableNames;
+std::vector<VariableDesc> DatasetDesc::getNCFileVariables(const netCDF::NcFile& ncFile) const {
+    std::vector<VariableDesc> variables;
 
     const auto varCount{ ncFile.getVarCount() };
     if (varCount < 1) {
-        return variableNames;
+        return variables;
     }
-    variableNames.reserve(static_cast<std::size_t>(varCount));
+    variables.reserve(static_cast<std::size_t>(varCount));
 
     for (const auto& pair : ncFile.getVars()) {
-        variableNames.emplace_back(pair.first); // Variable names are stored in first value.
+        
+        // Find variable units
+        std::string units;
+        const auto& atts{ pair.second.getAtts() };
+        if (atts.contains("units")) {
+            atts.find("units")->second.getValues(units);
+        }
+
+        // Get names of variable dimensions
+        const auto& dims { pair.second.getDims() };
+        std::vector<std::string> dimNames(dims.size());
+        std::transform(dims.cbegin(), dims.cend(), dimNames.begin(), [](const auto& ncDim) {
+            return ncDim.getName();
+        });
+
+
+        variables.emplace_back(pair.first, units, dimNames); // Variable names are stored in first value.
     }
 
     /*
@@ -106,7 +120,7 @@ std::vector<std::string> DatasetDesc::getNCFileVariableNames(const netCDF::NcFil
     // Cool way to print container contents to the console...
     //std::copy(variableNames.cbegin(), variableNames.cend(), std::ostream_iterator<std::string>(std::cout, ", "));
 
-    return variableNames;
+    return variables;
 }
 
 /***********************************************************************************/
@@ -124,7 +138,7 @@ void DatasetDesc::createAndAppendNCFileDesc(const std::filesystem::path& path) {
     }
     const auto& vals{ timestamps.value() }; // Get underlyng vector
 
-    const auto& variables{ getNCFileVariableNames(*ncFile) };
+    const auto& variables{ getNCFileVariables(*ncFile) };
 
     m_ncFiles.emplace_back(vals, variables, path);
 

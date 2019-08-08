@@ -2,13 +2,14 @@
 
 #include "TypeTimestamp.hpp"
 
-#include <vector>
+#include "VariableDesc.hpp"
+
 #include <filesystem>
 
 namespace tsm::ds {
 
 struct [[nodiscard]] NCFileDesc {
-    NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<std::string>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
+    NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<VariableDesc>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
                                                                                                                                             Variables{variables},
                                                                                                                                             NCFilePath{path} {}
 
@@ -23,7 +24,7 @@ struct [[nodiscard]] NCFileDesc {
     }
 
     const std::vector<timestamp_t> Timestamps;
-    const std::vector<std::string> Variables;
+    const std::vector<VariableDesc> Variables;
     const std::filesystem::path NCFilePath;
 };
 
