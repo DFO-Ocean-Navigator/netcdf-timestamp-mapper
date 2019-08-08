@@ -1,4 +1,4 @@
-.TH "tsm::ds::NCFileDesc" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::NCFileDesc" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ tsm::ds::NCFileDesc \-
 
 .in +1c
 .ti -1c
-.RI "\fBNCFileDesc\fP (const std::vector< \fBtimestamp_t\fP > &timestamps, const std::vector< std::string > &variables, const std::filesystem::path &path)"
+.RI "\fBNCFileDesc\fP (const std::vector< \fBtimestamp_t\fP > &timestamps, const std::vector< \fBVariableDesc\fP > &variables, const std::filesystem::path &path)"
 .br
 .ti -1c
 .RI "\fBNCFileDesc\fP (const \fBNCFileDesc\fP &)=default"
@@ -37,7 +37,7 @@ tsm::ds::NCFileDesc \-
 .RI "const std::vector< \fBtimestamp_t\fP > \fBTimestamps\fP"
 .br
 .ti -1c
-.RI "const std::vector< std::string > \fBVariables\fP"
+.RI "const std::vector< \fBVariableDesc\fP > \fBVariables\fP"
 .br
 .ti -1c
 .RI "const std::filesystem::path \fBNCFilePath\fP"
@@ -45,7 +45,7 @@ tsm::ds::NCFileDesc \-
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::ds::NCFileDesc::NCFileDesc (const std::vector< \fBtimestamp_t\fP > & timestamps, const std::vector< std::string > & variables, const std::filesystem::path & path)\fC [inline]\fP"
+.SS "tsm::ds::NCFileDesc::NCFileDesc (const std::vector< \fBtimestamp_t\fP > & timestamps, const std::vector< \fBVariableDesc\fP > & variables, const std::filesystem::path & path)\fC [inline]\fP"
 
 .SS "tsm::ds::NCFileDesc::NCFileDesc (const \fBNCFileDesc\fP &)\fC [default]\fP"
 
@@ -65,7 +65,7 @@ tsm::ds::NCFileDesc \-
 
 .SS "const std::vector<\fBtimestamp_t\fP> tsm::ds::NCFileDesc::Timestamps"
 
-.SS "const std::vector<std::string> tsm::ds::NCFileDesc::Variables"
+.SS "const std::vector<\fBVariableDesc\fP> tsm::ds::NCFileDesc::Variables"
 
 
 .SH "Author"

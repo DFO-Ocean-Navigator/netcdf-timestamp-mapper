@@ -1,4 +1,4 @@
-.TH "tsm::ds" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,6 +15,9 @@ tsm::ds \-
 .ti -1c
 .RI "struct \fBNCFileDesc\fP"
 .br
+.ti -1c
+.RI "struct \fBVariableDesc\fP"
+.br
 .in -1c
 .SS "Typedefs"
 
@@ -28,9 +31,6 @@ tsm::ds \-
 .in +1c
 .ti -1c
 .RI "enum \fBDATASET_TYPE\fP { \fBHISTORICAL\fP = 0, \fBFORECAST\fP }"
-.br
-.ti -1c
-.RI "enum \fBVARIABLE_LAYOUT\fP { \fBCOMBINED\fP = 0, \fBSPLIT\fP }"
 .br
 .in -1c
 .SH "Typedef Documentation"
@@ -48,15 +48,6 @@ tsm::ds \-
 \fB\fIHISTORICAL \fP\fP
 .TP
 \fB\fIFORECAST \fP\fP
-.SS "enum \fBtsm::ds::VARIABLE_LAYOUT\fP"
-
-.PP
-\fBEnumerator\fP
-.in +1c
-.TP
-\fB\fICOMBINED \fP\fP
-.TP
-\fB\fISPLIT \fP\fP
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

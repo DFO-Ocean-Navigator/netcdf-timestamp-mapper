@@ -1,0 +1,53 @@
+.TH "tsm::ds::VariableDesc" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds::VariableDesc \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <VariableDesc\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBVariableDesc\fP (const std::string &name, const std::string units, const std::vector< std::string > &dims)"
+.br
+.ti -1c
+.RI "auto \fBoperator==\fP (const \fBVariableDesc\fP &rhs) const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBName\fP"
+.br
+.ti -1c
+.RI "std::string \fBUnits\fP"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBDimensions\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::ds::VariableDesc::VariableDesc (const std::string & name, const std::string units, const std::vector< std::string > & dims)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "auto tsm::ds::VariableDesc::operator== (const \fBVariableDesc\fP & rhs) const\fC [inline]\fP, \fC [noexcept]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::vector<std::string> tsm::ds::VariableDesc::Dimensions"
+
+.SS "std::string tsm::ds::VariableDesc::Name"
+
+.SS "std::string tsm::ds::VariableDesc::Units"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.

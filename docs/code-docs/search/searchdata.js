@@ -1,14 +1,14 @@
 var indexSectionsWithContent =
 {
   0: ":cdefghilmnoprstuv~",
-  1: "cdnpt",
-  2: "t",
-  3: "cdmnpt",
-  4: "cdefgimnopstu~",
-  5: "dfhilmnoprtv",
+  1: "cdhnptv",
+  2: "st",
+  3: "cdmnptv",
+  4: "cdefgimnopstuv~",
+  5: "dfhilmnoprtuv",
   6: "dst",
-  7: "dv",
-  8: "cfhs",
+  7: "d",
+  8: "fh",
   9: ":"
 };
 

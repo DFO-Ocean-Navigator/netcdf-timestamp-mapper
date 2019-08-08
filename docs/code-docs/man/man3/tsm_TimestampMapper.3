@@ -1,4 +1,4 @@
-.TH "tsm::TimestampMapper" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::TimestampMapper" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ tsm::TimestampMapper \-
 
 .in +1c
 .ti -1c
-.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const \fBds::DATASET_TYPE\fP datasetType, const \fBds::VARIABLE_LAYOUT\fP variableLayout, const bool regenIndices)"
+.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const \fBds::DATASET_TYPE\fP datasetType, const bool regenIndices)"
 .br
 .ti -1c
 .RI "bool \fBexec\fP ()"
@@ -56,9 +56,6 @@ tsm::TimestampMapper \-
 .RI "const \fBds::DATASET_TYPE\fP \fBm_datasetType\fP"
 .br
 .ti -1c
-.RI "const \fBds::VARIABLE_LAYOUT\fP \fBm_variableLayout\fP"
-.br
-.ti -1c
 .RI "const bool \fBm_regenIndices\fP { false }"
 .br
 .ti -1c
@@ -73,7 +70,7 @@ tsm::TimestampMapper \-
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const \fBds::DATASET_TYPE\fP datasetType, const \fBds::VARIABLE_LAYOUT\fP variableLayout, const bool regenIndices)"
+.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const \fBds::DATASET_TYPE\fP datasetType, const bool regenIndices)"
 
 .SH "Member Function Documentation"
 .PP 
@@ -108,8 +105,6 @@ Runs the tool\&. Returns true on success, false on failure\&.
 .SS "const std::filesystem::path tsm::TimestampMapper::m_outputDir\fC [private]\fP"
 
 .SS "const bool tsm::TimestampMapper::m_regenIndices { false }\fC [private]\fP"
-
-.SS "const \fBds::VARIABLE_LAYOUT\fP tsm::TimestampMapper::m_variableLayout\fC [private]\fP"
 
 
 .SH "Author"

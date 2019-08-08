@@ -12,8 +12,6 @@ var searchData=
   ['m_5foutputdir',['m_outputDir',['../classtsm_1_1_timestamp_mapper.html#ada581afe60b2df22fc7d049ee33b5b47',1,'tsm::TimestampMapper']]],
   ['m_5foutputfilepath',['m_outputFilePath',['../classtsm_1_1_database.html#a10d9b91d97063f4e7ae67e5efa5e4478',1,'tsm::Database']]],
   ['m_5fregenindices',['m_regenIndices',['../classtsm_1_1_timestamp_mapper.html#aff84d6cc52885e5bcb692a85259f001e',1,'tsm::TimestampMapper']]],
-  ['m_5fvariablelayout',['m_variableLayout',['../classtsm_1_1_timestamp_mapper.html#a2e1b8e37a806bd5a50c4b274ba8f8c94',1,'tsm::TimestampMapper']]],
-  ['m_5fvarlayout',['m_varLayout',['../classtsm_1_1ds_1_1_dataset_desc.html#a3eb55414e778f335bf0f23d52bf5e9e4',1,'tsm::ds::DatasetDesc']]],
   ['mended',['mEnded',['../classtsm_1_1utils_1_1_progress_bar.html#aa2317ef8899d05203e352b45bbe13cc1',1,'tsm::utils::ProgressBar']]],
   ['mlengthoflastprintedmessage',['mLengthOfLastPrintedMessage',['../classtsm_1_1utils_1_1_progress_bar.html#a40732320edbd8ac824f0569f8f24ba90',1,'tsm::utils::ProgressBar']]],
   ['mnumberofticks',['mNumberOfTicks',['../classtsm_1_1utils_1_1_progress_bar.html#ae6212b8fee86adc08c4313cc9dc33a92',1,'tsm::utils::ProgressBar']]],

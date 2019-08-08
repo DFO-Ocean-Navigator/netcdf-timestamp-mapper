@@ -1,4 +1,4 @@
-.TH "tsm::ds::DatasetDesc" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::DatasetDesc" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,22 +12,16 @@ tsm::ds::DatasetDesc \-
 
 .in +1c
 .ti -1c
-.RI "\fBDatasetDesc\fP (const std::vector< std::filesystem::path > &filePaths, const \fBDATASET_TYPE\fP type, const \fBVARIABLE_LAYOUT\fP layout)"
+.RI "\fBDatasetDesc\fP (const std::vector< std::filesystem::path > &filePaths, const \fBDATASET_TYPE\fP type)"
 .br
 .ti -1c
 .RI "auto \fBoperator!\fP () const "
 .br
 .ti -1c
-.RI "auto \fBisHistoricalCombined\fP () const noexcept"
+.RI "auto \fBisHistorical\fP () const noexcept"
 .br
 .ti -1c
-.RI "auto \fBisHistoricalSplit\fP () const noexcept"
-.br
-.ti -1c
-.RI "auto \fBisForecastCombined\fP () const noexcept"
-.br
-.ti -1c
-.RI "auto \fBisForecastSplit\fP () const noexcept"
+.RI "auto \fBisForecast\fP () const noexcept"
 .br
 .in -1c
 .SS "Private Member Functions"
@@ -43,7 +37,7 @@ tsm::ds::DatasetDesc \-
 .RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const netCDF::NcFile &ncFile) const "
 .br
 .ti -1c
-.RI "std::vector< std::string > \fBgetNCFileVariableNames\fP (const netCDF::NcFile &ncFile) const "
+.RI "std::vector< \fBVariableDesc\fP > \fBgetNCFileVariables\fP (const netCDF::NcFile &ncFile) const "
 .br
 .ti -1c
 .RI "void \fBcreateAndAppendNCFileDesc\fP (const std::filesystem::path &path)"
@@ -58,9 +52,6 @@ tsm::ds::DatasetDesc \-
 .ti -1c
 .RI "const \fBDATASET_TYPE\fP \fBm_datasetType\fP"
 .br
-.ti -1c
-.RI "const \fBVARIABLE_LAYOUT\fP \fBm_varLayout\fP"
-.br
 .in -1c
 .SS "Friends"
 
@@ -71,7 +62,7 @@ tsm::ds::DatasetDesc \-
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::ds::DatasetDesc::DatasetDesc (const std::vector< std::filesystem::path > & filePaths, const \fBDATASET_TYPE\fP type, const \fBVARIABLE_LAYOUT\fP layout)\fC [explicit]\fP"
+.SS "tsm::ds::DatasetDesc::DatasetDesc (const std::vector< std::filesystem::path > & filePaths, const \fBDATASET_TYPE\fP type)\fC [explicit]\fP"
 
 .SH "Member Function Documentation"
 .PP 
@@ -79,17 +70,13 @@ tsm::ds::DatasetDesc \-
 
 .SS "std::optional< std::string > tsm::ds::DatasetDesc::findTimeDim (const netCDF::NcFile & ncFile) const\fC [inline]\fP, \fC [private]\fP"
 
-.SS "std::vector< std::string > tsm::ds::DatasetDesc::getNCFileVariableNames (const netCDF::NcFile & ncFile) const\fC [private]\fP"
+.SS "std::vector< \fBVariableDesc\fP > tsm::ds::DatasetDesc::getNCFileVariables (const netCDF::NcFile & ncFile) const\fC [private]\fP"
 
 .SS "std::optional< std::vector< \fBtimestamp_t\fP > > tsm::ds::DatasetDesc::getTimestampValues (const netCDF::NcFile & ncFile) const\fC [private]\fP"
 
-.SS "auto tsm::ds::DatasetDesc::isForecastCombined () const\fC [inline]\fP, \fC [noexcept]\fP"
+.SS "auto tsm::ds::DatasetDesc::isForecast () const\fC [inline]\fP, \fC [noexcept]\fP"
 
-.SS "auto tsm::ds::DatasetDesc::isForecastSplit () const\fC [inline]\fP, \fC [noexcept]\fP"
-
-.SS "auto tsm::ds::DatasetDesc::isHistoricalCombined () const\fC [inline]\fP, \fC [noexcept]\fP"
-
-.SS "auto tsm::ds::DatasetDesc::isHistoricalSplit () const\fC [inline]\fP, \fC [noexcept]\fP"
+.SS "auto tsm::ds::DatasetDesc::isHistorical () const\fC [inline]\fP, \fC [noexcept]\fP"
 
 .SS "std::optional< netCDF::NcFile > tsm::ds::DatasetDesc::openNCFile (const std::filesystem::path & path) const\fC [private]\fP"
 
@@ -104,8 +91,6 @@ tsm::ds::DatasetDesc \-
 .SS "const \fBDATASET_TYPE\fP tsm::ds::DatasetDesc::m_datasetType\fC [private]\fP"
 
 .SS "std::vector<\fBNCFileDesc\fP> tsm::ds::DatasetDesc::m_ncFiles\fC [private]\fP"
-
-.SS "const \fBVARIABLE_LAYOUT\fP tsm::ds::DatasetDesc::m_varLayout\fC [private]\fP"
 
 
 .SH "Author"

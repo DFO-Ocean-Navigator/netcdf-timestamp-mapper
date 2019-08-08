@@ -21,5 +21,9 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "TimestampMapper.hpp", "_timestamp_mapper_8hpp.html", [
       [ "TimestampMapper", "classtsm_1_1_timestamp_mapper.html", "classtsm_1_1_timestamp_mapper" ]
     ] ],
-    [ "TypeTimestamp.hpp", "_type_timestamp_8hpp.html", "_type_timestamp_8hpp" ]
+    [ "TypeTimestamp.hpp", "_type_timestamp_8hpp.html", "_type_timestamp_8hpp" ],
+    [ "VariableDesc.hpp", "_variable_desc_8hpp.html", [
+      [ "VariableDesc", "structtsm_1_1ds_1_1_variable_desc.html", "structtsm_1_1ds_1_1_variable_desc" ],
+      [ "hash< tsm::ds::VariableDesc >", "structstd_1_1hash_3_01tsm_1_1ds_1_1_variable_desc_01_4.html", "structstd_1_1hash_3_01tsm_1_1ds_1_1_variable_desc_01_4" ]
+    ] ]
 ];

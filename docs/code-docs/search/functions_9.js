@@ -1,6 +1,8 @@
 var searchData=
 [
   ['parsecmdlineoptions',['parseCmdLineOptions',['../namespacetsm_1_1cli.html#aaa0327445ea4f81e436b8cffb6e2cfe4',1,'tsm::cli']]],
+  ['populatehistoricaljointable',['populateHistoricalJoinTable',['../classtsm_1_1_database.html#ab71a693167d9f26630a787ba65dd1106',1,'tsm::Database']]],
+  ['populatevarsdimtable',['populateVarsDimTable',['../classtsm_1_1_database.html#a79beaf21e7c641f0c01f9b41da86ddca',1,'tsm::Database']]],
   ['preparestatement',['prepareStatement',['../classtsm_1_1_database.html#a3f668edca071234dddb665b205307bf0',1,'tsm::Database']]],
   ['printhelp',['printHelp',['../namespacetsm_1_1cli.html#a7c9242d8fcbaeeae2686c0c1524a73bf',1,'tsm::cli']]],
   ['printnewmessage',['printNewMessage',['../classtsm_1_1utils_1_1_progress_bar.html#acf15006d8dbf965487fc9a8930dbce49',1,'tsm::utils::ProgressBar']]],

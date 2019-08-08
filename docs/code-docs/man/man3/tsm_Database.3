@@ -1,4 +1,4 @@
-.TH "tsm::Database" 3 "Tue Aug 6 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::Database" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -57,13 +57,25 @@ tsm::Database \-
 .RI "void \fBinsertHistoricalCombined\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
 .ti -1c
-.RI "void \fBinsertHistoricalSplit\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.RI "void \fBinsertHistorical\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
 .ti -1c
-.RI "void \fBcreateHistoricalCombinedTable\fP ()"
+.RI "void \fBcreateDimensionsTable\fP ()"
 .br
 .ti -1c
-.RI "void \fBcreateHistoricalSplitTable\fP ()"
+.RI "void \fBcreateVariablesTable\fP ()"
+.br
+.ti -1c
+.RI "void \fBcreateVariablesDimensionsTable\fP ()"
+.br
+.ti -1c
+.RI "void \fBpopulateHistoricalJoinTable\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
+.br
+.ti -1c
+.RI "void \fBpopulateVarsDimTable\fP (const std::unordered_set< \fBds::VariableDesc\fP > &insertedVariables)"
+.br
+.ti -1c
+.RI "void \fBcreateHistoricalTable\fP ()"
 .br
 .in -1c
 .SS "Private Attributes"
@@ -99,9 +111,13 @@ Close connection to database\&.
 
 .SS "void tsm::Database::configureSQLITE ()\fC [private]\fP"
 
-.SS "void tsm::Database::createHistoricalCombinedTable ()\fC [private]\fP"
+.SS "void tsm::Database::createDimensionsTable ()\fC [private]\fP"
 
-.SS "void tsm::Database::createHistoricalSplitTable ()\fC [private]\fP"
+.SS "void tsm::Database::createHistoricalTable ()\fC [private]\fP"
+
+.SS "void tsm::Database::createVariablesDimensionsTable ()\fC [private]\fP"
+
+.SS "void tsm::Database::createVariablesTable ()\fC [private]\fP"
 
 .SS "void tsm::Database::execStatement (const std::string & sqlStatement, int(*)(void *, int, char **, char **) callback = \fCnullptr\fP)\fC [private]\fP"
 
@@ -109,14 +125,18 @@ Close connection to database\&.
 Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. 
 .SS "void tsm::Database::insertData (const \fBds::DatasetDesc\fP & datasetDesc)"
 
-.SS "void tsm::Database::insertHistoricalCombined (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
+.SS "void tsm::Database::insertHistorical (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
 
-.SS "void tsm::Database::insertHistoricalSplit (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
+.SS "void tsm::Database::insertHistoricalCombined (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
 
 .SS "bool tsm::Database::open ()"
 
 .PP
 Opens database\&. 
+.SS "void tsm::Database::populateHistoricalJoinTable (const \fBds::DatasetDesc\fP & datasetDesc)\fC [private]\fP"
+
+.SS "void tsm::Database::populateVarsDimTable (const std::unordered_set< \fBds::VariableDesc\fP > & insertedVariables)\fC [private]\fP"
+
 .SS "\fBDatabase::stmtPtr\fP tsm::Database::prepareStatement (const std::string & sqlStatement)\fC [private]\fP"
 
 .PP

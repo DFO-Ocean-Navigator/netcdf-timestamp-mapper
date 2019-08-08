@@ -162,17 +162,23 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>createAndAppendNCFileDesc()
 : <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a4a34418213cf5d7a6a6848398de50770">tsm::ds::DatasetDesc</a>
 </li>
+<li>createDimensionsTable()
+: <a class="el" href="classtsm_1_1_database.html#a3bb6fc345f308114a443af1176ef2ed2">tsm::Database</a>
+</li>
 <li>createDirectory()
 : <a class="el" href="classtsm_1_1_timestamp_mapper.html#a0e9135680e4f4bfe75f61a08c4141a7a">tsm::TimestampMapper</a>
 </li>
 <li>createFileList()
 : <a class="el" href="classtsm_1_1_timestamp_mapper.html#adc132030510c2551e17f5f8dc06cc862">tsm::TimestampMapper</a>
 </li>
-<li>createHistoricalCombinedTable()
-: <a class="el" href="classtsm_1_1_database.html#a4fd6d7af0ebc3c2480bfff423c8e58e0">tsm::Database</a>
+<li>createHistoricalTable()
+: <a class="el" href="classtsm_1_1_database.html#a80aa63c5da980ee3e994b049c93bffde">tsm::Database</a>
 </li>
-<li>createHistoricalSplitTable()
-: <a class="el" href="classtsm_1_1_database.html#a2c47ecd38b3ec7a51757a73c49471b16">tsm::Database</a>
+<li>createVariablesDimensionsTable()
+: <a class="el" href="classtsm_1_1_database.html#a14634c493f011a5d11eb54a5e811fbcc">tsm::Database</a>
+</li>
+<li>createVariablesTable()
+: <a class="el" href="classtsm_1_1_database.html#a1641b2efbf9db5c19b96a18a9cb69843">tsm::Database</a>
 </li>
 </ul>
 
@@ -182,13 +188,16 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="classtsm_1_1_database.html#a7da921c449709c6fe1ba3a044c2a4596">tsm::Database</a>
 </li>
 <li>DatasetDesc()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a9427d03669371c5b2637d8b963dddf45">tsm::ds::DatasetDesc</a>
+: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#ad484abe22b2cd7e5e77d48154b8e5290">tsm::ds::DatasetDesc</a>
 </li>
 <li>DatasetName
 : <a class="el" href="structtsm_1_1cli_1_1_c_l_i_options.html#a15739994150fbe7660be1c6f77f92c25">tsm::cli::CLIOptions</a>
 </li>
 <li>deleteIndexFile()
 : <a class="el" href="classtsm_1_1_timestamp_mapper.html#af08d99fde98dc1ae88f9c7d1b4c418de">tsm::TimestampMapper</a>
+</li>
+<li>Dimensions
+: <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#ac74ae92488c3e82054ecce4199bd5c01">tsm::ds::VariableDesc</a>
 </li>
 </ul>
 
@@ -220,8 +229,8 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
-<li>getNCFileVariableNames()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a1018d5a642a44e8929a0adc166511f3f">tsm::ds::DatasetDesc</a>
+<li>getNCFileVariables()
+: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#ae1b4f4599a69ffaadad65c723c5ddc86">tsm::ds::DatasetDesc</a>
 </li>
 <li>getTimestampValues()
 : <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a71797fa41ccd8ae6e7bc3bdf7e0c3fcc">tsm::ds::DatasetDesc</a>
@@ -243,23 +252,17 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>insertData()
 : <a class="el" href="classtsm_1_1_database.html#a37eed7cf174ce412d039f977b51c02ff">tsm::Database</a>
 </li>
+<li>insertHistorical()
+: <a class="el" href="classtsm_1_1_database.html#aa307c366c5360ce92f8f3f3eb3aefd31">tsm::Database</a>
+</li>
 <li>insertHistoricalCombined()
 : <a class="el" href="classtsm_1_1_database.html#a683d73caa34981480f240a53858c7fcb">tsm::Database</a>
 </li>
-<li>insertHistoricalSplit()
-: <a class="el" href="classtsm_1_1_database.html#a58102c42c81b902e8ed6edf060302130">tsm::Database</a>
+<li>isForecast()
+: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#ac63350851f53999d599d05f8ccd83042">tsm::ds::DatasetDesc</a>
 </li>
-<li>isForecastCombined()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#ab8dc8187e0f53db66e0aac7fc92f2a7d">tsm::ds::DatasetDesc</a>
-</li>
-<li>isForecastSplit()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a9b2a0b1b04b70fc5acebd0e9698ec9f3">tsm::ds::DatasetDesc</a>
-</li>
-<li>isHistoricalCombined()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a6b0881afa65db50515bfd83b17dd7ca8">tsm::ds::DatasetDesc</a>
-</li>
-<li>isHistoricalSplit()
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a0da803df057fab426958dd866d81bfda">tsm::ds::DatasetDesc</a>
+<li>isHistorical()
+: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a8fd1db2523aee6a4478df948338ab1ea">tsm::ds::DatasetDesc</a>
 </li>
 </ul>
 
@@ -302,12 +305,6 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>m_regenIndices
 : <a class="el" href="classtsm_1_1_timestamp_mapper.html#aff84d6cc52885e5bcb692a85259f001e">tsm::TimestampMapper</a>
 </li>
-<li>m_variableLayout
-: <a class="el" href="classtsm_1_1_timestamp_mapper.html#a2e1b8e37a806bd5a50c4b274ba8f8c94">tsm::TimestampMapper</a>
-</li>
-<li>m_varLayout
-: <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a3eb55414e778f335bf0f23d52bf5e9e4">tsm::ds::DatasetDesc</a>
-</li>
 <li>mEnded
 : <a class="el" href="classtsm_1_1utils_1_1_progress_bar.html#aa2317ef8899d05203e352b45bbe13cc1">tsm::utils::ProgressBar</a>
 </li>
@@ -324,8 +321,11 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
+<li>Name
+: <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a2ac536f33b03411ba266c0db38d98e57">tsm::ds::VariableDesc</a>
+</li>
 <li>NCFileDesc()
-: <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#a52bce7ecf8383a72a486e41e21d3fd25">tsm::ds::NCFileDesc</a>
+: <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#a9ac3b381b8457caa1e6e68d9f19a73b7">tsm::ds::NCFileDesc</a>
 </li>
 <li>NCFilePath
 : <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#adbd5f6f480aa50528b65394b35335518">tsm::ds::NCFileDesc</a>
@@ -344,12 +344,18 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="classtsm_1_1ds_1_1_dataset_desc.html#a3e3e1703db5f2070dcd7c90d5570c17f">tsm::ds::DatasetDesc</a>
 , <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#ac28b0429b1efee125cdef3502e454776">tsm::ds::NCFileDesc</a>
 </li>
+<li>operator()()
+: <a class="el" href="structstd_1_1hash_3_01tsm_1_1ds_1_1_variable_desc_01_4.html#ad442b8b089b041d87bda4e037350fb0e">std::hash&lt; tsm::ds::VariableDesc &gt;</a>
+</li>
 <li>operator++()
 : <a class="el" href="classtsm_1_1utils_1_1_progress_bar.html#aee872eced94e1591c29082bf652acbdb">tsm::utils::ProgressBar</a>
 </li>
 <li>operator=()
 : <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#a0e49e59450c757dd83b7a8a683156eed">tsm::ds::NCFileDesc</a>
 , <a class="el" href="classtsm_1_1utils_1_1_progress_bar.html#a101367927ab9274d1612dd61969c9546">tsm::utils::ProgressBar</a>
+</li>
+<li>operator==()
+: <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a207229882c3d060ee048aac176f4d69b">tsm::ds::VariableDesc</a>
 </li>
 <li>OutputDir
 : <a class="el" href="structtsm_1_1cli_1_1_c_l_i_options.html#a6d817b6c51f8c0b47470f6db3cb9f12e">tsm::cli::CLIOptions</a>
@@ -358,6 +364,12 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>populateHistoricalJoinTable()
+: <a class="el" href="classtsm_1_1_database.html#ab71a693167d9f26630a787ba65dd1106">tsm::Database</a>
+</li>
+<li>populateVarsDimTable()
+: <a class="el" href="classtsm_1_1_database.html#a79beaf21e7c641f0c01f9b41da86ddca">tsm::Database</a>
+</li>
 <li>prepareStatement()
 : <a class="el" href="classtsm_1_1_database.html#a3f668edca071234dddb665b205307bf0">tsm::Database</a>
 </li>
@@ -392,7 +404,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
 <li>TimestampMapper()
-: <a class="el" href="classtsm_1_1_timestamp_mapper.html#a14e65474adbb90ff027e3eabbd0fdd5d">tsm::TimestampMapper</a>
+: <a class="el" href="classtsm_1_1_timestamp_mapper.html#a63768c21cf4edd014baaa3f786df39eb">tsm::TimestampMapper</a>
 </li>
 <li>Timestamps
 : <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#a1ea28cc73452774d4f24ee8f4de1ccc0">tsm::ds::NCFileDesc</a>
@@ -401,6 +413,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>Units
+: <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a5f7fb5ec7ffc6c8f02894dd667302c2a">tsm::ds::VariableDesc</a>
+</li>
 <li>updateLastPrintedMessage()
 : <a class="el" href="classtsm_1_1utils_1_1_progress_bar.html#aca8232c41b6fe99a2723cb5588e1a714">tsm::utils::ProgressBar</a>
 </li>
@@ -408,14 +423,11 @@ $(document).ready(function(){initNavTree('functions.html','');});
 
 
 <h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
+<li>VariableDesc()
+: <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a7b6b39bf49af65b643b2a4f36f6a47b6">tsm::ds::VariableDesc</a>
+</li>
 <li>Variables
-: <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#ae3f0ea41a10e558bed0ddcbeb86c5897">tsm::ds::NCFileDesc</a>
-</li>
-<li>VarsCombined
-: <a class="el" href="structtsm_1_1cli_1_1_c_l_i_options.html#a1c30aa80c2cf973fd85ebcf211e6eb50">tsm::cli::CLIOptions</a>
-</li>
-<li>VarsSplit
-: <a class="el" href="structtsm_1_1cli_1_1_c_l_i_options.html#aae6126d9747f5a0dd1bcb526d47585bf">tsm::cli::CLIOptions</a>
+: <a class="el" href="structtsm_1_1ds_1_1_n_c_file_desc.html#aa43e67eba1874efd0d483d66d92aeb7a">tsm::ds::NCFileDesc</a>
 </li>
 </ul>
 
