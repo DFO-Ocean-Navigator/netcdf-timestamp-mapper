@@ -1,4 +1,4 @@
-.TH "src/Database.cpp" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "src/Database.cpp" 3 "Tue Aug 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -25,6 +25,14 @@ src/Database.cpp \-
 .ti -1c
 .RI " \fBtsm\fP"
 .br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T , typename  = typename std::enable_if_t<std::is_arithmetic_v<T>, T>> auto \fBtsm::toString\fP (const T numeric)"
+.br
+.RI "\fIConvert numeric value to std::string properly\&. \fP"
 .in -1c
 .SH "Author"
 .PP 

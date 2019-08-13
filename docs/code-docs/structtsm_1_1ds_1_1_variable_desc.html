@@ -119,8 +119,8 @@ $(document).ready(function(){initNavTree('structtsm_1_1ds_1_1_variable_desc.html
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7b6b39bf49af65b643b2a4f36f6a47b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a7b6b39bf49af65b643b2a4f36f6a47b6">VariableDesc</a> (const std::string &amp;name, const std::string units, const std::vector&lt; std::string &gt; &amp;dims)</td></tr>
-<tr class="separator:a7b6b39bf49af65b643b2a4f36f6a47b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08bad4196bba56bf61ba5671108a8b04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a08bad4196bba56bf61ba5671108a8b04">VariableDesc</a> (const std::string &amp;name, const std::string &amp;units, const std::string &amp;longName, const float min, const float max, const std::vector&lt; std::string &gt; &amp;dims)</td></tr>
+<tr class="separator:a08bad4196bba56bf61ba5671108a8b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a207229882c3d060ee048aac176f4d69b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a207229882c3d060ee048aac176f4d69b">operator==</a> (const <a class="el" href="structtsm_1_1ds_1_1_variable_desc.html">VariableDesc</a> &amp;rhs) const noexcept</td></tr>
 <tr class="separator:a207229882c3d060ee048aac176f4d69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -130,11 +130,17 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a2ac536f33b03411ba266c0db38d98e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7fb5ec7ffc6c8f02894dd667302c2a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a5f7fb5ec7ffc6c8f02894dd667302c2a">Units</a></td></tr>
 <tr class="separator:a5f7fb5ec7ffc6c8f02894dd667302c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bcb70e5888658b8ee28c98b1b1c1254"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#a5bcb70e5888658b8ee28c98b1b1c1254">LongName</a></td></tr>
+<tr class="separator:a5bcb70e5888658b8ee28c98b1b1c1254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9bdf0b6afe60bb5b5bc494eb9950cfa"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#ad9bdf0b6afe60bb5b5bc494eb9950cfa">ValidMin</a> { 0.0f }</td></tr>
+<tr class="separator:ad9bdf0b6afe60bb5b5bc494eb9950cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae42799a1357a83f05db90c892974c35c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#ae42799a1357a83f05db90c892974c35c">ValidMax</a> { 0.0f }</td></tr>
+<tr class="separator:ae42799a1357a83f05db90c892974c35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac74ae92488c3e82054ecce4199bd5c01"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtsm_1_1ds_1_1_variable_desc.html#ac74ae92488c3e82054ecce4199bd5c01">Dimensions</a></td></tr>
 <tr class="separator:ac74ae92488c3e82054ecce4199bd5c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a7b6b39bf49af65b643b2a4f36f6a47b6"></a>
+<a class="anchor" id="a08bad4196bba56bf61ba5671108a8b04"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -150,8 +156,26 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>units</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>longName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -212,6 +236,18 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5bcb70e5888658b8ee28c98b1b1c1254"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string tsm::ds::VariableDesc::LongName</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a2ac536f33b03411ba266c0db38d98e57"></a>
 <div class="memitem">
 <div class="memproto">
@@ -230,6 +266,30 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string tsm::ds::VariableDesc::Units</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae42799a1357a83f05db90c892974c35c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float tsm::ds::VariableDesc::ValidMax { 0.0f }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad9bdf0b6afe60bb5b5bc494eb9950cfa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float tsm::ds::VariableDesc::ValidMin { 0.0f }</td>
         </tr>
       </table>
 </div><div class="memdoc">

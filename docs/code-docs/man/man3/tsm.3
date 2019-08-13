@@ -1,4 +1,4 @@
-.TH "tsm" 3 "Thu Aug 8 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm" 3 "Tue Aug 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -29,6 +29,20 @@ tsm \-
 .RI "class \fBTimestampMapper\fP"
 .br
 .in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T , typename  = typename std::enable_if_t<std::is_arithmetic_v<T>, T>> auto \fBtoString\fP (const T numeric)"
+.br
+.RI "\fIConvert numeric value to std::string properly\&. \fP"
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "template<typename T , typename  = typename std::enable_if_t<std::is_arithmetic_v<T>, T>> auto tsm::toString (const T numeric)"
+
+.PP
+Convert numeric value to std::string properly\&. 
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
