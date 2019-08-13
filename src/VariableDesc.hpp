@@ -6,9 +6,17 @@
 namespace tsm::ds {
 
 struct [[nodiscard]] VariableDesc {
-    VariableDesc(const std::string& name, const std::string units, const std::vector<std::string>& dims) :  Name{name},
-                                                                                                            Units{units},
-                                                                                                            Dimensions{dims} {}
+    VariableDesc(const std::string& name,
+                const std::string& units,
+                const std::string& longName,
+                const float min,
+                const float max,
+                const std::vector<std::string>& dims) :  Name{name},
+                                                         Units{units},
+                                                         LongName{longName},
+                                                         ValidMin{min},
+                                                         ValidMax{max},
+                                                         Dimensions{dims} {}
 
     inline auto operator==(const VariableDesc& rhs) const noexcept {
         return Name == rhs.Name;
@@ -16,6 +24,9 @@ struct [[nodiscard]] VariableDesc {
 
     std::string Name;
     std::string Units;
+    std::string LongName;
+    float ValidMin{ 0.0f };
+    float ValidMax{ 0.0f };
     std::vector<std::string> Dimensions;
 };
 

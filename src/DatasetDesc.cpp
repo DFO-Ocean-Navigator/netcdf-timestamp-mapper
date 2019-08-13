@@ -90,11 +90,27 @@ std::vector<VariableDesc> DatasetDesc::getNCFileVariables(const netCDF::NcFile& 
 
     for (const auto& pair : ncFile.getVars()) {
         
+        const auto& atts{ pair.second.getAtts() };
+
         // Find variable units
         std::string units;
-        const auto& atts{ pair.second.getAtts() };
         if (atts.contains("units")) {
             atts.find("units")->second.getValues(units);
+        }
+
+        std::string longName{ pair.first };
+        if (atts.contains("long_name")) {
+            atts.find("long_name")->second.getValues(longName);
+        }
+
+        float validMin{ std::numeric_limits<float>::min() };
+        if (atts.contains("valid_min")) {
+            atts.find("valid_min")->second.getValues(&validMin);
+        }
+
+        float validMax{ std::numeric_limits<float>::max() };
+        if (atts.contains("valid_max")) {
+            atts.find("valid_max")->second.getValues(&validMax);
         }
 
         // Get names of variable dimensions
@@ -105,7 +121,7 @@ std::vector<VariableDesc> DatasetDesc::getNCFileVariables(const netCDF::NcFile& 
         });
 
 
-        variables.emplace_back(pair.first, units, dimNames); // Variable names are stored in first value.
+        variables.emplace_back(pair.first, units, longName, validMin, validMax, dimNames); // Variable names are stored in first value.
     }
 
     /*

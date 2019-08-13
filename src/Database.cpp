@@ -16,6 +16,18 @@ namespace fs = std::filesystem;
 namespace tsm {
 
 /***********************************************************************************/
+/// Convert numeric value to std::string properly
+template<typename T,
+        typename = typename std::enable_if_t<std::is_arithmetic_v<T>, T>
+        >
+auto toString(const T numeric) {
+    std::stringstream ss;
+    ss << numeric;
+
+    return ss.str();
+}
+
+/***********************************************************************************/
 Database::Database(const std::filesystem::path& inputPath, const std::filesystem::path& outputPath, const std::string& datasetName) : m_inputPath{inputPath},
                                                                                                                                     m_outputFilePath{ outputPath / (datasetName + ".sqlite3")} {
 
@@ -116,7 +128,7 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
     createHistoricalTable();
 
     auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
-    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable, units) VALUES (@VS, @UT);") };
+    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable, units, longName, validMin, validMax) VALUES (@VS, @UT, @LN, @VN, @VX);") };
     auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(timestamp) VALUES (@TS);") };
     auto insertDimStmt{ prepareStatement("INSERT INTO Dimensions(name) VALUES (@DM);") };
 
@@ -140,6 +152,9 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
             }
             sqlite3_bind_text(&(*insertVariableStmt), 1, variable.Name.c_str(), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(&(*insertVariableStmt), 2, variable.Units.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertVariableStmt), 3, variable.LongName.c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertVariableStmt), 4, toString(variable.ValidMin).c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertVariableStmt), 5, toString(variable.ValidMax).c_str(), -1, SQLITE_TRANSIENT);
             sqlite3_step(&(*insertVariableStmt)); // Execute statement
             sqlite3_clear_bindings(&(*insertVariableStmt));
             sqlite3_reset(&(*insertVariableStmt));
@@ -165,11 +180,8 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
             if (insertedTimestamps.contains(ts)) {
                 continue;
             }
-                
-            std::stringstream ss;
-            ss << ts;
 
-            sqlite3_bind_text(&(*insertTimestampStmt), 1, ss.str().c_str(), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(&(*insertTimestampStmt), 1, toString(ts).c_str(), -1, SQLITE_TRANSIENT);
             sqlite3_step(&(*insertTimestampStmt));
             sqlite3_clear_bindings(&(*insertTimestampStmt));
             sqlite3_reset(&(*insertTimestampStmt));
@@ -201,7 +213,10 @@ void Database::createVariablesTable() {
         "CREATE TABLE IF NOT EXISTS Variables ("
             "id INTEGER PRIMARY KEY,"
             "variable TEXT UNIQUE NOT NULL, "
-            "units TEXT"
+            "units TEXT, "
+            "longName TEXT, "
+            "validMin REAL, "
+            "validMax REAL"
         ");"
     };
 
