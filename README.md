@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/083f17b426a543abace3a1fb8faf5e8a)](https://app.codacy.com/app/htmlboss/netcdf-timestamp-mapper?utm_source=github.com&utm_medium=referral&utm_content=DFO-Ocean-Navigator/netcdf-timestamp-mapper&utm_campaign=Badge_Grade_Dashboard)
 [![CodeFactor](https://www.codefactor.io/repository/github/dfo-ocean-navigator/netcdf-timestamp-mapper/badge)](https://www.codefactor.io/repository/github/dfo-ocean-navigator/netcdf-timestamp-mapper)
 
 ## Dependencies
