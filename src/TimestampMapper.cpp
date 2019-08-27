@@ -5,6 +5,7 @@
 #include <exception>
 #include <iostream>
 #include <fstream>
+#include <regex>
 
 namespace fs = std::filesystem;
 
@@ -14,11 +15,13 @@ namespace tsm {
 TimestampMapper::TimestampMapper(const std::filesystem::path& inputDir,
                                  const std::filesystem::path& outputDir,
                                  const std::string& datasetName,
+                                 const std::string& regexPattern,
                                  const ds::DATASET_TYPE datasetType,
                                  const bool regenIndices) : 
                                                         m_inputDir{ sanitizeDirectoryPath(inputDir) },
                                                         m_outputDir{ sanitizeDirectoryPath(outputDir) },
                                                         m_datasetName{ datasetName },
+                                                        m_regexPattern{ regexPattern },
                                                         m_datasetType{ datasetType },
                                                         m_regenIndices{ regenIndices },
                                                         m_filesToIndexPath{ m_inputDir / "files_to_index.txt" },
@@ -47,7 +50,7 @@ bool TimestampMapper::exec() {
     }
 
     std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_filesToIndexPath : m_inputDir) << "..." << std::endl;
-    const auto& filePaths{ createFileList(m_indexFileExists ? m_filesToIndexPath : m_inputDir) };
+    const auto& filePaths{ createFileList(m_indexFileExists ? m_filesToIndexPath : m_inputDir, m_regexPattern) };
     if (filePaths.empty()) {
         std::cout << "No .nc files found." << "\nExiting..." << std::endl;
         return false;
@@ -90,7 +93,7 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
 }
 
 /***********************************************************************************/
-std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile) const {
+std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const {
     std::vector<fs::path> paths;
 
     // If file_to_index.txt exists, pull the file paths from there.
@@ -114,11 +117,23 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
 
     using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
     const auto options{fs::directory_options::follow_directory_symlink};
+    
+    try {
+        const std::regex r(regex);
 
-    for (const auto& file : recursive_directory_iterator(inputDirOrIndexFile, options)) {
-        if (fs::path(file).extension() == ".nc") {
-            paths.emplace_back(file);
+        for (const auto& file : recursive_directory_iterator(inputDirOrIndexFile, options)) {
+            if (fs::path(file).extension() == ".nc" && std::regex_match(fs::path(file).string(), r)) {
+                paths.emplace_back(file);
+            }
         }
+    }
+    catch(const std::regex_error& e) {
+        std::cerr << "Regex error: " << e.what() << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
+    catch(...) {
+        std::cerr << "Caught unknown exception." << std::endl;
+        std::exit(EXIT_FAILURE);
     }
 
     return paths;

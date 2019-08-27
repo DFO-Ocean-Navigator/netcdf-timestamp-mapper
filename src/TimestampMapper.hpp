@@ -15,6 +15,7 @@ public:
     TimestampMapper(const std::filesystem::path& inputDir,
                     const std::filesystem::path& outputDir,
                     const std::string& datasetName,
+                    const std::string& regexPattern,
                     const ds::DATASET_TYPE datasetType,
                     const bool regenIndices);
 
@@ -48,7 +49,7 @@ private:
     [[nodiscard]] bool createDirectory(const std::filesystem::path& path) const noexcept;
     ///
     [[nodiscard]] std::vector<std::filesystem::path> 
-                                        createFileList(const std::filesystem::path& inputDirOrIndexFile) const;
+                                        createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const;
 
     ///
     void deleteIndexFile();
@@ -56,6 +57,7 @@ private:
     const std::filesystem::path m_inputDir;
     const std::filesystem::path m_outputDir;
     const std::string m_datasetName;
+    const std::string m_regexPattern;
     const ds::DATASET_TYPE m_datasetType;
     const bool m_regenIndices{ false };
 

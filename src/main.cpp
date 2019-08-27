@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
     tsm::TimestampMapper mapper{opts.InputDir,
                                 opts.OutputDir,
                                 opts.DatasetName,
+                                opts.RegexPattern,
                                 opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL, 
                                 opts.RegenIndices
                                 };

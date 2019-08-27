@@ -22,6 +22,7 @@ namespace tsm::cli {
         ("regen-indices", "Regenerate indices.", cxxopts::value<bool>())
         ("f,forecast", "Forecast dataset type.", cxxopts::value<bool>())
         ("h,historical", "Historical dataset type.", cxxopts::value<bool>())
+        ("r,regex", "Regex to apply to input directory.", cxxopts::value<std::string>())
         ("help", "Print help.")
         ;
 
@@ -49,6 +50,7 @@ struct [[nodiscard]] CLIOptions {
     explicit CLIOptions(const cxxopts::ParseResult& result) :   InputDir{ result["input-dir"].as<std::string>() },
                                                                 DatasetName{ result["dataset-name"].as<std::string>() },
                                                                 OutputDir{ result["output-dir"].as<std::string>() },
+                                                                RegexPattern{ result.count("regex") > 0 ? result["regex"].as<std::string>() : ".*" },
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
                                                                 Forecast{ result.count("forecast") > 0 },
                                                                 Historical{ result.count("historical") > 0 } {}
@@ -56,6 +58,7 @@ struct [[nodiscard]] CLIOptions {
     const std::string InputDir;
     const std::string DatasetName;
     const std::string OutputDir;
+    const std::string RegexPattern;
     const bool RegenIndices{ false };
     const bool Forecast{ false };
     const bool Historical{ false };
