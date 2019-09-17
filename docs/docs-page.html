@@ -49,7 +49,7 @@
 	                </div>
 	
 					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
-						<li class="list-inline-item"><a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper"><i class="fab fa-github fa-fw"></i></a></li>
+						<li class="list-inline-item"><a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper" target="_blank"><i class="fab fa-github fa-fw"></i></a></li>
 		            </ul><!--//social-list-->
 		            <a href="code-docs/index.html" class="btn d-none d-lg-flex">Code Docs</a>
 		            <a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper/releases/latest" class="btn btn-primary d-none d-lg-flex">Download</a>
@@ -484,16 +484,18 @@
 				    <header class="docs-header">
 					    <h1 class="docs-heading">Documentation</h1>
 					    <section class="docs-intro">
-							<p>There are two indexing methods: complete, and incremental.</p>
+							<p>There are two indexing methods: complete, and incremental. See <a href="#cli">Command Line Args</a> for explanations of the available arguments. The general syntax is:</p>
+							<code>./nc-timestamp-mapper [args]...</code>
 						</section>
 				    </header>
 				     <section class="docs-section" id="complete-indexing">
 						<h2 class="section-heading">Complete Indexing</h2>
 						<p>Complete indexing is useful for when you wish to index a large number of files through a regex filter. For example: you've just received a new ocean model that you wish to index and contains several hundred netcdf files. Since no index database has been previously generated, complete indexing is what you want.</p>
 						<h3>How to do it:</h3>
-						<ol>
-							<li><code>./nc-timestamp-mapper -n MY-DATASET-NAME -i /home/my_username/data/my-dataset/ -o /home/my_username/data/my-dataset/ -h</code></li>
-						</ol>
+						<ul>
+							<li>Basic scanning: <code>./nc-timestamp-mapper -n MY-DATASET-NAME -i /home/my_username/data/my-dataset/ -o /home/my_username/data/my-dataset/ -h</code></li>
+							<li>Regex filter: <code>./nc-timestamp-mapper -n MY-DATASET-NAME -i /home/my_username/data/my-dataset/ -o /home/my_username/data/my-dataset/ -r ^.*(3D).*$ -h</code> Matches all file names against the given regex pattern (<code>-r ^.*(3D).*$</code>).</li>
+						</ul>
 					</section><!--//section-->
 					
 					<section class="docs-section" id="incremental-indexing">
@@ -504,6 +506,7 @@
 					<section class="docs-section" id="historical-vs-forecast">
 						<h2 class="section-heading">Historical vs. Forecast Data</h2>
 						<p>At this time the tool only supports historical data (i.e. there is only one timestamp associated with the model). Forecast support is planned for the near future.</p>
+						<p>As a work-around for forecast data, each day, you can delete the previous day's database file and re-run the "complete indexing" method against the new forecast data to create an index file for today's data.</p>
 					</section><!--//section-->
 
 					<section class="docs-section" id="cli">
