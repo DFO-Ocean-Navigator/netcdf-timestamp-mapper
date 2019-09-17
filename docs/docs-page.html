@@ -40,10 +40,12 @@
                 </div><!--//docs-logo-wrapper-->
 	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
 	                <div class="top-search-box d-none d-lg-flex">
+						<!--
 		                <form class="search-form">
 				            <input type="text" placeholder="Search the docs..." name="search" class="form-control search-input">
 				            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
-				        </form>
+						</form>
+					-->
 	                </div>
 	
 					<ul class="social-list list-inline mx-md-3 mx-lg-5 mb-0 d-none d-lg-flex">
@@ -77,10 +79,11 @@
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-1">Pre-requisites</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-2">Pre-compiled binary</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-2-3">Compiling from source</a></li>
-				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-3"><span class="theme-icon-holder mr-2"><i class="fas fa-box"></i></span>Documentation</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-1">Section Item 3.1</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-2">Section Item 3.2</a></li>
-				    <li class="nav-item"><a class="nav-link scrollto" href="#item-3-3">Section Item 3.3</a></li>
+				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#documentation"><span class="theme-icon-holder mr-2"><i class="fas fa-box"></i></span>Documentation</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#complete-indexing">Complete Indexing</a></li>
+				    <li class="nav-item"><a class="nav-link scrollto" href="#incremental-indexing">Incremental Indexing</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#historical-vs-forecast">Historical vs. Forecast Data</a></li>
+					<li class="nav-item"><a class="nav-link scrollto" href="#cli">Command Line Args</a></li>
 				    <li class="nav-item section-title mt-3"><a class="nav-link scrollto" href="#section-4"><span class="theme-icon-holder mr-2"><i class="fas fa-cogs"></i></span>Integrations</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-1">Section Item 4.1</a></li>
 				    <li class="nav-item"><a class="nav-link scrollto" href="#item-4-2">Section Item 4.2</a></li>
@@ -467,6 +470,7 @@
 						<h2 class="section-heading">Compiling from source</h2>
                         <p>Assuming you've met the pre-reqs outlined just above, compiling from source doesn't require much effort.</p>
                         <ol>
+							<li>Ensure your <code>/usr/bin/g++</code> is set to point to <code>g++-9</code>.</li>
                             <li><code>git clone https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper.git</code></li>
                             <li><code>cd netcdf-timestamp-mapper/</code></li>
                             <li><code>make</code></li>
@@ -476,26 +480,39 @@
 			    </article><!--//docs-article-->
 			    
 			    
-			    <article class="docs-article" id="section-3">
+			    <article class="docs-article" id="documentation">
 				    <header class="docs-header">
 					    <h1 class="docs-heading">Documentation</h1>
 					    <section class="docs-intro">
-						    <p>Section intro goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque finibus condimentum nisl id vulputate. Praesent aliquet varius eros interdum suscipit. Donec eu purus sed nibh convallis bibendum quis vitae turpis. Duis vestibulum diam lorem, vitae dapibus nibh facilisis a. Fusce in malesuada odio.</p>
-						</section><!--//docs-intro-->
+							<p>There are two indexing methods: complete, and incremental.</p>
+						</section>
 				    </header>
-				     <section class="docs-section" id="item-3-1">
-						<h2 class="section-heading">Section Item 3.1</h2>
-						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+				     <section class="docs-section" id="complete-indexing">
+						<h2 class="section-heading">Complete Indexing</h2>
+						<p>Complete indexing is useful for when you wish to index a large number of files through a regex filter. For example: you've just received a new ocean model that you wish to index and contains several hundred netcdf files. Since no index database has been previously generated, complete indexing is what you want.</p>
+						<h3>How to do it:</h3>
+						<ol>
+							<li><code>./nc-timestamp-mapper -n MY-DATASET-NAME -i /home/my_username/data/my-dataset/ -o /home/my_username/data/my-dataset/ -h</code></li>
+						</ol>
 					</section><!--//section-->
 					
-					<section class="docs-section" id="item-3-2">
-						<h2 class="section-heading">Section Item 3.2</h2>
-						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					<section class="docs-section" id="incremental-indexing">
+						<h2 class="section-heading">Incremental Indexing</h2>
+						<p>Incremental indexing ingests a given text file with a list of absolute paths to the netcdf files that need to be indexed. This is useful for updating operations (i.e. a complete indexing has already been performed and new data is being received at regular intervals). The tool will only scan the files listed in the text file and update the index database accordingly.</p>
 					</section><!--//section-->
 					
-					<section class="docs-section" id="item-3-3">
-						<h2 class="section-heading">Section Item 3.3</h2>
-						<p>Vivamus efficitur fringilla ullamcorper. Cras condimentum condimentum mauris, vitae facilisis leo. Aliquam sagittis purus nisi, at commodo augue convallis id. Sed interdum turpis quis felis bibendum imperdiet. Mauris pellentesque urna eu leo gravida iaculis. In fringilla odio in felis ultricies porttitor. Donec at purus libero. Vestibulum libero orci, commodo nec arcu sit amet, commodo sollicitudin est. Vestibulum ultricies malesuada tempor.</p>
+					<section class="docs-section" id="historical-vs-forecast">
+						<h2 class="section-heading">Historical vs. Forecast Data</h2>
+						<p>At this time the tool only supports historical data (i.e. there is only one timestamp associated with the model). Forecast support is planned for the near future.</p>
+					</section><!--//section-->
+
+					<section class="docs-section" id="cli">
+						<h2 class="section-heading">Command Line Args</h2>
+						<p>This tool is command-line only, so naturally there are a bunch of required flags and others that are configurable. If you wish to read some C++, you can see the CLI definition <a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper/blob/a7f5f82b1cfbe18de55a778b7b9aebe38a3c77de/src/CLIOptions.hpp#L18" target="_blank">here</a>.</p>
+						<ul>
+							<li><code>-n</code> OR <code>-dataset-name</code></li>
+							<li></li>
+						</ul>
 					</section><!--//section-->
 			    </article><!--//docs-article-->
 			    
