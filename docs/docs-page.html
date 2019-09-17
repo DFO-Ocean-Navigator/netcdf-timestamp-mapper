@@ -508,10 +508,13 @@
 
 					<section class="docs-section" id="cli">
 						<h2 class="section-heading">Command Line Args</h2>
-						<p>This tool is command-line only, so naturally there are a bunch of required flags and others that are configurable. If you wish to read some C++, you can see the CLI definition <a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper/blob/a7f5f82b1cfbe18de55a778b7b9aebe38a3c77de/src/CLIOptions.hpp#L18" target="_blank">here</a>.</p>
+						<p>This tool is command-line only, so naturally there are a bunch of required flags and others that are configurable. If you wish to read some C++, you can see the CLI definition <a href="https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper/blob/a7f5f82b1cfbe18de55a778b7b9aebe38a3c77de/src/CLIOptions.hpp#L18" target="_blank">here</a>. Please note that any arguments not listed here are not guaranteed to function properly (if at all).</p>
 						<ul>
-							<li><code>-n</code> OR <code>-dataset-name</code></li>
-							<li></li>
+							<li><code>-n</code> OR <code>-dataset-name</code>: <strong>REQUIRED</strong>: Name of the dataset. Will also become the filename of the resulting database (with the <code>.sqlite3</code> extension.</li>
+							<li><code>-i</code> OR <code>-input-dir</code>: <strong>REQUIRED</strong>: Input directory of netcdf files to scan.</li>
+							<li><code>-o</code> OR <code>-outout-dir</code>: <strong>REQUIRED</strong>: Output directory of the resulting database file. Make sure the user running the process has write priveleges to this folder!</li>
+							<li><code>-h</code> OR <code>-historical</code>: <strong>REQUIRED</strong>: Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.</li>
+							<li><code>-r</code> OR <code>-regex</code>: Apply a regex pattern to the input directory to filter the scanned netcdf files.</li>
 						</ul>
 					</section><!--//section-->
 			    </article><!--//docs-article-->
