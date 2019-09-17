@@ -200,7 +200,7 @@ void Database::createDimensionsTable() {
     const auto createDimsTableQuery{
         "CREATE TABLE IF NOT EXISTS Dimensions ("
             "id INTEGER PRIMARY KEY, "
-            "name TEXT NOT NULL"
+            "name TEXT UNIQUE NOT NULL"
         ");"
     };
 

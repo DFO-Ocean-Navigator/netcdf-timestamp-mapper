@@ -16,6 +16,7 @@ public:
                     const std::filesystem::path& outputDir,
                     const std::string& datasetName,
                     const std::string& regexPattern,
+                    const std::string& fileList,
                     const ds::DATASET_TYPE datasetType,
                     const bool regenIndices);
 
