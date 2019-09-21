@@ -4,12 +4,12 @@
 ## Dependencies
 
 * Ubuntu 16.04 or newer.
-* Boost 1.70 or newer.
 * GCC 9 (for C++20 support) or newer.
 * Headers and libraries in `install_deps.sh`
 
-## Notes
-* The `Makefile` looks for Boost in `opt/tools/boost/boost_1_70_0/include/`.
+## Documentation
+* Tool docs: [https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/](https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/)
+* Code Doxygen: [https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/code-docs/index.html](https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/code-docs/index.html)
 
 ## Building
 
