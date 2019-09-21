@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
                                 opts.OutputDir,
                                 opts.DatasetName,
                                 opts.RegexPattern,
+                                opts.FileListPath,
                                 opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL, 
                                 opts.RegenIndices
                                 };
