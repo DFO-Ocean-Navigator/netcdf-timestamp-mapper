@@ -471,8 +471,9 @@
                         <p>Assuming you've met the pre-reqs outlined just above, compiling from source doesn't require much effort.</p>
                         <ol>
 							<li>Ensure your <code>/usr/bin/g++</code> is set to point to <code>g++-9</code>.</li>
-                            <li><code>git clone https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper.git</code></li>
-                            <li><code>cd netcdf-timestamp-mapper/</code></li>
+							<li><code>git clone https://github.com/DFO-Ocean-Navigator/netcdf-timestamp-mapper.git</code></li>
+							<li><code>cd netcdf-timestamp-mapper/</code></li>
+							<li><code>git submodule update --init --recursive</code></li>
                             <li><code>make</code></li>
                             <li>The binary will be found in the <code>build/</code> directory.</li>
                         </ol>
