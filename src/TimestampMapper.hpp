@@ -18,7 +18,8 @@ public:
                     const std::string& regexPattern,
                     const std::string& fileList,
                     const ds::DATASET_TYPE datasetType,
-                    const bool regenIndices);
+                    const bool regenIndices,
+                    const bool dryRun);
 
     /// Runs the tool.
     /// Returns true on success, false on failure.
@@ -61,6 +62,7 @@ private:
     const std::string m_regexPattern;
     const ds::DATASET_TYPE m_datasetType;
     const bool m_regenIndices{ false };
+    const bool m_dryRun{ false };
 
     const std::filesystem::path m_filesToIndexPath;
     bool m_indexFileExists{ false };

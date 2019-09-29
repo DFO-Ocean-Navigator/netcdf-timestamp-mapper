@@ -18,13 +18,15 @@ TimestampMapper::TimestampMapper(const std::filesystem::path& inputDir,
                                  const std::string& regexPattern,
                                  const std::string& fileList,
                                  const ds::DATASET_TYPE datasetType,
-                                 const bool regenIndices) : 
+                                 const bool regenIndices,
+                                 const bool dryRun) : 
                                                         m_inputDir{ sanitizeDirectoryPath(inputDir) },
                                                         m_outputDir{ sanitizeDirectoryPath(outputDir) },
                                                         m_datasetName{ datasetName },
                                                         m_regexPattern{ regexPattern },
                                                         m_datasetType{ datasetType },
                                                         m_regenIndices{ regenIndices },
+                                                        m_dryRun{ dryRun },
                                                         m_filesToIndexPath{ fileList },
                                                         m_indexFileExists{ fileOrDirExists(m_filesToIndexPath) },
                                                         m_database{ m_inputDir, m_outputDir, m_datasetName }
@@ -33,6 +35,10 @@ TimestampMapper::TimestampMapper(const std::filesystem::path& inputDir,
 
 /***********************************************************************************/
 bool TimestampMapper::exec() {
+    if (m_dryRun) {
+        std::cout << "---DRY RUN---\n";
+    }
+
     if (!fileOrDirExists(m_inputDir)) {
         std::cerr << "Input directory " << m_inputDir << " does not exist." << std::endl;
         return false;
@@ -55,6 +61,12 @@ bool TimestampMapper::exec() {
     if (filePaths.empty()) {
         std::cout << "No .nc files found." << "\nExiting..." << std::endl;
         return false;
+    }
+
+    if (m_dryRun) {
+        std::copy(filePaths.cbegin(), filePaths.cend(), std::ostream_iterator<std::string>(std::cout, "\n"));
+        std::cout << "Total files found: " << filePaths.size() << '\n';
+        return true;
     }
 
     std::cout << "Building dataset description from  " << filePaths.size() << " .nc file(s)." << std::endl;

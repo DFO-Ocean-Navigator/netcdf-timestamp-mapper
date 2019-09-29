@@ -24,6 +24,7 @@ namespace tsm::cli {
         ("h,historical", "Historical dataset type.", cxxopts::value<bool>())
         ("r,regex", "Regex to apply to input directory.", cxxopts::value<std::string>())
         ("file-list", "Path to text file containing absolute file paths of netcdf files to be indexed.", cxxopts::value<std::string>())
+        ("dry-run", "Dry run", cxxopts::value<bool>())
         ("help", "Print help.")
         ;
 
@@ -53,6 +54,7 @@ struct [[nodiscard]] CLIOptions {
                                                                 OutputDir{ result["output-dir"].as<std::string>() },
                                                                 RegexPattern{ result.count("regex") > 0 ? result["regex"].as<std::string>() : ".*" },
                                                                 FileListPath{ result.count("file-list") > 0 ? result["file-list"].as<std::string>() : ""},
+                                                                DryRun{ result.count("dry-run") > 0},
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
                                                                 Forecast{ result.count("forecast") > 0 },
                                                                 Historical{ result.count("historical") > 0 } {}
@@ -62,6 +64,7 @@ struct [[nodiscard]] CLIOptions {
     const std::string OutputDir;
     const std::string RegexPattern;
     const std::string FileListPath;
+    const bool DryRun{ false };
     const bool RegenIndices{ false };
     const bool Forecast{ false };
     const bool Historical{ false };
