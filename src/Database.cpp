@@ -119,7 +119,7 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
 
     sqlite3_prepare_v2(m_DBHandle, sqlStatement.data(), sqlStatement.length(), &stmt, nullptr);
 
-    return stmtPtr(stmt, [](auto* stmt) { sqlite3_finalize(stmt); });
+    return stmtPtr(stmt, [](auto* s) { sqlite3_finalize(s); });
 }
 
 /***********************************************************************************/
