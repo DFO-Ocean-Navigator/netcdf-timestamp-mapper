@@ -84,8 +84,10 @@ void Database::configureSQLITE() {
 /***********************************************************************************/
 void Database::configureDBConnection() {
     execStatement("PRAGMA journal_mode = MEMORY");
+    execStatement("PRAGMA temp_store = MEMORY");
     execStatement("PRAGMA synchronous = OFF");
     execStatement("PRAGMA foreign_keys = ON;");
+    execStatement("PRAGMA locking_mode = EXCLUSIVE");
 }
 
 /***********************************************************************************/
@@ -117,7 +119,14 @@ void Database::execStatement(const std::string& sqlStatement, int (*callback)(vo
 Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
     sqlite3_stmt* stmt{ nullptr };
 
-    sqlite3_prepare_v2(m_DBHandle, sqlStatement.data(), sqlStatement.length(), &stmt, nullptr);
+    const auto res{ 
+        sqlite3_prepare_v2(m_DBHandle, sqlStatement.data(), sqlStatement.length(), &stmt, nullptr)
+    };
+
+    if (res != SQLITE_OK) {
+        std::cerr << "Error preparing SQL statement: " << sqlStatement << ". Error code " << res << '\n';
+        std::cout << "https://www.sqlite.org/c3ref/c_abort.html\n";
+    }
 
     return stmtPtr(stmt, [](auto* s) { sqlite3_finalize(s); });
 }
@@ -126,11 +135,10 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
 void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
 
     createHistoricalTable();
-
-    auto insertFilePathStmt{ prepareStatement("INSERT INTO Filepaths(filepath) VALUES (@PT);") };
-    auto insertVariableStmt{ prepareStatement("INSERT INTO Variables(variable, units, longName, validMin, validMax) VALUES (@VS, @UT, @LN, @VN, @VX);") };
-    auto insertTimestampStmt{ prepareStatement("INSERT INTO Timestamps(timestamp) VALUES (@TS);") };
-    auto insertDimStmt{ prepareStatement("INSERT INTO Dimensions(name) VALUES (@DM);") };
+    auto insertFilePathStmt{ prepareStatement("INSERT OR IGNORE INTO Filepaths(filepath) VALUES (@PT);") };
+    auto insertVariableStmt{ prepareStatement("INSERT OR IGNORE INTO Variables(variable, units, longName, validMin, validMax) VALUES (@VS, @UT, @LN, @VN, @VX);") };
+    auto insertTimestampStmt{ prepareStatement("INSERT OR IGNORE INTO Timestamps(timestamp) VALUES (@TS);") };
+    auto insertDimStmt{ prepareStatement("INSERT OR IGNORE INTO Dimensions(name) VALUES (@DM);") };
 
     std::unordered_set<ds::timestamp_t> insertedTimestamps;
     std::unordered_set<std::string> insertedDimensions;
@@ -163,7 +171,6 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
                 if (insertedDimensions.contains(dim)) {
                     continue;
                 }
-
                 sqlite3_bind_text(&(*insertDimStmt), 1, dim.c_str(), -1, SQLITE_TRANSIENT);
                 sqlite3_step(&(*insertDimStmt)); // Execute statement
                 sqlite3_clear_bindings(&(*insertDimStmt));
@@ -200,7 +207,7 @@ void Database::createDimensionsTable() {
     const auto createDimsTableQuery{
         "CREATE TABLE IF NOT EXISTS Dimensions ("
             "id INTEGER PRIMARY KEY, "
-            "name TEXT UNIQUE NOT NULL"
+            "name TEXT UNIQUE NOT NULL ON CONFLICT IGNORE"
         ");"
     };
 
@@ -212,7 +219,7 @@ void Database::createVariablesTable() {
     const auto createVariablesTableQuery{
         "CREATE TABLE IF NOT EXISTS Variables ("
             "id INTEGER PRIMARY KEY,"
-            "variable TEXT UNIQUE NOT NULL, "
+            "variable TEXT UNIQUE NOT NULL ON CONFLICT IGNORE, "
             "units TEXT, "
             "longName TEXT, "
             "validMin REAL, "
@@ -252,7 +259,8 @@ void Database::createVariablesDimensionsTable() {
 void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
     auto insertJoinTableStmt{ prepareStatement("INSERT INTO TimestampVariableFilepath(filepath_id, variable_id, timestamp_id) VALUES ((SELECT id FROM Filepaths WHERE filepath = @PT), \
                                                                                                                                     (SELECT id FROM Variables WHERE variable = @VR), \
-                                                                                                                                    (SELECT id from Timestamps WHERE timestamp = @TS)); \
+                                                                                                                                    (SELECT id from Timestamps WHERE timestamp = @TS)) \
+                                                                                                                                    ON CONFLICT DO NOTHING; \
                                                 ")};
 
     execStatement("BEGIN TRANSACTION");
@@ -280,7 +288,8 @@ void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
 void Database::populateVarsDimTable(const std::unordered_set<ds::VariableDesc>& insertedVariables) {
 
     auto insertStmt{ prepareStatement("INSERT INTO VarsDims(variable_id, dim_id) VALUES ((SELECT id from Variables WHERE variable = @VR), \
-                                                                                        (SELECT id FROM Dimensions WHERE name = @DM) ); \
+                                                                                        (SELECT id FROM Dimensions WHERE name = @DM) ) \
+                                                                                        ON CONFLICT DO NOTHING; \
                                         ") };
 
     execStatement("BEGIN TRANSACTION");
@@ -307,14 +316,14 @@ void Database::createHistoricalTable() {
     const auto createFilepathsTableQuery{
         "CREATE TABLE IF NOT EXISTS Filepaths ("
             "id INTEGER PRIMARY KEY, "
-            "filepath TEXT NOT NULL"
+            "filepath TEXT UNIQUE NOT NULL ON CONFLICT IGNORE"
         ");"
     };
 
     const auto createTimestampTableQuery{
         "CREATE TABLE IF NOT EXISTS Timestamps ("
             "id INTEGER PRIMARY KEY,"
-            "timestamp INTEGER UNIQUE NOT NULL"
+            "timestamp INTEGER UNIQUE NOT NULL ON CONFLICT IGNORE"
         ");"
     };
 

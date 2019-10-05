@@ -85,8 +85,10 @@ bool TimestampMapper::exec() {
     std::cout << "Inserting new values into database..." << std::endl;
     m_database.insertData(datasetDesc);
 
-    std::cout << "Deleting files_to_index.txt (if exists)." << std::endl;
-    deleteIndexFile();
+    if (m_indexFileExists) {
+        std::cout << "Deleting index file." << std::endl;
+        deleteIndexFile();
+    }
 
     std::cout << "All done." << std::endl;
 
@@ -155,7 +157,10 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
 /***********************************************************************************/
 void TimestampMapper::deleteIndexFile() {
     if (m_indexFileExists) {
-        fs::remove(m_filesToIndexPath);
+        if (!fs::remove(m_filesToIndexPath)) {
+            std::cerr << "Failed to delete index file: " << m_filesToIndexPath << '\n';
+            return;
+        }
         m_indexFileExists = false;
     }
 }
