@@ -1,4 +1,4 @@
-.TH "tsm::cli::CLIOptions" 3 "Tue Aug 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::cli::CLIOptions" 3 "Mon Oct 7 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -28,6 +28,15 @@ tsm::cli::CLIOptions \-
 .RI "const std::string \fBOutputDir\fP"
 .br
 .ti -1c
+.RI "const std::string \fBRegexPattern\fP"
+.br
+.ti -1c
+.RI "const std::string \fBFileListPath\fP"
+.br
+.ti -1c
+.RI "const bool \fBDryRun\fP { false }"
+.br
+.ti -1c
 .RI "const bool \fBRegenIndices\fP { false }"
 .br
 .ti -1c
@@ -45,6 +54,10 @@ tsm::cli::CLIOptions \-
 .PP 
 .SS "const std::string tsm::cli::CLIOptions::DatasetName"
 
+.SS "const bool tsm::cli::CLIOptions::DryRun { false }"
+
+.SS "const std::string tsm::cli::CLIOptions::FileListPath"
+
 .SS "const bool tsm::cli::CLIOptions::Forecast { false }"
 
 .SS "const bool tsm::cli::CLIOptions::Historical { false }"
@@ -54,6 +67,8 @@ tsm::cli::CLIOptions \-
 .SS "const std::string tsm::cli::CLIOptions::OutputDir"
 
 .SS "const bool tsm::cli::CLIOptions::RegenIndices { false }"
+
+.SS "const std::string tsm::cli::CLIOptions::RegexPattern"
 
 
 .SH "Author"

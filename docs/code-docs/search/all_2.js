@@ -13,5 +13,6 @@ var searchData=
   ['deleted_5funique_5fptr',['deleted_unique_ptr',['../namespacetsm_1_1utils.html#af7c4e5224ac0a8e2ba72d0f148a591c2',1,'tsm::utils']]],
   ['deleteduniqueptr_2ehpp',['DeletedUniquePtr.hpp',['../_deleted_unique_ptr_8hpp.html',1,'']]],
   ['deleteindexfile',['deleteIndexFile',['../classtsm_1_1_timestamp_mapper.html#af08d99fde98dc1ae88f9c7d1b4c418de',1,'tsm::TimestampMapper']]],
-  ['dimensions',['Dimensions',['../structtsm_1_1ds_1_1_variable_desc.html#ac74ae92488c3e82054ecce4199bd5c01',1,'tsm::ds::VariableDesc']]]
+  ['dimensions',['Dimensions',['../structtsm_1_1ds_1_1_variable_desc.html#ac74ae92488c3e82054ecce4199bd5c01',1,'tsm::ds::VariableDesc']]],
+  ['dryrun',['DryRun',['../structtsm_1_1cli_1_1_c_l_i_options.html#a151fc527971a75729ac9c3fc997a6c5d',1,'tsm::cli::CLIOptions']]]
 ];

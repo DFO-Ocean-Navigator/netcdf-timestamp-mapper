@@ -128,8 +128,8 @@ Collaboration diagram for tsm::TimestampMapper:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a63768c21cf4edd014baaa3f786df39eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a63768c21cf4edd014baaa3f786df39eb">TimestampMapper</a> (const std::filesystem::path &amp;inputDir, const std::filesystem::path &amp;outputDir, const std::string &amp;datasetName, const <a class="el" href="namespacetsm_1_1ds.html#a373fa3ec8cf23e5c0841a2eb08b69e0e">ds::DATASET_TYPE</a> datasetType, const bool regenIndices)</td></tr>
-<tr class="separator:a63768c21cf4edd014baaa3f786df39eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e63a27db2a60090d5caa05128bd4ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a20e63a27db2a60090d5caa05128bd4ef">TimestampMapper</a> (const std::filesystem::path &amp;inputDir, const std::filesystem::path &amp;outputDir, const std::string &amp;datasetName, const std::string &amp;regexPattern, const std::string &amp;fileList, const <a class="el" href="namespacetsm_1_1ds.html#a373fa3ec8cf23e5c0841a2eb08b69e0e">ds::DATASET_TYPE</a> datasetType, const bool regenIndices, const bool dryRun)</td></tr>
+<tr class="separator:a20e63a27db2a60090d5caa05128bd4ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60ec048046e9be943a54db02318f43b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a60ec048046e9be943a54db02318f43b8">exec</a> ()</td></tr>
 <tr class="separator:a60ec048046e9be943a54db02318f43b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -143,8 +143,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:aac1b2a7d04244182681e179b7f71102c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e9135680e4f4bfe75f61a08c4141a7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a0e9135680e4f4bfe75f61a08c4141a7a">createDirectory</a> (const std::filesystem::path &amp;path) const noexcept</td></tr>
 <tr class="separator:a0e9135680e4f4bfe75f61a08c4141a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc132030510c2551e17f5f8dc06cc862"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#adc132030510c2551e17f5f8dc06cc862">createFileList</a> (const std::filesystem::path &amp;inputDirOrIndexFile) const </td></tr>
-<tr class="separator:adc132030510c2551e17f5f8dc06cc862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a867c5931b8109ee5d69a8a678791864a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a867c5931b8109ee5d69a8a678791864a">createFileList</a> (const std::filesystem::path &amp;inputDirOrIndexFile, const std::string &amp;regex) const </td></tr>
+<tr class="separator:a867c5931b8109ee5d69a8a678791864a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af08d99fde98dc1ae88f9c7d1b4c418de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#af08d99fde98dc1ae88f9c7d1b4c418de">deleteIndexFile</a> ()</td></tr>
 <tr class="separator:af08d99fde98dc1ae88f9c7d1b4c418de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -156,10 +156,14 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ada581afe60b2df22fc7d049ee33b5b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15a1dfe946ca2f4394725d252c8d4a33"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a15a1dfe946ca2f4394725d252c8d4a33">m_datasetName</a></td></tr>
 <tr class="separator:a15a1dfe946ca2f4394725d252c8d4a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d1888988c6fe81ccc494b004532432"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a56d1888988c6fe81ccc494b004532432">m_regexPattern</a></td></tr>
+<tr class="separator:a56d1888988c6fe81ccc494b004532432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd7467a7858d91b4b9a082889e506440"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacetsm_1_1ds.html#a373fa3ec8cf23e5c0841a2eb08b69e0e">ds::DATASET_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#abd7467a7858d91b4b9a082889e506440">m_datasetType</a></td></tr>
 <tr class="separator:abd7467a7858d91b4b9a082889e506440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff84d6cc52885e5bcb692a85259f001e"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#aff84d6cc52885e5bcb692a85259f001e">m_regenIndices</a> { false }</td></tr>
 <tr class="separator:aff84d6cc52885e5bcb692a85259f001e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a416b51c418943755df84ab7b6af0ebc3"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a416b51c418943755df84ab7b6af0ebc3">m_dryRun</a> { false }</td></tr>
+<tr class="separator:a416b51c418943755df84ab7b6af0ebc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a343a486057499a90acd5ddad41cd5569"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#a343a486057499a90acd5ddad41cd5569">m_filesToIndexPath</a></td></tr>
 <tr class="separator:a343a486057499a90acd5ddad41cd5569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee1e9929465e735f0f4b7c5ab32a5adf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_timestamp_mapper.html#aee1e9929465e735f0f4b7c5ab32a5adf">m_indexFileExists</a> { false }</td></tr>
@@ -168,7 +172,7 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aa0f393f3106097b474354403c7e2922c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a63768c21cf4edd014baaa3f786df39eb"></a>
+<a class="anchor" id="a20e63a27db2a60090d5caa05128bd4ef"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -193,6 +197,18 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>regexPattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>fileList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const <a class="el" href="namespacetsm_1_1ds.html#a373fa3ec8cf23e5c0841a2eb08b69e0e">ds::DATASET_TYPE</a>&#160;</td>
           <td class="paramname"><em>datasetType</em>, </td>
         </tr>
@@ -200,7 +216,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>regenIndices</em>&#160;</td>
+          <td class="paramname"><em>regenIndices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>dryRun</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -237,7 +259,7 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adc132030510c2551e17f5f8dc06cc862"></a>
+<a class="anchor" id="a867c5931b8109ee5d69a8a678791864a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -248,8 +270,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">std::vector&lt; fs::path &gt; tsm::TimestampMapper::createFileList </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
-          <td class="paramname"><em>inputDirOrIndexFile</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>inputDirOrIndexFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>regex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -433,6 +465,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a416b51c418943755df84ab7b6af0ebc3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool tsm::TimestampMapper::m_dryRun { false }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a343a486057499a90acd5ddad41cd5569"></a>
 <div class="memitem">
 <div class="memproto">
@@ -522,6 +574,26 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const bool tsm::TimestampMapper::m_regenIndices { false }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a56d1888988c6fe81ccc494b004532432"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string tsm::TimestampMapper::m_regexPattern</td>
         </tr>
       </table>
   </td>

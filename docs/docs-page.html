@@ -519,7 +519,8 @@
 							<li><code>-o</code> OR <code>-outout-dir</code>: <strong>REQUIRED</strong>: Output directory of the resulting database file. Make sure the user running the process has write priveleges to this folder!</li>
 							<li><code>-h</code> OR <code>-historical</code>: <strong>REQUIRED</strong>: Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.</li>
 							<li><code>-r</code> OR <code>-regex</code>: Apply a regex pattern to the input directory to filter the scanned netcdf files.</li>
-							<li><code>--dry-run</code>: Perform a dry-run of the tool; the list of scanned netcdf files will be output to the screen. No database changes will be made.</li>
+                            <li><code>--dry-run</code>: Perform a dry-run of the tool; the list of scanned netcdf files will be output to the screen. No database changes will be made.</li>
+                            <li><code>--file-list</code>: File containing absolute paths to netcdf files to be indexed. The format is 1 path per line (no line-ending commas, etc).</li>
 						</ul>
 					</section><!--//section-->
 			    </article><!--//docs-article-->
