@@ -1,21 +1,27 @@
 
-common := g++-9 -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/main.cpp -std=c++2a -lstdc++fs -lnetcdf_c++4 -lsqlite3 -I./src/ThirdParty/ -pedantic-errors -Wall -Wextra -Wshadow -O3 -march=native
+compiler_and_flags := g++-9 -std=c++2a -Wall -Wextra -march=native -O3 -pedantic -Wshadow
+
+common := -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/CLIOptions.cpp src/main.cpp  -I./src/ThirdParty/
+
+libs := -lstdc++fs -lnetcdf_c++4 -lsqlite3
 
 create_output_dir := mkdir -p ./build
 
 all: src/main.cpp
 	make clean
 	$(create_output_dir)
-	$(common)
+	$(compiler_and_flags)  $(common) $(libs)
 
 debug: src/main.cpp
 	make clean
 	$(create_output_dir)
-	$(common) -D_DEBUG
+	$(compiler_and_flags) $(common) $(libs) -D_DEBUG
 
-tests: tests/main.cpp
+.PHONY test: tests/main.cpp
+	make clean
 	$(create_output_dir)
-	g++-9 -o build/tests tests/main.cpp -std=c++17 -lstdc++fs -lnetcdf_c++4 -I./src/ThirdParty/ -I./tests/ThirdParty/ -pedantic-errors -Wall -Wextra -O3 -march=native
+	$(compiler_and_flags) -I./tests/ThirdParty/ -c tests/main.cpp
+	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_NCFileDesc.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
 
 clean:
 	rm -rf ./build

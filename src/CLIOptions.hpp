@@ -9,43 +9,12 @@
 namespace tsm::cli {
 
 /***********************************************************************************/
-[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv) {
-
-    try
-    {
-        cxxopts::Options options("NetCDF Timestamp Mapper", "Maps timestamps and variables to netCDF files using sqlite3.");
-
-        options.add_options()
-        ("i,input-dir", "Input directory.", cxxopts::value<std::string>())
-        ("n,dataset-name", "Dataset name (no spaces).", cxxopts::value<std::string>())
-        ("o,output-dir", "Output directory.", cxxopts::value<std::string>())
-        ("regen-indices", "Regenerate indices.", cxxopts::value<bool>())
-        ("f,forecast", "Forecast dataset type.", cxxopts::value<bool>())
-        ("h,historical", "Historical dataset type.", cxxopts::value<bool>())
-        ("r,regex", "Regex to apply to input directory.", cxxopts::value<std::string>())
-        ("file-list", "Path to text file containing absolute file paths of netcdf files to be indexed.", cxxopts::value<std::string>())
-        ("dry-run", "Dry run", cxxopts::value<bool>())
-        ("help", "Print help.")
-        ;
-
-        return std::make_optional(options.parse(argc, argv));
-    }
-    catch (const cxxopts::OptionException &e)
-    {
-        std::cerr << e.what() << std::endl;
-        return std::nullopt;
-    }
-    catch (...)
-    {
-        std::cerr << "Unhandled execption." << std::endl;
-        return std::nullopt;
-    }
-}
+///
+[[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv);
 
 /***********************************************************************************/
-void printHelp() {
-
-}
+/// Print help message.
+void printHelp();
 
 /***********************************************************************************/
 struct [[nodiscard]] CLIOptions {
@@ -58,6 +27,9 @@ struct [[nodiscard]] CLIOptions {
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
                                                                 Forecast{ result.count("forecast") > 0 },
                                                                 Historical{ result.count("historical") > 0 } {}
+
+    /// Validate the given inputs.
+    [[nodiscard]] bool verify() const;
 
     const std::string InputDir;
     const std::string DatasetName;

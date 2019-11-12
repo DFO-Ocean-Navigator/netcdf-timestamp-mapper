@@ -19,8 +19,8 @@ struct [[nodiscard]] NCFileDesc {
     NCFileDesc& operator=(const NCFileDesc&) = default;
     NCFileDesc& operator=(NCFileDesc&&) = default;
 
-    inline auto operator!() const {
-        return Timestamps.empty();
+    inline auto operator!() const noexcept {
+        return Timestamps.empty() || Variables.empty() || NCFilePath.empty();
     }
 
     const std::vector<timestamp_t> Timestamps;

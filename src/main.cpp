@@ -4,24 +4,21 @@
 
 /***********************************************************************************/
 int main(int argc, char** argv) {
-    using namespace tsm::cli;
 
     std::iostream::sync_with_stdio(false);
 
-    const auto& result{ parseCmdLineOptions(argc, argv) };
+    const auto& result{ tsm::cli::parseCmdLineOptions(argc, argv) };
     if (!result) {
         return EXIT_FAILURE;
     }
 
     if ((*result).count("help")) {
-        printHelp();
+        tsm::cli::printHelp();
         return 0;
     }
 
-    const CLIOptions opts{ *result };
-
-    if (opts.Forecast == opts.Historical) {
-        std::cerr << "ONE of -forecast OR -historical is required." << std::endl;
+    const tsm::cli::CLIOptions opts{ *result };
+    if (!opts.verify()) {
         return EXIT_FAILURE;
     }
 
