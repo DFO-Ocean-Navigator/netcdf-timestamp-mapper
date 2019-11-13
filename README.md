@@ -10,7 +10,9 @@
 ## Documentation
 * Tool docs: [https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/](https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/)
 * Code Doxygen: [https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/code-docs/index.html](https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/code-docs/index.html)
+* Historical table schema: [https://dbdiagram.io/d/5dcc0404edf08a25543de03f](https://dbdiagram.io/d/5dcc0404edf08a25543de03f)
+
 
 ## Building
 
-* In the root project directory: `make` to build the program, `make tests` to build the tests, and `make clean` to...clean.
+* In the root project directory: `make` to build the program, `make test` to build the tests, and `make clean` to...clean.
