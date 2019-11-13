@@ -1,6 +1,7 @@
 var structtsm_1_1cli_1_1_c_l_i_options =
 [
     [ "CLIOptions", "structtsm_1_1cli_1_1_c_l_i_options.html#a979414199e4e54cdfcf0ed75cd8c98b1", null ],
+    [ "verify", "structtsm_1_1cli_1_1_c_l_i_options.html#a266ff36d701a1950217afe7a0f8c5962", null ],
     [ "DatasetName", "structtsm_1_1cli_1_1_c_l_i_options.html#a15739994150fbe7660be1c6f77f92c25", null ],
     [ "DryRun", "structtsm_1_1cli_1_1_c_l_i_options.html#a151fc527971a75729ac9c3fc997a6c5d", null ],
     [ "FileListPath", "structtsm_1_1cli_1_1_c_l_i_options.html#a5d7531fedc0023e4ce99c7e5d4a19b55", null ],

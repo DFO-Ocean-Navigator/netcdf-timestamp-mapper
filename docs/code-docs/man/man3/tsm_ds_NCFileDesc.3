@@ -1,4 +1,4 @@
-.TH "tsm::ds::NCFileDesc" 3 "Mon Oct 7 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::NCFileDesc" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -27,7 +27,7 @@ tsm::ds::NCFileDesc \-
 .RI "\fBNCFileDesc\fP & \fBoperator=\fP (\fBNCFileDesc\fP &&)=default"
 .br
 .ti -1c
-.RI "auto \fBoperator!\fP () const "
+.RI "auto \fBoperator!\fP () const noexcept"
 .br
 .in -1c
 .SS "Public Attributes"
@@ -53,7 +53,7 @@ tsm::ds::NCFileDesc \-
 
 .SH "Member Function Documentation"
 .PP 
-.SS "auto tsm::ds::NCFileDesc::operator! () const\fC [inline]\fP"
+.SS "auto tsm::ds::NCFileDesc::operator! () const\fC [inline]\fP, \fC [noexcept]\fP"
 
 .SS "\fBNCFileDesc\fP& tsm::ds::NCFileDesc::operator= (const \fBNCFileDesc\fP &)\fC [default]\fP"
 
