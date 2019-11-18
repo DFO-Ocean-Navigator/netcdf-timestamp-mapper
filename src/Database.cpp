@@ -124,8 +124,9 @@ Database::stmtPtr Database::prepareStatement(const std::string& sqlStatement) {
     };
 
     if (res != SQLITE_OK) {
-        std::cerr << "Error preparing SQL statement: " << sqlStatement << ". Error code " << res << '\n';
-        std::cout << "https://www.sqlite.org/c3ref/c_abort.html\n";
+        std::cerr << "Error preparing SQL statement: " << sqlStatement << ".\n Error code " << res << '\n';
+        printErrorMsg();
+        std::cerr << "https://www.sqlite.org/c3ref/c_abort.html" << '\n';
     }
 
     return stmtPtr(stmt, [](auto* s) { sqlite3_finalize(s); });
@@ -257,10 +258,9 @@ void Database::createVariablesDimensionsTable() {
 
 /***********************************************************************************/
 void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
-    auto insertJoinTableStmt{ prepareStatement("INSERT INTO TimestampVariableFilepath(filepath_id, variable_id, timestamp_id) VALUES ((SELECT id FROM Filepaths WHERE filepath = @PT), \
+    auto insertJoinTableStmt{ prepareStatement("INSERT OR IGNORE INTO TimestampVariableFilepath(filepath_id, variable_id, timestamp_id) VALUES ((SELECT id FROM Filepaths WHERE filepath = @PT), \
                                                                                                                                     (SELECT id FROM Variables WHERE variable = @VR), \
-                                                                                                                                    (SELECT id from Timestamps WHERE timestamp = @TS)) \
-                                                                                                                                    ON CONFLICT DO NOTHING; \
+                                                                                                                                    (SELECT id from Timestamps WHERE timestamp = @TS)); \
                                                 ")};
 
     execStatement("BEGIN TRANSACTION");
@@ -287,9 +287,8 @@ void Database::populateHistoricalJoinTable(const ds::DatasetDesc& datasetDesc) {
 /***********************************************************************************/
 void Database::populateVarsDimTable(const std::unordered_set<ds::VariableDesc>& insertedVariables) {
 
-    auto insertStmt{ prepareStatement("INSERT INTO VarsDims(variable_id, dim_id) VALUES ((SELECT id from Variables WHERE variable = @VR), \
-                                                                                        (SELECT id FROM Dimensions WHERE name = @DM) ) \
-                                                                                        ON CONFLICT DO NOTHING; \
+    auto insertStmt{ prepareStatement("INSERT OR IGNORE INTO VarsDims(variable_id, dim_id) VALUES ((SELECT id from Variables WHERE variable = @VR), \
+                                                                                        (SELECT id FROM Dimensions WHERE name = @DM) ); \
                                         ") };
 
     execStatement("BEGIN TRANSACTION");
@@ -370,6 +369,11 @@ void Database::createHistoricalTable() {
     execStatement(createForeignKeyTimestampIndexQuery);
     execStatement(createTimestampIndexQuery);
     execStatement(createFilePathIndexQuery);
+}
+
+/***********************************************************************************/
+void Database::printErrorMsg() {
+    std::cerr << sqlite3_errmsg(m_DBHandle) << std::endl;
 }
 
 } // namespace tsm
