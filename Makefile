@@ -1,7 +1,7 @@
 
 compiler_and_flags := g++-9 -std=c++2a -Wall -Wextra -march=native -O3 -pedantic -Wshadow
 
-common := -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/CLIOptions.cpp src/main.cpp  -I./src/ThirdParty/
+common := -o build/nc-timestamp-mapper src/TimestampMapper.cpp src/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/FileReaders/NCFileReader.cpp src/CLIOptions.cpp src/main.cpp  -I./src/ThirdParty/
 
 libs := -lstdc++fs -lnetcdf_c++4 -lsqlite3
 
@@ -21,7 +21,7 @@ debug: src/main.cpp
 	make clean
 	$(create_output_dir)
 	$(compiler_and_flags) -I./tests/ThirdParty/ -c tests/main.cpp
-	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_NCFileDesc.cpp tests/Test_HashString.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
+	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_DataFileDesc.cpp tests/Test_HashString.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
 
 clean:
 	rm -rf ./build
