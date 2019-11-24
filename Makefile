@@ -21,7 +21,7 @@ debug: src/main.cpp
 	make clean
 	$(create_output_dir)
 	$(compiler_and_flags) -I./tests/ThirdParty/ -c tests/main.cpp
-	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_NCFileDesc.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
+	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_NCFileDesc.cpp tests/Test_HashString.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
 
 clean:
 	rm -rf ./build
