@@ -56,6 +56,8 @@ private:
     void populateVarsDimTable(const std::unordered_set<ds::VariableDesc>& insertedVariables);
     ///
     void createHistoricalTable();
+    ///
+    void printErrorMsg();
 
     sqlite3* m_DBHandle{ nullptr };
     const std::filesystem::path m_inputPath;

@@ -1,4 +1,4 @@
-.TH "tsm::cli::CLIOptions" 3 "Mon Oct 7 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::cli::CLIOptions" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,6 +14,10 @@ tsm::cli::CLIOptions \-
 .ti -1c
 .RI "\fBCLIOptions\fP (const cxxopts::ParseResult &result)"
 .br
+.ti -1c
+.RI "bool \fBverify\fP () const "
+.br
+.RI "\fIValidate the given inputs\&. \fP"
 .in -1c
 .SS "Public Attributes"
 
@@ -50,6 +54,12 @@ tsm::cli::CLIOptions \-
 .PP 
 .SS "tsm::cli::CLIOptions::CLIOptions (const cxxopts::ParseResult & result)\fC [inline]\fP, \fC [explicit]\fP"
 
+.SH "Member Function Documentation"
+.PP 
+.SS "bool tsm::cli::CLIOptions::verify () const"
+
+.PP
+Validate the given inputs\&. 
 .SH "Member Data Documentation"
 .PP 
 .SS "const std::string tsm::cli::CLIOptions::DatasetName"

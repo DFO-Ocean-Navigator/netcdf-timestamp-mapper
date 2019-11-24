@@ -112,7 +112,8 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
     std::vector<fs::path> paths;
 
     // If file_to_index.txt exists, pull the file paths from there.
-    if (inputDirOrIndexFile.extension() == ".txt") {
+    const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };
+    if (exts.contains(inputDirOrIndexFile.extension())) {
         std::ifstream f(inputDirOrIndexFile);
 
         if (f.is_open()) {
