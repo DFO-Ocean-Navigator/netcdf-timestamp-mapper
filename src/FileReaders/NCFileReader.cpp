@@ -8,12 +8,10 @@
 namespace tsm {
     
 /***********************************************************************************/
-NCFileReader::NCFileReader(const std::filesystem::path& path) : m_path{path} {
-}
+NCFileReader::NCFileReader(const std::filesystem::path& path) : m_path{path} {}
 
 /***********************************************************************************/
 ds::DataFileDesc NCFileReader::getDataFileDesc_impl() {
-
     if (!open_file()) {
         return ds::DataFileDesc();
     }

@@ -15,7 +15,7 @@ class NCFileReader : public FileReader<NCFileReader> {
 
 public:
     ///
-    NCFileReader(const std::filesystem::path& path);
+    explicit NCFileReader(const std::filesystem::path& path);
     ///
     ~NCFileReader() {
         m_file.close();
