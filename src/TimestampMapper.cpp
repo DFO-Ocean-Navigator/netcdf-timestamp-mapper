@@ -1,6 +1,7 @@
 #include "TimestampMapper.hpp"
 
 #include "DatasetDesc.hpp"
+#include "CrawlDirectory.hpp"
 
 #include <exception>
 #include <iostream>
@@ -109,7 +110,6 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
 
 /***********************************************************************************/
 std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const {
-    std::vector<fs::path> paths;
 
     // If file_to_index.txt exists, pull the file paths from there.
     const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };
@@ -131,28 +131,7 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
         return paths;
     }
 
-    using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
-    const auto options{fs::directory_options::follow_directory_symlink};
-    
-    try {
-        const std::regex r(regex);
-
-        for (const auto& file : recursive_directory_iterator(inputDirOrIndexFile, options)) {
-            if (fs::path(file).extension() == ".nc" && std::regex_match(fs::path(file).string(), r)) {
-                paths.emplace_back(file);
-            }
-        }
-    }
-    catch(const std::regex_error& e) {
-        std::cerr << "Regex error: " << e.what() << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-    catch(...) {
-        std::cerr << "Caught unknown exception." << std::endl;
-        std::exit(EXIT_FAILURE);
-    }
-
-    return paths;
+    return utils::crawlDirectory(inputDirOrIndexFile, regex);
 }
 
 /***********************************************************************************/
