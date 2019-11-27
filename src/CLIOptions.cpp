@@ -1,5 +1,6 @@
 #include "CLIOptions.hpp"
 
+#include <iostream>
 
 namespace tsm::cli {
 
@@ -40,6 +41,14 @@ namespace tsm::cli {
 /***********************************************************************************/
 void printHelp() {
 
+}
+
+/***********************************************************************************/
+std::string cleanRegexPattern(const std::string& inputPattern) {
+    std::string cleaned = inputPattern;
+    cleaned.erase(std::remove(cleaned.begin(), cleaned.end(), '\''), cleaned.end());
+
+    return cleaned;
 }
 
 /***********************************************************************************/

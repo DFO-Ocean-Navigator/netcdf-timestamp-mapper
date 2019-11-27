@@ -4,7 +4,6 @@
 
 #include <optional>
 #include <string>
-#include <iostream>
 
 namespace tsm::cli {
 
@@ -17,11 +16,14 @@ namespace tsm::cli {
 void printHelp();
 
 /***********************************************************************************/
+std::string cleanRegexPattern(const std::string& inputPattern);
+
+/***********************************************************************************/
 struct [[nodiscard]] CLIOptions {
     explicit CLIOptions(const cxxopts::ParseResult& result) :   InputDir{ result["input-dir"].as<std::string>() },
                                                                 DatasetName{ result["dataset-name"].as<std::string>() },
                                                                 OutputDir{ result["output-dir"].as<std::string>() },
-                                                                RegexPattern{ result.count("regex") > 0 ? result["regex"].as<std::string>() : ".*" },
+                                                                RegexPattern{ result.count("regex") > 0 ? cleanRegexPattern(result["regex"].as<std::string>()) : ".*" },
                                                                 FileListPath{ result.count("file-list") > 0 ? result["file-list"].as<std::string>() : ""},
                                                                 DryRun{ result.count("dry-run") > 0},
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
