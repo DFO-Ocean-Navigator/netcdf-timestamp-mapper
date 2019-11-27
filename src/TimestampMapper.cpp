@@ -116,7 +116,6 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
     if (exts.contains(inputDirOrIndexFile.extension())) {
         std::vector<fs::path> paths;
         std::ifstream f(inputDirOrIndexFile);
-        std::vector<fs::path> paths;
 
         if (f.is_open()) {
             const auto& directory{inputDirOrIndexFile.parent_path()};
