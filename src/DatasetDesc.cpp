@@ -1,7 +1,7 @@
 #include "DatasetDesc.hpp"
 #include "FileReaders/NCFileReader.hpp"
 
-#include "ProgressBar.hpp"
+#include "Utils/ProgressBar.hpp"
 
 namespace tsm::ds {
 
@@ -16,7 +16,7 @@ DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, co
         if (const auto& desc{ r.getDataFileDesc() }; desc) {
             m_ncFiles.emplace_back(desc);
         }
-        
+
         ++pb;
     }
 }
