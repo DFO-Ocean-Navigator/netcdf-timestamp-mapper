@@ -8,19 +8,26 @@
 
 namespace tsm::ds {
 
-struct [[nodiscard]] NCFileDesc {
-    NCFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<VariableDesc>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
+struct [[nodiscard]] DataFileDesc {
+    ///
+    DataFileDesc() noexcept = default;
+    ///
+    DataFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<VariableDesc>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
                                                                                                                                             Variables{variables},
                                                                                                                                             NCFilePath{path} {}
 
-    NCFileDesc(const NCFileDesc&) = default;
-    NCFileDesc(NCFileDesc&&) = default;
+    DataFileDesc(const DataFileDesc&) = default;
+    DataFileDesc(DataFileDesc&&) = default;
 
-    NCFileDesc& operator=(const NCFileDesc&) = default;
-    NCFileDesc& operator=(NCFileDesc&&) = default;
+    DataFileDesc& operator=(const DataFileDesc&) = default;
+    DataFileDesc& operator=(DataFileDesc&&) = default;
+
+    explicit operator bool() const noexcept {
+        return (!Timestamps.empty()) && (!Variables.empty()) && (!NCFilePath.empty());
+    }
 
     inline auto operator!() const noexcept {
-        return Timestamps.empty() || Variables.empty() || NCFilePath.empty();
+        return !operator bool();
     }
 
     const std::vector<timestamp_t> Timestamps;

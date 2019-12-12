@@ -5,6 +5,7 @@
 
 * Ubuntu 16.04 or newer.
 * GCC 9 (for C++20 support) or newer.
+* Miniconda3 (latest version) (`conda env create --file environment.yml`).
 * Headers and libraries in `install_deps.sh`
 
 ## Documentation

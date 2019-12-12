@@ -1,5 +1,5 @@
 #include <catch2/single_include/catch2/catch.hpp>
-#include "../src/HashString.hpp"
+#include "../src/Utils/HashString.hpp"
 
 using namespace tsm::utils;
 
