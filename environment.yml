@@ -1,0 +1,8 @@
+name: index-tool
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - libnetcdf=4.7.1
+  - netcdf-cxx4=4.3.1
+  - sqlite=3.30.1
