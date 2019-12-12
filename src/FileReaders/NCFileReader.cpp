@@ -107,8 +107,7 @@ std::vector<ds::VariableDesc> NCFileReader::getNCFileVariables() const {
 
 /***********************************************************************************/
 std::vector<ds::timestamp_t> NCFileReader::getTimestampValues() const {
-    std::vector<ds::timestamp_t> vals;
-    
+   
     try {
         auto timeDim{ findTimeDim() };
         if (timeDim.empty()) {
@@ -120,8 +119,13 @@ std::vector<ds::timestamp_t> NCFileReader::getTimestampValues() const {
         netCDF::NcVar var;
         m_file.getCoordVar(timeDim, dim, var);
 
-        vals.reserve(dim.getSize());
-        var.getVar(vals.data());
+        ds::timestamp_t* v{ (ds::timestamp_t*)calloc(sizeof(ds::timestamp_t), dim.getSize()) };
+
+        var.getVar(v);
+
+        std::vector<ds::timestamp_t> vals(v, v + dim.getSize());
+
+        free(v);
 
         return vals;
     }
@@ -133,7 +137,7 @@ std::vector<ds::timestamp_t> NCFileReader::getTimestampValues() const {
         std::cerr << "Unhandled exception." << std::endl;
     }
 
-    return vals;
+    return {};
 }
 
 } // namespace tsm

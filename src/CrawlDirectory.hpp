@@ -19,7 +19,6 @@ auto crawlDirectory(const std::filesystem::path& inputDirOrIndexFile, const std:
         const std::regex r(regex, std::regex::optimize | std::regex::ECMAScript);
 
         for (const auto& file : recursive_dir_iterator(inputDirOrIndexFile, options)) {
-            std::cerr << file << std::endl;
             if (fs::path(file).extension() == ".nc" && std::regex_match(fs::path(file).string(), r)) {
                 paths.emplace_back(file);
             }
