@@ -12,16 +12,12 @@ namespace tsm::cli {
 [[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLineOptions(int argc, char** argv);
 
 /***********************************************************************************/
-/// Print help message.
-void printHelp();
-
-/***********************************************************************************/
 std::string cleanRegexPattern(const std::string& inputPattern);
 
 /***********************************************************************************/
 struct [[nodiscard]] CLIOptions {
-    explicit CLIOptions(const cxxopts::ParseResult& result) :   InputDir{ result["input-dir"].as<std::string>() },
-                                                                DatasetName{ result["dataset-name"].as<std::string>() },
+    explicit CLIOptions(const cxxopts::ParseResult& result) :   InputDir{ result.count("input-dir") > 0 ? result["input-dir"].as<std::string>() : "" },
+                                                                DatasetName{ result.count("dataset-name") > 0 ? result["dataset-name"].as<std::string>() : "" },
                                                                 OutputDir{ result["output-dir"].as<std::string>() },
                                                                 RegexPattern{ result.count("regex") > 0 ? cleanRegexPattern(result["regex"].as<std::string>()) : ".*" },
                                                                 FileListPath{ result.count("file-list") > 0 ? result["file-list"].as<std::string>() : ""},

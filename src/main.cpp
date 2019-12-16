@@ -7,14 +7,9 @@ int main(int argc, char** argv) {
 
     std::iostream::sync_with_stdio(false);
 
-    const auto& result{ tsm::cli::parseCmdLineOptions(argc, argv) };
+    auto result{ tsm::cli::parseCmdLineOptions(argc, argv) };
     if (!result) {
         return EXIT_FAILURE;
-    }
-
-    if ((*result).count("help")) {
-        tsm::cli::printHelp();
-        return 0;
     }
 
     const tsm::cli::CLIOptions opts{ *result };

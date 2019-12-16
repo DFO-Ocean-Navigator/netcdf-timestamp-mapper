@@ -1,4 +1,5 @@
 #include "CLIOptions.hpp"
+#include "Utils/PrettyPrint.hpp"
 
 #include <iostream>
 
@@ -11,20 +12,27 @@ namespace tsm::cli {
     {
         cxxopts::Options options("NetCDF Timestamp Mapper", "Maps timestamps and variables to netCDF files using sqlite3.");
 
-        options.add_options()
-        ("i,input-dir", "Input directory.", cxxopts::value<std::string>())
-        ("n,dataset-name", "Dataset name (no spaces).", cxxopts::value<std::string>())
-        ("o,output-dir", "Output directory.", cxxopts::value<std::string>())
+        options.allow_unrecognised_options().add_options()
+        ("i,input-dir", "Input directory of netcdf files to scan.", cxxopts::value<std::string>())
+        ("n,dataset-name", "Dataset name (no spaces). Will also become the filename of the resulting database (with the .sqlite3 extension).", cxxopts::value<std::string>())
+        ("o,output-dir", "Output directory of the resulting database file. Make sure the user running the process has write priveleges to this folder!", cxxopts::value<std::string>())
         ("regen-indices", "Regenerate indices.", cxxopts::value<bool>())
-        ("f,forecast", "Forecast dataset type.", cxxopts::value<bool>())
-        ("h,historical", "Historical dataset type.", cxxopts::value<bool>())
-        ("r,regex", "Regex to apply to input directory.", cxxopts::value<std::string>())
-        ("file-list", "Path to text file containing absolute file paths of netcdf files to be indexed.", cxxopts::value<std::string>())
-        ("dry-run", "Dry run", cxxopts::value<bool>())
+        ("f,forecast", "Forecast dataset type. INACTIVE AT THIS TIME.", cxxopts::value<bool>())
+        ("h,historical", "Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.", cxxopts::value<bool>())
+        ("r,regex", "Apply a regex pattern to the input directory to filter the scanned netcdf files.", cxxopts::value<std::string>())
+        ("file-list", "File containing absolute paths to netcdf files to be indexed. The format is 1 path per line (no line-ending commas, etc). Supported file extensions are: .txt, .diff, .ll.", cxxopts::value<std::string>())
+        ("dry-run", "Perform a dry-run of the tool; the list of scanned netcdf files will be output to the screen. No database changes will be made.", cxxopts::value<bool>())
         ("help", "Print help.")
         ;
 
-        return std::make_optional(options.parse(argc, argv));
+        auto result{ options.parse(argc, argv) };
+
+        if (result.count("help")) {
+            std::cout << options.help({""}) << std::endl;
+            return std::nullopt;
+        }
+
+        return std::make_optional(result);
     }
     catch (const cxxopts::OptionException &e)
     {
@@ -36,11 +44,6 @@ namespace tsm::cli {
         std::cerr << "Unhandled execption with parsing command-line options." << std::endl;
         return std::nullopt;
     }
-}
-
-/***********************************************************************************/
-void printHelp() {
-
 }
 
 /***********************************************************************************/
