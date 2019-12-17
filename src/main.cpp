@@ -17,15 +17,7 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    tsm::TimestampMapper mapper{opts.InputDir,
-                                opts.OutputDir,
-                                opts.DatasetName,
-                                opts.RegexPattern,
-                                opts.FileListPath,
-                                opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL, 
-                                opts.RegenIndices,
-                                opts.DryRun
-                                };
+    tsm::TimestampMapper mapper{ opts };
 
     return mapper.exec();
 }

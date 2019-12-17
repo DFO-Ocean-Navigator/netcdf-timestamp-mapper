@@ -16,12 +16,13 @@ namespace tsm::cli {
         ("i,input-dir", "Input directory of netcdf files to scan.", cxxopts::value<std::string>())
         ("n,dataset-name", "Dataset name (no spaces). Will also become the filename of the resulting database (with the .sqlite3 extension).", cxxopts::value<std::string>())
         ("o,output-dir", "Output directory of the resulting database file. Make sure the user running the process has write priveleges to this folder!", cxxopts::value<std::string>())
-        ("regen-indices", "Regenerate indices.", cxxopts::value<bool>())
+        ("regen-indices", "Regenerate indices.")
         ("f,forecast", "Forecast dataset type. INACTIVE AT THIS TIME.", cxxopts::value<bool>())
-        ("h,historical", "Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.", cxxopts::value<bool>())
+        ("h,historical", "Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.")
         ("r,regex", "Apply a regex pattern to the input directory to filter the scanned netcdf files.", cxxopts::value<std::string>())
         ("file-list", "File containing absolute paths to netcdf files to be indexed. The format is 1 path per line (no line-ending commas, etc). Supported file extensions are: .txt, .diff, .ll.", cxxopts::value<std::string>())
-        ("dry-run", "Perform a dry-run of the tool; the list of scanned netcdf files will be output to the screen. No database changes will be made.", cxxopts::value<bool>())
+        ("keep-file-list", "Don't delete the given file list after indexing.")
+        ("dry-run", "Perform a dry-run of the tool; the list of scanned netcdf files will be output to the screen. No database changes will be made.")
         ("help", "Print help.")
         ;
 

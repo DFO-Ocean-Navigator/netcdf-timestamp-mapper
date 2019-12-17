@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cctype>
 
+#include "CLIOptions.hpp"
 #include "Database.hpp"
 #include "DatasetDesc.hpp"
 
@@ -12,14 +13,7 @@ namespace tsm {
 class TimestampMapper {
 
 public:
-    TimestampMapper(const std::filesystem::path& inputDir,
-                    const std::filesystem::path& outputDir,
-                    const std::string& datasetName,
-                    const std::string& regexPattern,
-                    const std::string& fileList,
-                    const ds::DATASET_TYPE datasetType,
-                    const bool regenIndices,
-                    const bool dryRun);
+    explicit TimestampMapper(const cli::CLIOptions& opts);
 
     /// Runs the tool.
     /// Returns true on success, false on failure.
@@ -36,14 +30,6 @@ private:
         return res;
     }
     ///
-    [[nodiscard]] inline auto sanitizeDirectoryPath(const std::string& dirPath) const {
-        if (dirPath.back() == '/') {
-            return dirPath;
-        }
-
-        return dirPath + '/';
-    }
-    ///
     [[nodiscard]] inline auto fileOrDirExists(const std::filesystem::path& path) const {
         return std::filesystem::exists(path);
     }
@@ -52,19 +38,16 @@ private:
     ///
     [[nodiscard]] std::vector<std::filesystem::path> 
                                         createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const;
+    ///
+    [[nodiscard]] inline auto shouldDeleteIndexFile() const noexcept {
+        return m_indexFileExists && !m_cliOptions.KeepIndexFile;
+    }
 
     ///
     void deleteIndexFile();
 
-    const std::filesystem::path m_inputDir;
-    const std::filesystem::path m_outputDir;
-    const std::string m_datasetName;
-    const std::string m_regexPattern;
     const ds::DATASET_TYPE m_datasetType;
-    const bool m_regenIndices{ false };
-    const bool m_dryRun{ false };
-
-    const std::filesystem::path m_filesToIndexPath;
+    const cli::CLIOptions m_cliOptions;
     bool m_indexFileExists{ false };
 
     Database m_database;
