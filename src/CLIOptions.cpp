@@ -1,7 +1,7 @@
 #include "CLIOptions.hpp"
-#include "Utils/PrettyPrint.hpp"
 
 #include <iostream>
+#include <unordered_set>
 
 namespace tsm::cli {
 
@@ -17,6 +17,7 @@ namespace tsm::cli {
         ("n,dataset-name", "Dataset name (no spaces). Will also become the filename of the resulting database (with the .sqlite3 extension).", cxxopts::value<std::string>())
         ("o,output-dir", "Output directory of the resulting database file. Make sure the user running the process has write priveleges to this folder!", cxxopts::value<std::string>())
         ("regen-indices", "Regenerate indices.")
+        ("regex-engine", "Which regex engine to use: egrep (default), basic, extended, grep, awk, ecmascript.", cxxopts::value<std::string>())
         ("f,forecast", "Forecast dataset type. INACTIVE AT THIS TIME.", cxxopts::value<bool>())
         ("h,historical", "Indicates the dataset is historical in nature (i.e. not a forecast). In the future, there will be a -f flag to denote forecasts.")
         ("r,regex", "Apply a regex pattern to the input directory to filter the scanned netcdf files.", cxxopts::value<std::string>())
@@ -75,6 +76,12 @@ bool CLIOptions::verify() const {
 
     if (Forecast == Historical) {
         std::cerr << "ONE of --forecast OR --historical is required." << std::endl;
+        return false;
+    }
+
+    const std::unordered_set<std::string> regexEngines{ "egrep", "basic", "extended", "grep", "awk", "ecmascript" };
+    if (!regexEngines.contains(RegexEngine)) {
+        std::cerr << "The specified regex engine is not supported. Use --help flag to list what's available." << std::endl;
         return false;
     }
 

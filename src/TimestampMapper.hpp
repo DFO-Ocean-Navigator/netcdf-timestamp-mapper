@@ -37,7 +37,7 @@ private:
     [[nodiscard]] bool createDirectory(const std::filesystem::path& path) const noexcept;
     ///
     [[nodiscard]] std::vector<std::filesystem::path> 
-                                        createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const;
+                                        createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const;
     ///
     [[nodiscard]] inline auto shouldDeleteIndexFile() const noexcept {
         return m_indexFileExists && !m_cliOptions.KeepIndexFile;

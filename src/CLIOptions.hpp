@@ -31,6 +31,7 @@ struct [[nodiscard]] CLIOptions {
                                                                 OutputDir{ result.count("output-dir") > 0 ? sanitizeDirectoryPath(result["output-dir"].as<std::string>()) : "" },
                                                                 RegexPattern{ result.count("regex") > 0 ? cleanRegexPattern(result["regex"].as<std::string>()) : ".*" },
                                                                 FileListPath{ result.count("file-list") > 0 ? result["file-list"].as<std::string>() : ""},
+                                                                RegexEngine{ result.count("regex-engine") > 0 ? result["regex-engine"].as<std::string>() : "egrep" },
                                                                 DryRun{ result.count("dry-run") > 0 },
                                                                 KeepIndexFile{ result.count("keep-file-list") > 0 },
                                                                 RegenIndices{ result.count("regen-indices") > 0 },
@@ -45,6 +46,7 @@ struct [[nodiscard]] CLIOptions {
     const std::string OutputDir;
     const std::string RegexPattern;
     const std::string FileListPath;
+    const std::string RegexEngine;
     const bool DryRun{ false };
     const bool KeepIndexFile{ false };
     const bool RegenIndices{ false };

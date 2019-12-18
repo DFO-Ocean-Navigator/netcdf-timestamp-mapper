@@ -44,7 +44,7 @@ bool TimestampMapper::exec() {
     }
 
     std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir) << "..." << std::endl;
-    const auto& filePaths{ createFileList(m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir, m_cliOptions.RegexPattern) };
+    const auto& filePaths{ createFileList(m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir, m_cliOptions.RegexPattern, m_cliOptions.RegexEngine) };
     if (filePaths.empty()) {
         std::cout << "No .nc files found." << "\nExiting..." << std::endl;
         return false;
@@ -95,7 +95,7 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
 }
 
 /***********************************************************************************/
-std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex) const {
+std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const {
 
     // If file_to_index.txt exists, pull the file paths from there.
     const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };
@@ -118,7 +118,7 @@ std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::pat
         return paths;
     }
 
-    return utils::crawlDirectory(inputDirOrIndexFile, regex);
+    return utils::crawlDirectory(inputDirOrIndexFile, regex, engine);
 }
 
 /***********************************************************************************/
