@@ -5,6 +5,7 @@
 
 using namespace tsm;
 
+/***********************************************************************************/
 TEST_CASE("1: NCFileDesc returns correct DatafileDesc.") {
     NCFileReader r{ "./Fixtures/giops_forecast.nc" };
 
@@ -42,6 +43,7 @@ TEST_CASE("1: NCFileDesc returns correct DatafileDesc.") {
 
 }
 
+/***********************************************************************************/
 TEST_CASE("2: Bad file results in empty DatafileDesc.") {
     NCFileReader r{ "" };
 
@@ -50,6 +52,7 @@ TEST_CASE("2: Bad file results in empty DatafileDesc.") {
     REQUIRE_FALSE(desc);
 }
 
+/***********************************************************************************/
 TEST_CASE("3: getDataFileDesc doesn't throw given a bad file.") {
     NCFileReader r{ "" };
 

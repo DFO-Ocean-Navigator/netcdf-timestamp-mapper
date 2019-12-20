@@ -28,7 +28,7 @@ auto toString(const T numeric) {
 }
 
 /***********************************************************************************/
-Database::Database(const std::filesystem::path& inputPath, const std::filesystem::path& outputPath, const std::string& datasetName) : m_inputPath{inputPath},
+Database::Database(const std::filesystem::path& outputPath, const std::string& datasetName) :
                                                                                                                                     m_outputFilePath{ outputPath / (datasetName + ".sqlite3")} {
 
     configureSQLITE();

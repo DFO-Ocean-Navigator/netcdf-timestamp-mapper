@@ -21,7 +21,7 @@ class Database {
 
 public:
 
-    Database(const std::filesystem::path& inputPath, const std::filesystem::path& outputPath, const std::string& datasetName);
+    Database(const std::filesystem::path& outputPath, const std::string& datasetName);
     ~Database();
 
     /// Opens database.
@@ -60,7 +60,6 @@ private:
     void printErrorMsg();
 
     sqlite3* m_DBHandle{ nullptr };
-    const std::filesystem::path m_inputPath;
     const std::filesystem::path m_outputFilePath;
 };
 

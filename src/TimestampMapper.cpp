@@ -16,7 +16,7 @@ namespace tsm {
 TimestampMapper::TimestampMapper(const cli::CLIOptions& opts) : m_datasetType{ opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL },
                                                         m_cliOptions{ opts },
                                                         m_indexFileExists{ fileOrDirExists(opts.FileListPath) },
-                                                        m_database{ opts.InputDir, opts.OutputDir, opts.DatasetName }
+                                                        m_database{ opts.OutputDir, opts.DatasetName }
 {
 }
 
