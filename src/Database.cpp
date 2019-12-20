@@ -71,7 +71,6 @@ void Database::insertData(const ds::DatasetDesc& datasetDesc) {
     }
 
     std::cout << "Nothing done." << std::endl;
-    return;
 }
 
 /***********************************************************************************/

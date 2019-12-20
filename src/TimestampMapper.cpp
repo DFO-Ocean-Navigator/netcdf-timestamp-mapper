@@ -13,10 +13,10 @@ namespace fs = std::filesystem;
 namespace tsm {
 
 /***********************************************************************************/
-TimestampMapper::TimestampMapper(const cli::CLIOptions& opts) : m_cliOptions{ opts },
-                                                        m_datasetType{ m_cliOptions.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL },
-                                                        m_indexFileExists{ fileOrDirExists(m_cliOptions.FileListPath) },
-                                                        m_database{ m_cliOptions.InputDir, m_cliOptions.OutputDir, m_cliOptions.DatasetName }
+TimestampMapper::TimestampMapper(const cli::CLIOptions& opts) : m_datasetType{ opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL },
+                                                        m_cliOptions{ opts },
+                                                        m_indexFileExists{ fileOrDirExists(opts.FileListPath) },
+                                                        m_database{ opts.InputDir, opts.OutputDir, opts.DatasetName }
 {
 }
 
