@@ -23,7 +23,28 @@ auto crawlDirectory(const std::filesystem::path& inputDirOrIndexFile, const std:
             engineType = std::regex::egrep;
         break;
 
+        case HASH_STR_CRC32("basic"):
+            engineType = std::regex::basic;
+        break;
+
+        case HASH_STR_CRC32("extended"):
+            engineType = std::regex::extended;
+        break;
+
+        case HASH_STR_CRC32("grep"):
+            engineType = std::regex::grep;
+        break;
+
+        case HASH_STR_CRC32("awk"):
+            engineType = std::regex::awk;
+        break;
+
+        case HASH_STR_CRC32("ecmascript"):
+            engineType = std::regex::ECMAScript;
+        break;
+
         default:
+            engineType = std::regex::egrep;
         break;
     }
 

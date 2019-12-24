@@ -24,7 +24,7 @@ debug: src/main.cpp
 	make clean
 	$(create_output_dir)
 	$(compiler_and_flags) -I./tests/ThirdParty/ -c tests/main.cpp
-	$(compiler_and_flags) -o build/tests main.o src/FileReaders/NCFileReader.cpp tests/Test_VariableDesc.cpp tests/Test_TypeTimestamp.cpp tests/Test_DataFileDesc.cpp tests/Test_NCFileReader.cpp tests/Test_HashString.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
+	$(compiler_and_flags) -o build/tests main.o src/FileReaders/NCFileReader.cpp tests/Test_VariableDesc.cpp tests/Test_CrawlDirectory.cpp tests/Test_TypeTimestamp.cpp tests/Test_DataFileDesc.cpp tests/Test_NCFileReader.cpp tests/Test_HashString.cpp $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
 	cp -r ./tests/Fixtures ./build
 
 clean:
