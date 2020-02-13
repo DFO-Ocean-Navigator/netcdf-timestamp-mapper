@@ -72,22 +72,22 @@ std::vector<ds::VariableDesc> NCFileReader::getNCFileVariables() const {
 
         // Find variable units
         std::string units;
-        if (atts.contains("units")) {
+        if (atts.count("units") > 0) {
             atts.find("units")->second.getValues(units);
         }
 
         std::string longName{ pair.first };
-        if (atts.contains("long_name")) {
+        if (atts.count("long_name") > 0) {
             atts.find("long_name")->second.getValues(longName);
         }
 
         float validMin{ std::numeric_limits<float>::min() };
-        if (atts.contains("valid_min")) {
+        if (atts.count("valid_min") > 0) {
             atts.find("valid_min")->second.getValues(&validMin);
         }
 
         float validMax{ std::numeric_limits<float>::max() };
-        if (atts.contains("valid_max")) {
+        if (atts.count("valid_max") > 0) {
             atts.find("valid_max")->second.getValues(&validMax);
         }
 

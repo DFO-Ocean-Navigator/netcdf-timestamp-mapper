@@ -153,7 +153,7 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
 
         // Insert variables into their table
         for (const auto& variable : ncFile.Variables) {
-            if (insertedVariables.contains(variable)) { // skip already inserted variables
+            if (insertedVariables.count(variable) > 0) { // skip already inserted variables
                 continue;
             }
             sqlite3_bind_text(&(*insertVariableStmt), 1, variable.Name.c_str(), -1, SQLITE_TRANSIENT);
@@ -166,7 +166,7 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
             sqlite3_reset(&(*insertVariableStmt));
 
             for (const auto& dim : variable.Dimensions) {
-                if (insertedDimensions.contains(dim)) {
+                if (insertedDimensions.count(dim) > 0) {
                     continue;
                 }
                 sqlite3_bind_text(&(*insertDimStmt), 1, dim.c_str(), -1, SQLITE_TRANSIENT);
@@ -182,7 +182,7 @@ void Database::insertHistorical(const ds::DatasetDesc& datasetDesc) {
 
          // Insert timestamps
         for (const auto ts : ncFile.Timestamps) {
-            if (insertedTimestamps.contains(ts)) {
+            if (insertedTimestamps.count(ts) > 0) {
                 continue;
             }
 
