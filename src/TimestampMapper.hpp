@@ -1,6 +1,7 @@
 #pragma once
 
-#include <filesystem>
+#include "Filesystem.hpp"
+
 #include <algorithm>
 #include <cctype>
 
@@ -30,14 +31,14 @@ private:
         return res;
     }
     ///
-    [[nodiscard]] inline auto fileOrDirExists(const std::filesystem::path& path) const {
-        return std::filesystem::exists(path);
+    [[nodiscard]] inline auto fileOrDirExists(const fs::path& path) const {
+        return fs::exists(path);
     }
     ///
-    [[nodiscard]] bool createDirectory(const std::filesystem::path& path) const noexcept;
+    [[nodiscard]] bool createDirectory(const fs::path& path) const noexcept;
     ///
-    [[nodiscard]] std::vector<std::filesystem::path> 
-                                        createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const;
+    [[nodiscard]] std::vector<fs::path> 
+                                        createFileList(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const;
     ///
     [[nodiscard]] inline auto shouldDeleteIndexFile() const noexcept {
         return m_indexFileExists && !m_cliOptions.KeepIndexFile;

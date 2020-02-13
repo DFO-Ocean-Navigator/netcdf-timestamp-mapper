@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Filesystem.hpp"
 #include "DataFileDesc.hpp"
 
 #include <ncFile.h>
@@ -7,7 +8,6 @@
 //#include <boost/date_time/posix_time/posix_time.hpp>
 
 #include <vector>
-#include <filesystem>
 
 namespace tsm {
 class Database;
@@ -26,7 +26,7 @@ friend class ::tsm::Database;
 
 public:
     ///
-    DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type);
+    DatasetDesc(const std::vector<fs::path>& filePaths, const DATASET_TYPE type);
 
     explicit operator bool() const noexcept {
         return !m_ncFiles.empty();
