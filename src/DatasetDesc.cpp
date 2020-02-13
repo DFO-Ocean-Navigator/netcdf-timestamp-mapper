@@ -6,7 +6,7 @@
 namespace tsm::ds {
 
 /***********************************************************************************/
-DatasetDesc::DatasetDesc(const std::vector<std::filesystem::path>& filePaths, const DATASET_TYPE type) : m_datasetType{ type } {
+DatasetDesc::DatasetDesc(const std::vector<fs::path>& filePaths, const DATASET_TYPE type) : m_datasetType{ type } {
     m_ncFiles.reserve(filePaths.size());
 
     tsm::utils::ProgressBar pb{ filePaths.size() };

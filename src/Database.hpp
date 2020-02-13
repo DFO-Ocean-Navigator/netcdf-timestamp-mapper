@@ -1,11 +1,11 @@
 #pragma once
 
 #include "Utils/DeletedUniquePtr.hpp"
+#include "Filesystem.hpp"
 #include "VariableDesc.hpp"
 
 #include <string>
 #include <unordered_set>
-#include <filesystem>
 
 // Forward declarations
 struct sqlite3;
@@ -21,7 +21,7 @@ class Database {
 
 public:
 
-    Database(const std::filesystem::path& outputPath, const std::string& datasetName);
+    Database(const fs::path& outputPath, const std::string& datasetName);
     ~Database();
 
     /// Opens database.
@@ -60,7 +60,7 @@ private:
     void printErrorMsg();
 
     sqlite3* m_DBHandle{ nullptr };
-    const std::filesystem::path m_outputFilePath;
+    const fs::path m_outputFilePath;
 };
 
 } // namespace tsm

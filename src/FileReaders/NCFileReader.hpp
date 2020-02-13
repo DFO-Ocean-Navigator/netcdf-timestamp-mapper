@@ -1,10 +1,10 @@
 #pragma once
 
+#include "../Filesystem.hpp"
 #include "FileReader.hpp"
 
 #include "../VariableDesc.hpp"
 
-#include <filesystem>
 #include <iostream>
 
 #include <ncFile.h>
@@ -15,7 +15,7 @@ class NCFileReader : public FileReader<NCFileReader> {
 
 public:
     ///
-    explicit NCFileReader(const std::filesystem::path& path);
+    explicit NCFileReader(const fs::path& path);
     ///
     ~NCFileReader() {
         m_file.close();
@@ -34,7 +34,7 @@ private:
     ///
     [[nodiscard]] std::vector<ds::timestamp_t> getTimestampValues() const;
 
-    const std::filesystem::path m_path;
+    const fs::path m_path;
     netCDF::NcFile m_file;
 };
 

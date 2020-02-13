@@ -8,8 +8,6 @@
 #include <iostream>
 #include <unordered_set>
 
-namespace fs = std::filesystem;
-
 // Required queries:
 // SELECT filepath FROM Timestamps INNER JOIN Filepaths WHERE timestamp='2193091200';
 
@@ -28,7 +26,7 @@ auto toString(const T numeric) {
 }
 
 /***********************************************************************************/
-Database::Database(const std::filesystem::path& outputPath, const std::string& datasetName) :
+Database::Database(const fs::path& outputPath, const std::string& datasetName) :
                                                                                                                                     m_outputFilePath{ outputPath / (datasetName + ".sqlite3")} {
 
     configureSQLITE();

@@ -8,8 +8,6 @@
 #include <fstream>
 #include <regex>
 
-namespace fs = std::filesystem;
-
 namespace tsm {
 
 /***********************************************************************************/
@@ -83,7 +81,7 @@ bool TimestampMapper::exec() {
 }
 
 /***********************************************************************************/
-bool TimestampMapper::createDirectory(const std::filesystem::path& path) const noexcept {
+bool TimestampMapper::createDirectory(const fs::path& path) const noexcept {
     std::error_code e;
     fs::create_directory(path, e);
 
@@ -95,7 +93,7 @@ bool TimestampMapper::createDirectory(const std::filesystem::path& path) const n
 }
 
 /***********************************************************************************/
-std::vector<fs::path> TimestampMapper::createFileList(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const {
+std::vector<fs::path> TimestampMapper::createFileList(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const {
 
     // If file_to_index.txt exists, pull the file paths from there.
     const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };

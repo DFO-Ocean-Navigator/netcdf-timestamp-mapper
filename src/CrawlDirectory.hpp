@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Utils/HashString.hpp"
+#include "Filesystem.hpp"
 
-#include <filesystem>
 #include <regex>
 #include <vector>
 #include <iostream>
@@ -10,8 +10,7 @@
 namespace tsm::utils {
 
 ///
-auto crawlDirectory(const std::filesystem::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) {
-    namespace fs = ::std::filesystem;
+auto crawlDirectory(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) {
     using recursive_dir_iterator = fs::recursive_directory_iterator;
 
     std::vector<fs::path> paths;

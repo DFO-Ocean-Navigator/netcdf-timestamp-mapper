@@ -1,10 +1,10 @@
 #pragma once
 
 #include "TypeTimestamp.hpp"
+#include "Filesystem.hpp"
 
 #include "VariableDesc.hpp"
 
-#include <filesystem>
 
 namespace tsm::ds {
 
@@ -12,7 +12,7 @@ struct [[nodiscard]] DataFileDesc {
     ///
     DataFileDesc() noexcept = default;
     ///
-    DataFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<VariableDesc>& variables, const std::filesystem::path& path) :  Timestamps{timestamps},
+    DataFileDesc(const std::vector<timestamp_t>& timestamps, const std::vector<VariableDesc>& variables, const fs::path& path) :  Timestamps{timestamps},
                                                                                                                                             Variables{variables},
                                                                                                                                             NCFilePath{path} {}
 
@@ -32,7 +32,7 @@ struct [[nodiscard]] DataFileDesc {
 
     const std::vector<timestamp_t> Timestamps;
     const std::vector<VariableDesc> Variables;
-    const std::filesystem::path NCFilePath;
+    const fs::path NCFilePath;
 };
 
 } // namespace tsm
