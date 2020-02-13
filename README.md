@@ -4,7 +4,7 @@
 ## Dependencies
 
 * Ubuntu 16.04 or newer.
-* GCC 7 or newer.
+* GCC 7.4 or newer.
 * Miniconda3 x64 (latest version) (`conda env create --file environment.yml`).
 
 ## Documentation
