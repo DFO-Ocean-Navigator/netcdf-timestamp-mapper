@@ -22,24 +22,24 @@ TEST_CASE("1: NCFileDesc returns correct DatafileDesc.") {
         return var.Name;
     });
 
-    REQUIRE( vars.contains("votemper") );
-    REQUIRE( vars.contains("longitude") );
-    REQUIRE( vars.contains("latitude") );
-    REQUIRE( vars.contains("time") );
-    REQUIRE( vars.contains("iicevol") );
-    REQUIRE( vars.contains("isnowvol") );
-    REQUIRE( vars.contains("iicesurftemp") );
-    REQUIRE( vars.contains("iiceconc") );
-    REQUIRE( vars.contains("itzocrtx") );
-    REQUIRE( vars.contains("itmecrty") );
-    REQUIRE( vars.contains("iicestrength") );
-    REQUIRE( vars.contains("iicepressure") );
-    REQUIRE( vars.contains("vosaline") );
-    REQUIRE( vars.contains("sossheig") );
-    REQUIRE( vars.contains("somixhgt") );
-    REQUIRE( vars.contains("sokaraml") );
-    REQUIRE( vars.contains("vozocrtx") );
-    REQUIRE( vars.contains("vomecrty") );
+    REQUIRE( vars.count("votemper") > 0);
+    REQUIRE( vars.count("longitude") > 0);
+    REQUIRE( vars.count("latitude") > 0);
+    REQUIRE( vars.count("time") > 0);
+    REQUIRE( vars.count("iicevol") > 0);
+    REQUIRE( vars.count("isnowvol") > 0);
+    REQUIRE( vars.count("iicesurftemp") > 0);
+    REQUIRE( vars.count("iiceconc") > 0);
+    REQUIRE( vars.count("itzocrtx") > 0);
+    REQUIRE( vars.count("itmecrty") > 0);
+    REQUIRE( vars.count("iicestrength") > 0);
+    REQUIRE( vars.count("iicepressure") > 0);
+    REQUIRE( vars.count("vosaline") > 0);
+    REQUIRE( vars.count("sossheig") > 0);
+    REQUIRE( vars.count("somixhgt") > 0);
+    REQUIRE( vars.count("sokaraml") > 0);
+    REQUIRE( vars.count("vozocrtx") > 0);
+    REQUIRE( vars.count("vomecrty") > 0);
 
 }
 

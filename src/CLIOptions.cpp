@@ -80,7 +80,7 @@ bool CLIOptions::verify() const {
     }
 
     const std::unordered_set<std::string> regexEngines{ "egrep", "basic", "extended", "grep", "awk", "ecmascript" };
-    if (!regexEngines.contains(RegexEngine)) {
+    if (regexEngines.count(RegexEngine) == 0) {
         std::cerr << "The specified regex engine is not supported. Use --help flag to list what's available." << std::endl;
         return false;
     }
