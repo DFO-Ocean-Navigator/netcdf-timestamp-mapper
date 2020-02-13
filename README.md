@@ -4,9 +4,8 @@
 ## Dependencies
 
 * Ubuntu 16.04 or newer.
-* GCC 9 (for C++20 support) or newer.
-* Miniconda3 (latest version) (`conda env create --file environment.yml`).
-* Headers and libraries in `install_deps.sh`
+* GCC 7 or newer.
+* Miniconda3 x64 (latest version) (`conda env create --file environment.yml`).
 
 ## Documentation
 * Tool docs: [https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/](https://dfo-ocean-navigator.github.io/netcdf-timestamp-mapper/)
