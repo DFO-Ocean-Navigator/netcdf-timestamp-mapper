@@ -29,3 +29,18 @@ TEST_CASE( "3: DataFileDesc::operator! is marked noexcept." ) {
 
     REQUIRE( noexcept(d1.operator!) );
 }
+
+/***********************************************************************************/
+TEST_CASE( "4: DataFileDesc::operator bool is marked noexcept." ) {
+    const DataFileDesc d1{ {}, {}, "" };
+
+    REQUIRE( noexcept(d1.operator bool) );
+}
+
+/***********************************************************************************/
+TEST_CASE( "5: All DataFileDesc members are const-qualified." ) {
+    
+    REQUIRE( std::is_const_v<decltype(DataFileDesc::Timestamps)> );
+    REQUIRE( std::is_const_v<decltype(DataFileDesc::Variables)> );
+    REQUIRE( std::is_const_v<decltype(DataFileDesc::NCFilePath)> );
+}

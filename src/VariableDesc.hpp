@@ -22,12 +22,12 @@ struct [[nodiscard]] VariableDesc {
         return Name == rhs.Name;
     }
 
-    std::string Name;
-    std::string Units;
-    std::string LongName;
-    float ValidMin{ 0.0f };
-    float ValidMax{ 0.0f };
-    std::vector<std::string> Dimensions;
+    const std::string Name;
+    const std::string Units;
+    const std::string LongName;
+    const float ValidMin{ 0.0f };
+    const float ValidMax{ 0.0f };
+    const std::vector<std::string> Dimensions;
 };
 
 } // namespace tsm::dds

@@ -27,7 +27,7 @@ auto toString(const T numeric) {
 
 /***********************************************************************************/
 Database::Database(const fs::path& outputPath, const std::string& datasetName) :
-                                                                                                                                    m_outputFilePath{ outputPath / (datasetName + ".sqlite3")} {
+                                                                                m_outputFilePath{ outputPath / (datasetName + ".sqlite3")} {
 
     configureSQLITE();
 }
@@ -46,8 +46,8 @@ bool Database::open() {
                                         nullptr)
                         };
     if (result != SQLITE_OK) {
-        closeConnection();
         std::cerr << sqlite3_errmsg(m_DBHandle) << std::endl;
+        closeConnection();
         return false;
     }
 
