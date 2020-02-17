@@ -11,7 +11,7 @@
 namespace tsm {
 
 /***********************************************************************************/
-TimestampMapper::TimestampMapper(const cli::CLIOptions& opts) : m_datasetType{ opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL },
+TimestampMapper::TimestampMapper(const CommandLine::Options& opts) : m_datasetType{ opts.Forecast ? tsm::ds::DATASET_TYPE::FORECAST : tsm::ds::DATASET_TYPE::HISTORICAL },
                                                         m_cliOptions{ opts },
                                                         m_indexFileExists{ fileOrDirExists(opts.FileListPath) },
                                                         m_database{ opts.OutputDir, opts.DatasetName }
@@ -34,18 +34,23 @@ bool TimestampMapper::exec() {
         return false;
     }
 
-    if (m_indexFileExists) {
-        std::cout << "Found list of non-indexed files. Only the files contained in this list will be indexed..." << std::endl;
+    if (!m_cliOptions.STDINfileList.empty()) {
+        std::cout << "Using STDIN for input file list..." << std::endl;
     }
     else {
-        std::cout << "List of non-indexed files not found. Continuing with complete indexing operation..." << std::endl;
-    }
+        if (m_indexFileExists) {
+            std::cout << "Found list of non-indexed files. Only the files contained in this list will be indexed..." << std::endl;
+        }
+        else {
+            std::cout << "Continuing with complete indexing operation..." << std::endl;
+        }
 
-    std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir) << "..." << std::endl;
-    const auto& filePaths{ createFileList(m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir, m_cliOptions.RegexPattern, m_cliOptions.RegexEngine) };
-    if (filePaths.empty()) {
-        std::cout << "No .nc files found." << "\nExiting..." << std::endl;
-        return false;
+        std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir) << "..." << std::endl;
+        const auto& filePaths{ createFileList(m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir, m_cliOptions.RegexPattern, m_cliOptions.RegexEngine) };
+        if (filePaths.empty()) {
+            std::cout << "No .nc files found." << "\nExiting..." << std::endl;
+            return false;
+        }
     }
 
     if (m_cliOptions.DryRun) {

@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cctype>
 
-#include "CLIOptions.hpp"
+#include "CommandLine.hpp"
 #include "Database.hpp"
 #include "DatasetDesc.hpp"
 
@@ -14,7 +14,7 @@ namespace tsm {
 class TimestampMapper {
 
 public:
-    explicit TimestampMapper(const cli::CLIOptions& opts);
+    explicit TimestampMapper(const CommandLine::Options& opts);
 
     /// Runs the tool.
     /// Returns true on success, false on failure.
@@ -48,7 +48,7 @@ private:
     void deleteIndexFile();
 
     const ds::DATASET_TYPE m_datasetType;
-    const cli::CLIOptions m_cliOptions;
+    const CommandLine::Options m_cliOptions;
     bool m_indexFileExists{ false };
 
     Database m_database;

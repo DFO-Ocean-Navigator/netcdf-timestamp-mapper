@@ -1,21 +1,18 @@
 #include "TimestampMapper.hpp"
 
-#include "CLIOptions.hpp"
+#include "CommandLine.hpp"
 
 /***********************************************************************************/
 int main(int argc, char** argv) {
 
     std::iostream::sync_with_stdio(false);
 
-    auto result{ tsm::cli::parseCmdLineOptions(argc, argv) };
-    if (!result) {
+    tsm::CommandLine cli;
+    if (!cli.parse(argc, argv)) {
         return EXIT_FAILURE;
     }
 
-    const tsm::cli::CLIOptions opts{ *result };
-    if (!opts.verify()) {
-        return EXIT_FAILURE;
-    }
+    const auto& opts{ cli.getOptions() };
 
     tsm::TimestampMapper mapper{ opts };
 
