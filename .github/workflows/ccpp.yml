@@ -18,8 +18,8 @@ jobs:
     - name: conda
       run: conda init bash && source ~/.bashrc && conda env create --file=environment.yml && conda env list && conda activate index-tool && conda list
     - name: make
-      run: make
+      run: conda activate index-tool && make
     - name: make test
-      run: make test
+      run: conda activate index-tool make test
     - name: run tests
-      run: ./build/tests
+      run: conda activate index-tool ./build/tests
