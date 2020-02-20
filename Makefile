@@ -2,7 +2,7 @@
 lib_dir := $(CONDA_PREFIX)/lib
 include_dir := $(CONDA_PREFIX)/include
 
-compiler_and_flags := $(CXX) -std=c++2a -Wall -Wextra -Wno-unused-variable -march=native -O3 -pedantic -Wshadow -I$(include_dir) -Wl,-rpath=$(lib_dir) -L$(lib_dir)
+compiler_and_flags := $(CXX) -std=c++17 -Wall -Wextra -Wno-unused-variable -march=native -O3 -pedantic -Wshadow -I$(include_dir) -Wl,-rpath=$(lib_dir) -L$(lib_dir)
 
 common := -o build/nc-timestamp-mapper -I./src/ThirdParty/ src/TimestampMapper.cpp src/Utils/ProgressBar.cpp src/DatasetDesc.cpp src/Database.cpp src/FileReaders/NCFileReader.cpp src/CLIOptions.cpp src/main.cpp
 
