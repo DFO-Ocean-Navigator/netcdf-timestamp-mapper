@@ -1,0 +1,23 @@
+name: C/C++ CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: goanpeca/setup-miniconda@v1
+      with:
+          miniconda-version: 'latest'
+          activate-environment: index-tool
+          environment-file: ./environment.yml
+          auto-activate-base: false
+    - name: make
+      run: make
+    - name: make test
+      run: make test
+    - name: run tests
+      run: ./build/tests
