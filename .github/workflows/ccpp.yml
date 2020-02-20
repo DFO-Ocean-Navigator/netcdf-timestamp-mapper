@@ -16,10 +16,10 @@ jobs:
       with:
           miniconda-version: 'latest'
     - name: conda
-      run: conda init bash && source ~/.bashrc && conda env create --file=environment.yml && conda env list && conda activate index-tool && conda list
+      run: conda init bash && source ~/.bashrc && conda env create --file=environment.yml
     - name: make
-      run: conda activate index-tool && make
+      run: conda init bash && source ~/.bashrc && conda activate index-tool && make
     - name: make test
-      run: conda activate index-tool make test
+      run: conda init bash && source ~/.bashrc && conda activate index-tool && make test
     - name: run tests
-      run: conda activate index-tool ./build/tests
+      run: conda init bash && source ~/.bashrc && conda activate index-tool && ./build/tests
