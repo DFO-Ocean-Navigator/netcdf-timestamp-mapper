@@ -20,9 +20,10 @@ jobs:
           auto-activate-base: false
     - name: make
       run: |
-        conda list
-        conda activate index-tool
-        make
+	      conda list
+	      conda init bash
+	      conda activate index-tool
+	      make
     - name: make test
       run: make test
     - name: run tests
