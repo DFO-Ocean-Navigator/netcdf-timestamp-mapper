@@ -19,9 +19,9 @@ jobs:
           environment-file: ./environment.yml
           auto-activate-base: false
     - name: conda
-      	run: conda init bash && conda activate index-tool
+      run: conda init bash && conda activate index-tool
     - name: make
-      	run: make
+      run: make
     - name: make test
       run: make test
     - name: run tests
