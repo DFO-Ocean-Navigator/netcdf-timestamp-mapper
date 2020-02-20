@@ -15,11 +15,8 @@ jobs:
     - uses: goanpeca/setup-miniconda@v1
       with:
           miniconda-version: 'latest'
-          activate-environment: index-tool
-          environment-file: ./environment.yml
-          auto-activate-base: false
     - name: conda
-      run: conda init bash && conda activate index-tool
+      run: conda init bash && source ~/.bashrc && conda env create --file=environment.yml && conda activate index-tool
     - name: make
       run: make
     - name: make test
