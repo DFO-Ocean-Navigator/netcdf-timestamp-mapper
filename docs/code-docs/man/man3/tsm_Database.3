@@ -1,8 +1,8 @@
-.TH "tsm::Database" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::Database" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::Database \- 
+tsm::Database
 .SH SYNOPSIS
 .br
 .PP
@@ -12,7 +12,7 @@ tsm::Database \-
 
 .in +1c
 .ti -1c
-.RI "\fBDatabase\fP (const std::filesystem::path &inputPath, const std::filesystem::path &outputPath, const std::string &datasetName)"
+.RI "\fBDatabase\fP (const fs::path &outputPath, const std::string &datasetName)"
 .br
 .ti -1c
 .RI "\fB~Database\fP ()"
@@ -20,7 +20,7 @@ tsm::Database \-
 .ti -1c
 .RI "bool \fBopen\fP ()"
 .br
-.RI "\fIOpens database\&. \fP"
+.RI "Opens database\&. "
 .ti -1c
 .RI "void \fBinsertData\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
@@ -44,15 +44,15 @@ tsm::Database \-
 .ti -1c
 .RI "void \fBcloseConnection\fP ()"
 .br
-.RI "\fIClose connection to database\&. \fP"
+.RI "Close connection to database\&. "
 .ti -1c
 .RI "void \fBexecStatement\fP (const std::string &sqlStatement, int(*callback)(void *, int, char **, char **)=nullptr)"
 .br
-.RI "\fIIdeal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. \fP"
+.RI "Ideal for 1-shot SQL statements (like setting PRAGMAs, etc\&.)\&. "
 .ti -1c
 .RI "\fBstmtPtr\fP \fBprepareStatement\fP (const std::string &sqlStatement)"
 .br
-.RI "\fIIdeal for repetitive SQL statements\&. \fP"
+.RI "Ideal for repetitive SQL statements\&. "
 .ti -1c
 .RI "void \fBinsertHistoricalCombined\fP (const \fBds::DatasetDesc\fP &datasetDesc)"
 .br
@@ -77,6 +77,9 @@ tsm::Database \-
 .ti -1c
 .RI "void \fBcreateHistoricalTable\fP ()"
 .br
+.ti -1c
+.RI "void \fBprintErrorMsg\fP ()"
+.br
 .in -1c
 .SS "Private Attributes"
 
@@ -85,10 +88,7 @@ tsm::Database \-
 .RI "sqlite3 * \fBm_DBHandle\fP { nullptr }"
 .br
 .ti -1c
-.RI "const std::filesystem::path \fBm_inputPath\fP"
-.br
-.ti -1c
-.RI "const std::filesystem::path \fBm_outputFilePath\fP"
+.RI "const fs::path \fBm_outputFilePath\fP"
 .br
 .in -1c
 .SH "Member Typedef Documentation"
@@ -97,7 +97,7 @@ tsm::Database \-
 
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::Database::Database (const std::filesystem::path & inputPath, const std::filesystem::path & outputPath, const std::string & datasetName)"
+.SS "tsm::Database::Database (const fs::path & outputPath, const std::string & datasetName)"
 
 .SS "tsm::Database::~Database ()"
 
@@ -141,15 +141,15 @@ Opens database\&.
 
 .PP
 Ideal for repetitive SQL statements\&. 
+.SS "void tsm::Database::printErrorMsg ()\fC [private]\fP"
+
 .SH "Member Data Documentation"
 .PP 
 .SS "sqlite3* tsm::Database::m_DBHandle { nullptr }\fC [private]\fP"
 
-.SS "const std::filesystem::path tsm::Database::m_inputPath\fC [private]\fP"
-
-.SS "const std::filesystem::path tsm::Database::m_outputFilePath\fC [private]\fP"
+.SS "const fs::path tsm::Database::m_outputFilePath\fC [private]\fP"
 
 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

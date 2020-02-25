@@ -1,10 +1,15 @@
 var searchData=
 [
-  ['validmax',['ValidMax',['../structtsm_1_1ds_1_1_variable_desc.html#ae42799a1357a83f05db90c892974c35c',1,'tsm::ds::VariableDesc']]],
-  ['validmin',['ValidMin',['../structtsm_1_1ds_1_1_variable_desc.html#ad9bdf0b6afe60bb5b5bc494eb9950cfa',1,'tsm::ds::VariableDesc']]],
-  ['variabledesc',['VariableDesc',['../structtsm_1_1ds_1_1_variable_desc.html#a08bad4196bba56bf61ba5671108a8b04',1,'tsm::ds::VariableDesc']]],
-  ['variabledesc',['VariableDesc',['../structtsm_1_1ds_1_1_variable_desc.html',1,'tsm::ds']]],
-  ['variabledesc_2ehpp',['VariableDesc.hpp',['../_variable_desc_8hpp.html',1,'']]],
-  ['variables',['Variables',['../structtsm_1_1ds_1_1_n_c_file_desc.html#aa43e67eba1874efd0d483d66d92aeb7a',1,'tsm::ds::NCFileDesc']]],
-  ['verify',['verify',['../structtsm_1_1cli_1_1_c_l_i_options.html#a266ff36d701a1950217afe7a0f8c5962',1,'tsm::cli::CLIOptions']]]
+  ['ds',['ds',['../namespacetsm_1_1ds.html',1,'tsm']]],
+  ['timer',['timer',['../namespacetsm_1_1utils.html#a9af645a3118a826e9a208bf856fae853',1,'tsm::utils']]],
+  ['timer_2ehpp',['Timer.hpp',['../_timer_8hpp.html',1,'']]],
+  ['timestamp_5ft',['timestamp_t',['../namespacetsm_1_1ds.html#adcceebcea104f5d39970d3d05e06f94e',1,'tsm::ds']]],
+  ['timestampmapper',['TimestampMapper',['../classtsm_1_1_timestamp_mapper.html',1,'tsm::TimestampMapper'],['../classtsm_1_1_timestamp_mapper.html#ac3c8052d342ca980d01f7a1956b3e33c',1,'tsm::TimestampMapper::TimestampMapper()']]],
+  ['timestampmapper_2ecpp',['TimestampMapper.cpp',['../_timestamp_mapper_8cpp.html',1,'']]],
+  ['timestampmapper_2ehpp',['TimestampMapper.hpp',['../_timestamp_mapper_8hpp.html',1,'']]],
+  ['timestamps',['Timestamps',['../structtsm_1_1ds_1_1_data_file_desc.html#a7b0dd16112c1af8c6c757a5f03e2a27c',1,'tsm::ds::DataFileDesc']]],
+  ['tostring',['toString',['../namespacetsm.html#a6076c32af7b08808500d59de662f69b0',1,'tsm']]],
+  ['tsm',['tsm',['../namespacetsm.html',1,'']]],
+  ['typetimestamp_2ehpp',['TypeTimestamp.hpp',['../_type_timestamp_8hpp.html',1,'']]],
+  ['utils',['utils',['../namespacetsm_1_1utils.html',1,'tsm']]]
 ];

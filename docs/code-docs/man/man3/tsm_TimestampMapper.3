@@ -1,8 +1,8 @@
-.TH "tsm::TimestampMapper" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::TimestampMapper" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::TimestampMapper \- 
+tsm::TimestampMapper
 .SH SYNOPSIS
 .br
 .PP
@@ -12,7 +12,7 @@ tsm::TimestampMapper \-
 
 .in +1c
 .ti -1c
-.RI "\fBTimestampMapper\fP (const std::filesystem::path &inputDir, const std::filesystem::path &outputDir, const std::string &datasetName, const std::string &regexPattern, const std::string &fileList, const \fBds::DATASET_TYPE\fP datasetType, const bool regenIndices, const bool dryRun)"
+.RI "\fBTimestampMapper\fP (const \fBCommandLine::Options\fP &opts)"
 .br
 .ti -1c
 .RI "bool \fBexec\fP ()"
@@ -22,19 +22,19 @@ tsm::TimestampMapper \-
 
 .in +1c
 .ti -1c
-.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const "
+.RI "auto \fBsanitizeDatasetName\fP (const std::string &datasetName) const"
 .br
 .ti -1c
-.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath) const "
+.RI "auto \fBfileOrDirExists\fP (const fs::path &path) const"
 .br
 .ti -1c
-.RI "auto \fBfileOrDirExists\fP (const std::filesystem::path &path) const "
+.RI "bool \fBcreateDirectory\fP (const fs::path &path) const noexcept"
 .br
 .ti -1c
-.RI "bool \fBcreateDirectory\fP (const std::filesystem::path &path) const noexcept"
+.RI "std::vector< fs::path > \fBcreateFileList\fP () const"
 .br
 .ti -1c
-.RI "std::vector< std::filesystem::path > \fBcreateFileList\fP (const std::filesystem::path &inputDirOrIndexFile, const std::string &regex) const "
+.RI "auto \fBshouldDeleteIndexFile\fP () const noexcept"
 .br
 .ti -1c
 .RI "void \fBdeleteIndexFile\fP ()"
@@ -44,28 +44,10 @@ tsm::TimestampMapper \-
 
 .in +1c
 .ti -1c
-.RI "const std::filesystem::path \fBm_inputDir\fP"
-.br
-.ti -1c
-.RI "const std::filesystem::path \fBm_outputDir\fP"
-.br
-.ti -1c
-.RI "const std::string \fBm_datasetName\fP"
-.br
-.ti -1c
-.RI "const std::string \fBm_regexPattern\fP"
-.br
-.ti -1c
 .RI "const \fBds::DATASET_TYPE\fP \fBm_datasetType\fP"
 .br
 .ti -1c
-.RI "const bool \fBm_regenIndices\fP { false }"
-.br
-.ti -1c
-.RI "const bool \fBm_dryRun\fP { false }"
-.br
-.ti -1c
-.RI "const std::filesystem::path \fBm_filesToIndexPath\fP"
+.RI "const \fBCommandLine::Options\fP \fBm_cliOptions\fP"
 .br
 .ti -1c
 .RI "bool \fBm_indexFileExists\fP { false }"
@@ -76,47 +58,35 @@ tsm::TimestampMapper \-
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::TimestampMapper::TimestampMapper (const std::filesystem::path & inputDir, const std::filesystem::path & outputDir, const std::string & datasetName, const std::string & regexPattern, const std::string & fileList, const \fBds::DATASET_TYPE\fP datasetType, const bool regenIndices, const bool dryRun)"
+.SS "tsm::TimestampMapper::TimestampMapper (const \fBCommandLine::Options\fP & opts)\fC [explicit]\fP"
 
 .SH "Member Function Documentation"
 .PP 
-.SS "bool tsm::TimestampMapper::createDirectory (const std::filesystem::path & path) const\fC [private]\fP, \fC [noexcept]\fP"
+.SS "bool tsm::TimestampMapper::createDirectory (const fs::path & path) const\fC [private]\fP, \fC [noexcept]\fP"
 
-.SS "std::vector< fs::path > tsm::TimestampMapper::createFileList (const std::filesystem::path & inputDirOrIndexFile, const std::string & regex) const\fC [private]\fP"
+.SS "std::vector< fs::path > tsm::TimestampMapper::createFileList () const\fC [private]\fP"
 
 .SS "void tsm::TimestampMapper::deleteIndexFile ()\fC [private]\fP"
 
 .SS "bool tsm::TimestampMapper::exec ()"
 Runs the tool\&. Returns true on success, false on failure\&. 
-.SS "auto tsm::TimestampMapper::fileOrDirExists (const std::filesystem::path & path) const\fC [inline]\fP, \fC [private]\fP"
+.SS "auto tsm::TimestampMapper::fileOrDirExists (const fs::path & path) const\fC [inline]\fP, \fC [private]\fP"
 
 .SS "auto tsm::TimestampMapper::sanitizeDatasetName (const std::string & datasetName) const\fC [inline]\fP, \fC [private]\fP"
 
-.SS "auto tsm::TimestampMapper::sanitizeDirectoryPath (const std::string & dirPath) const\fC [inline]\fP, \fC [private]\fP"
+.SS "auto tsm::TimestampMapper::shouldDeleteIndexFile () const\fC [inline]\fP, \fC [private]\fP, \fC [noexcept]\fP"
 
 .SH "Member Data Documentation"
 .PP 
-.SS "\fBDatabase\fP tsm::TimestampMapper::m_database\fC [private]\fP"
+.SS "const \fBCommandLine::Options\fP tsm::TimestampMapper::m_cliOptions\fC [private]\fP"
 
-.SS "const std::string tsm::TimestampMapper::m_datasetName\fC [private]\fP"
+.SS "\fBDatabase\fP tsm::TimestampMapper::m_database\fC [private]\fP"
 
 .SS "const \fBds::DATASET_TYPE\fP tsm::TimestampMapper::m_datasetType\fC [private]\fP"
 
-.SS "const bool tsm::TimestampMapper::m_dryRun { false }\fC [private]\fP"
-
-.SS "const std::filesystem::path tsm::TimestampMapper::m_filesToIndexPath\fC [private]\fP"
-
 .SS "bool tsm::TimestampMapper::m_indexFileExists { false }\fC [private]\fP"
-
-.SS "const std::filesystem::path tsm::TimestampMapper::m_inputDir\fC [private]\fP"
-
-.SS "const std::filesystem::path tsm::TimestampMapper::m_outputDir\fC [private]\fP"
-
-.SS "const bool tsm::TimestampMapper::m_regenIndices { false }\fC [private]\fP"
-
-.SS "const std::string tsm::TimestampMapper::m_regexPattern\fC [private]\fP"
 
 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

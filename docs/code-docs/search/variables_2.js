@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['historical',['Historical',['../structtsm_1_1cli_1_1_c_l_i_options.html#a8144b4d398d6f7d7e3a9a44788daea2b',1,'tsm::cli::CLIOptions']]]
+  ['historical',['Historical',['../structtsm_1_1_command_line_1_1_options.html#a98faa296faf7d2c3a2e8348fc78860d6',1,'tsm::CommandLine::Options']]]
 ];

@@ -34,24 +34,12 @@ bool TimestampMapper::exec() {
         return false;
     }
 
-    if (!m_cliOptions.STDINfileList.empty()) {
-        std::cout << "Using STDIN for input file list..." << std::endl;
+    const auto& filePaths{ createFileList() };
+    if (filePaths.empty()) {
+        std::cout << "No .nc files found." << "\nExiting..." << std::endl;
+        return false;
     }
-    else {
-        if (m_indexFileExists) {
-            std::cout << "Found list of non-indexed files. Only the files contained in this list will be indexed..." << std::endl;
-        }
-        else {
-            std::cout << "Continuing with complete indexing operation..." << std::endl;
-        }
 
-        std::cout << "Creating list of all .nc files in " << (m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir) << "..." << std::endl;
-        const auto& filePaths{ createFileList(m_indexFileExists ? m_cliOptions.FileListPath : m_cliOptions.InputDir, m_cliOptions.RegexPattern, m_cliOptions.RegexEngine) };
-        if (filePaths.empty()) {
-            std::cout << "No .nc files found." << "\nExiting..." << std::endl;
-            return false;
-        }
-    }
 
     if (m_cliOptions.DryRun) {
         std::copy(filePaths.cbegin(), filePaths.cend(), std::ostream_iterator<std::string>(std::cout, "\n"));
@@ -98,30 +86,51 @@ bool TimestampMapper::createDirectory(const fs::path& path) const noexcept {
 }
 
 /***********************************************************************************/
-std::vector<fs::path> TimestampMapper::createFileList(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) const {
+std::vector<fs::path> TimestampMapper::createFileList() const {
+    std::vector<fs::path> paths;
+    
+    if (!m_cliOptions.STDINfileList.empty()) {
+        std::cout << "Using STDIN for input file list..." << std::endl;
 
-    // If file_to_index.txt exists, pull the file paths from there.
-    const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };
-    if (exts.count(inputDirOrIndexFile.extension()) > 0) {
-        std::vector<fs::path> paths;
-        std::ifstream f(inputDirOrIndexFile);
-
-        if (f.is_open()) {
-            const auto& directory{inputDirOrIndexFile.parent_path()};
-            std::string line;
-            while (std::getline(f, line)) {
-                const fs::path p{line};
-                if (p.extension() == ".nc") {
-                    paths.emplace_back(directory / p);
-                }
-            }
-            f.close();
-        }
+        paths.reserve(m_cliOptions.STDINfileList.size());
+        std::transform(m_cliOptions.STDINfileList.cbegin(), m_cliOptions.STDINfileList.cend(), paths.begin(), [](const auto& p) {
+            return fs::path(p);
+        });
 
         return paths;
     }
 
-    return utils::crawlDirectory(inputDirOrIndexFile, regex, engine);
+
+    if (m_indexFileExists) {
+        std::cout << "Found list of non-indexed files. Only the files contained in this list will be indexed..." << std::endl;
+
+        // If file_to_index.txt exists, pull the file paths from there.
+        const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };
+        if (exts.count(m_cliOptions.FileListPath.extension()) > 0) {
+            std::ifstream f(m_cliOptions.FileListPath);
+
+            if (f.is_open()) {
+                const auto& directory{m_cliOptions.FileListPath.parent_path()};
+                std::string line;
+                
+                while (std::getline(f, line)) {
+                    const fs::path p{line};
+                    if (p.extension() == ".nc") {
+                        paths.emplace_back(directory / p);
+                    }
+                }
+                
+                f.close();
+            }
+
+            
+            return paths;
+        }
+    }
+
+    std::cout << "Continuing with complete indexing operation..." << std::endl;
+
+    return utils::crawlDirectory(m_cliOptions.InputDir, m_cliOptions.RegexPattern, m_cliOptions.RegexEngine);
 }
 
 /***********************************************************************************/

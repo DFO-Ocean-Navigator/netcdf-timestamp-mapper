@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7edatabase',['~Database',['../classtsm_1_1_database.html#a3867f2f3e50a42189504e65bf18936ad',1,'tsm::Database']]],
-  ['_7eprogressbar',['~ProgressBar',['../classtsm_1_1utils_1_1_progress_bar.html#a79051cbe597a9f34c9e76a6cdf2dd1ad',1,'tsm::utils::ProgressBar']]]
+  ['units',['Units',['../structtsm_1_1ds_1_1_variable_desc.html#a2857b6ece85980dfdf8f2a063f80d758',1,'tsm::ds::VariableDesc']]],
+  ['updatelastprintedmessage',['updateLastPrintedMessage',['../classtsm_1_1utils_1_1_progress_bar.html#aca8232c41b6fe99a2723cb5588e1a714',1,'tsm::utils::ProgressBar']]]
 ];

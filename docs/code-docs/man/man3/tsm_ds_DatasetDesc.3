@@ -1,8 +1,8 @@
-.TH "tsm::ds::DatasetDesc" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::DatasetDesc" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::ds::DatasetDesc \- 
+tsm::ds::DatasetDesc
 .SH SYNOPSIS
 .br
 .PP
@@ -12,10 +12,13 @@ tsm::ds::DatasetDesc \-
 
 .in +1c
 .ti -1c
-.RI "\fBDatasetDesc\fP (const std::vector< std::filesystem::path > &filePaths, const \fBDATASET_TYPE\fP type)"
+.RI "\fBDatasetDesc\fP (const std::vector< fs::path > &filePaths, const \fBDATASET_TYPE\fP type)"
 .br
 .ti -1c
-.RI "auto \fBoperator!\fP () const "
+.RI "\fBoperator bool\fP () const noexcept"
+.br
+.ti -1c
+.RI "auto \fBoperator!\fP () const noexcept"
 .br
 .ti -1c
 .RI "auto \fBisHistorical\fP () const noexcept"
@@ -24,30 +27,11 @@ tsm::ds::DatasetDesc \-
 .RI "auto \fBisForecast\fP () const noexcept"
 .br
 .in -1c
-.SS "Private Member Functions"
-
-.in +1c
-.ti -1c
-.RI "std::optional< netCDF::NcFile > \fBopenNCFile\fP (const std::filesystem::path &path) const "
-.br
-.ti -1c
-.RI "std::optional< std::string > \fBfindTimeDim\fP (const netCDF::NcFile &ncFile) const "
-.br
-.ti -1c
-.RI "std::optional< std::vector< \fBtimestamp_t\fP > > \fBgetTimestampValues\fP (const netCDF::NcFile &ncFile) const "
-.br
-.ti -1c
-.RI "std::vector< \fBVariableDesc\fP > \fBgetNCFileVariables\fP (const netCDF::NcFile &ncFile) const "
-.br
-.ti -1c
-.RI "void \fBcreateAndAppendNCFileDesc\fP (const std::filesystem::path &path)"
-.br
-.in -1c
 .SS "Private Attributes"
 
 .in +1c
 .ti -1c
-.RI "std::vector< \fBNCFileDesc\fP > \fBm_ncFiles\fP"
+.RI "std::vector< \fBDataFileDesc\fP > \fBm_ncFiles\fP"
 .br
 .ti -1c
 .RI "const \fBDATASET_TYPE\fP \fBm_datasetType\fP"
@@ -62,25 +46,17 @@ tsm::ds::DatasetDesc \-
 .in -1c
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "tsm::ds::DatasetDesc::DatasetDesc (const std::vector< std::filesystem::path > & filePaths, const \fBDATASET_TYPE\fP type)\fC [explicit]\fP"
+.SS "tsm::ds::DatasetDesc::DatasetDesc (const std::vector< fs::path > & filePaths, const \fBDATASET_TYPE\fP type)"
 
 .SH "Member Function Documentation"
 .PP 
-.SS "void tsm::ds::DatasetDesc::createAndAppendNCFileDesc (const std::filesystem::path & path)\fC [private]\fP"
-
-.SS "std::optional< std::string > tsm::ds::DatasetDesc::findTimeDim (const netCDF::NcFile & ncFile) const\fC [inline]\fP, \fC [private]\fP"
-
-.SS "std::vector< \fBVariableDesc\fP > tsm::ds::DatasetDesc::getNCFileVariables (const netCDF::NcFile & ncFile) const\fC [private]\fP"
-
-.SS "std::optional< std::vector< \fBtimestamp_t\fP > > tsm::ds::DatasetDesc::getTimestampValues (const netCDF::NcFile & ncFile) const\fC [private]\fP"
-
 .SS "auto tsm::ds::DatasetDesc::isForecast () const\fC [inline]\fP, \fC [noexcept]\fP"
 
 .SS "auto tsm::ds::DatasetDesc::isHistorical () const\fC [inline]\fP, \fC [noexcept]\fP"
 
-.SS "std::optional< netCDF::NcFile > tsm::ds::DatasetDesc::openNCFile (const std::filesystem::path & path) const\fC [private]\fP"
+.SS "tsm::ds::DatasetDesc::operator bool () const\fC [inline]\fP, \fC [explicit]\fP, \fC [noexcept]\fP"
 
-.SS "auto tsm::ds::DatasetDesc::operator! () const\fC [inline]\fP"
+.SS "auto tsm::ds::DatasetDesc::operator! () const\fC [inline]\fP, \fC [noexcept]\fP"
 
 .SH "Friends And Related Function Documentation"
 .PP 
@@ -90,9 +66,9 @@ tsm::ds::DatasetDesc \-
 .PP 
 .SS "const \fBDATASET_TYPE\fP tsm::ds::DatasetDesc::m_datasetType\fC [private]\fP"
 
-.SS "std::vector<\fBNCFileDesc\fP> tsm::ds::DatasetDesc::m_ncFiles\fC [private]\fP"
+.SS "std::vector<\fBDataFileDesc\fP> tsm::ds::DatasetDesc::m_ncFiles\fC [private]\fP"
 
 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

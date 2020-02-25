@@ -1,0 +1,74 @@
+.TH "tsm::CommandLine" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::CommandLine
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <CommandLine\&.hpp>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBOptions\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCommandLine\fP ()=default"
+.br
+.ti -1c
+.RI "bool \fBparse\fP (int argc, char **argv)"
+.br
+.ti -1c
+.RI "const auto \fBgetOptions\fP () const noexcept"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "std::optional< cxxopts::ParseResult > \fBparseCmdLine\fP (int argc, char **argv)"
+.br
+.ti -1c
+.RI "bool \fBverify\fP (const cxxopts::ParseResult &result, const std::vector< std::string > STDINfileList)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBreadSTDIN\fP () const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBOptions\fP \fBm_options\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::CommandLine::CommandLine ()\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "const auto tsm::CommandLine::getOptions () const\fC [inline]\fP, \fC [noexcept]\fP"
+
+.SS "bool tsm::CommandLine::parse (int argc, char ** argv)"
+
+.SS "std::optional< cxxopts::ParseResult > tsm::CommandLine::parseCmdLine (int argc, char ** argv)\fC [private]\fP"
+
+.SS "std::vector< std::string > tsm::CommandLine::readSTDIN () const\fC [private]\fP"
+
+.SS "bool tsm::CommandLine::verify (const cxxopts::ParseResult & result, const std::vector< std::string > STDINfileList)\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBOptions\fP tsm::CommandLine::m_options\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

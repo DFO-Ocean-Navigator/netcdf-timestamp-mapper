@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['parsecmdlineoptions',['parseCmdLineOptions',['../namespacetsm_1_1cli.html#a6391722d9461ddbd6718c5b00aa2de04',1,'tsm::cli']]],
-  ['populatehistoricaljointable',['populateHistoricalJoinTable',['../classtsm_1_1_database.html#ab71a693167d9f26630a787ba65dd1106',1,'tsm::Database']]],
-  ['populatevarsdimtable',['populateVarsDimTable',['../classtsm_1_1_database.html#a79beaf21e7c641f0c01f9b41da86ddca',1,'tsm::Database']]],
-  ['preparestatement',['prepareStatement',['../classtsm_1_1_database.html#a3f668edca071234dddb665b205307bf0',1,'tsm::Database']]],
-  ['printhelp',['printHelp',['../namespacetsm_1_1cli.html#a7c9242d8fcbaeeae2686c0c1524a73bf',1,'tsm::cli']]],
-  ['printnewmessage',['printNewMessage',['../classtsm_1_1utils_1_1_progress_bar.html#acf15006d8dbf965487fc9a8930dbce49',1,'tsm::utils::ProgressBar']]],
-  ['progressbar',['ProgressBar',['../classtsm_1_1utils_1_1_progress_bar.html#abfd12a55ee34ef0c7c7df17408ac676f',1,'tsm::utils::ProgressBar::ProgressBar(std::size_t expectedIterations, const std::string &amp;initialMessage=&quot;&quot;)'],['../classtsm_1_1utils_1_1_progress_bar.html#af859061518b539f8ef870cd518a5d30a',1,'tsm::utils::ProgressBar::ProgressBar(const ProgressBar &amp;o)=delete']]]
+  ['open',['open',['../classtsm_1_1_database.html#abec432fec729638bf5aa84f61271e58b',1,'tsm::Database']]],
+  ['open_5ffile',['open_file',['../classtsm_1_1_n_c_file_reader.html#a14559d462b599c6c3f5d9c4ed57d2ed1',1,'tsm::NCFileReader']]],
+  ['operator_20bool',['operator bool',['../structtsm_1_1ds_1_1_data_file_desc.html#a6abc4fe191735d346ba5dc599e5bcec5',1,'tsm::ds::DataFileDesc::operator bool()'],['../classtsm_1_1ds_1_1_dataset_desc.html#ae4c743ee27b9a74671eef3b113e0842e',1,'tsm::ds::DatasetDesc::operator bool()']]],
+  ['operator_21',['operator!',['../structtsm_1_1ds_1_1_data_file_desc.html#a66e9c7c6560f60da992906abf9a4cfea',1,'tsm::ds::DataFileDesc::operator!()'],['../classtsm_1_1ds_1_1_dataset_desc.html#a7b47522976fa38c6540e532b3b38d8ee',1,'tsm::ds::DatasetDesc::operator!()']]],
+  ['operator_28_29',['operator()',['../structstd_1_1hash_3_01tsm_1_1ds_1_1_variable_desc_01_4.html#a0dbe83ea125e967b7b108ca69186bfd3',1,'std::hash&lt; tsm::ds::VariableDesc &gt;']]],
+  ['operator_2b_2b',['operator++',['../classtsm_1_1utils_1_1_progress_bar.html#aee872eced94e1591c29082bf652acbdb',1,'tsm::utils::ProgressBar']]],
+  ['operator_3d',['operator=',['../structtsm_1_1ds_1_1_data_file_desc.html#af9ffcf79006f18949bc32b9a04657fcb',1,'tsm::ds::DataFileDesc::operator=(const DataFileDesc &amp;)=default'],['../structtsm_1_1ds_1_1_data_file_desc.html#a06302ccec2e9488296018a487843348f',1,'tsm::ds::DataFileDesc::operator=(DataFileDesc &amp;&amp;)=default'],['../classtsm_1_1utils_1_1_progress_bar.html#a101367927ab9274d1612dd61969c9546',1,'tsm::utils::ProgressBar::operator=()']]],
+  ['operator_3d_3d',['operator==',['../structtsm_1_1ds_1_1_variable_desc.html#a207229882c3d060ee048aac176f4d69b',1,'tsm::ds::VariableDesc']]]
 ];

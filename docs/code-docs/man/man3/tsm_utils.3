@@ -1,14 +1,20 @@
-.TH "tsm::utils" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::utils" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::utils \- 
+tsm::utils
 .SH SYNOPSIS
 .br
 .PP
 .SS "Classes"
 
 .in +1c
+.ti -1c
+.RI "struct \fBMM\fP"
+.br
+.ti -1c
+.RI "struct \fBMM< size, size, dummy >\fP"
+.br
 .ti -1c
 .RI "class \fBProgressBar\fP"
 .br
@@ -19,15 +25,24 @@ tsm::utils \-
 .ti -1c
 .RI "template<typename T > using \fBdeleted_unique_ptr\fP = std::unique_ptr< T, std::function< void(T *)> >"
 .br
-.RI "\fITemplate wrapper around a unique_ptr to allow passing a custom deleter lambda\&. \fP"
+.RI "Template wrapper around a unique_ptr to allow passing a custom deleter lambda\&. "
 .in -1c
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "template<class Func , class\&.\&.\&. Args> auto \fBtimer\fP (Func func, Args &&\&.\&.\&.args) \-> typename std::enable_if_t< !std::is_same_v< decltype(func(std::forward< Args >(args)\&.\&.\&.)), void >, std::pair< double, decltype(func(std::forward< Args >(args)\&.\&.\&.)) > >"
+.RI "auto \fBcrawlDirectory\fP (const fs::path &inputDirOrIndexFile, const std::string &regex, const std::string &engine)"
 .br
-.RI "\fIhttps://stackoverflow.com/a/24469673/2231969 \fP"
+.ti -1c
+.RI "std::ostream & \fBbold_on\fP (std::ostream &os)"
+.br
+.ti -1c
+.RI "std::ostream & \fBbold_off\fP (std::ostream &os)"
+.br
+.ti -1c
+.RI "template<class Func , class\&.\&.\&. Args> auto \fBtimer\fP (Func func, Args &&\&.\&.\&. args) \-> typename std::enable_if_t< !std::is_same_v< decltype(func(std::forward< Args >(args)\&.\&.\&.)), void >, std::pair< double, decltype(func(std::forward< Args >(args)\&.\&.\&.)) > >"
+.br
+.RI "https://stackoverflow.com/a/24469673/2231969 "
 .in -1c
 .SH "Typedef Documentation"
 .PP 
@@ -37,6 +52,12 @@ tsm::utils \-
 Template wrapper around a unique_ptr to allow passing a custom deleter lambda\&. 
 .SH "Function Documentation"
 .PP 
+.SS "std::ostream& tsm::utils::bold_off (std::ostream & os)"
+
+.SS "std::ostream& tsm::utils::bold_on (std::ostream & os)"
+
+.SS "auto tsm::utils::crawlDirectory (const fs::path & inputDirOrIndexFile, const std::string & regex, const std::string & engine)"
+
 .SS "template<class Func , class\&.\&.\&. Args> auto tsm::utils::timer (Func func, Args &&\&.\&.\&. args) \-> typename std::enable_if_t<
     !std::is_same_v<decltype( func( std::forward<Args>(args)\&.\&.\&. ) ),
     void>,
@@ -47,4 +68,4 @@ Template wrapper around a unique_ptr to allow passing a custom deleter lambda\&.
 https://stackoverflow.com/a/24469673/2231969 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

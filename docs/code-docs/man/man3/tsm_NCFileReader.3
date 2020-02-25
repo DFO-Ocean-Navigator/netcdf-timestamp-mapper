@@ -1,0 +1,79 @@
+.TH "tsm::NCFileReader" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::NCFileReader
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <NCFileReader\&.hpp>\fP
+.PP
+Inherits \fBtsm::FileReader< NCFileReader >\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNCFileReader\fP (const fs::path &path)"
+.br
+.ti -1c
+.RI "\fB~NCFileReader\fP ()"
+.br
+.ti -1c
+.RI "\fBds::DataFileDesc\fP \fBgetDataFileDesc_impl\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBopen_file\fP ()"
+.br
+.ti -1c
+.RI "std::string \fBfindTimeDim\fP () const"
+.br
+.ti -1c
+.RI "std::vector< \fBds::VariableDesc\fP > \fBgetNCFileVariables\fP () const"
+.br
+.ti -1c
+.RI "std::vector< \fBds::timestamp_t\fP > \fBgetTimestampValues\fP () const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "const fs::path \fBm_path\fP"
+.br
+.ti -1c
+.RI "netCDF::NcFile \fBm_file\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::NCFileReader::NCFileReader (const fs::path & path)\fC [explicit]\fP"
+
+.SS "tsm::NCFileReader::~NCFileReader ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "std::string tsm::NCFileReader::findTimeDim () const\fC [private]\fP"
+
+.SS "\fBds::DataFileDesc\fP tsm::NCFileReader::getDataFileDesc_impl ()"
+
+.SS "std::vector< \fBds::VariableDesc\fP > tsm::NCFileReader::getNCFileVariables () const\fC [private]\fP"
+
+.SS "std::vector< \fBds::timestamp_t\fP > tsm::NCFileReader::getTimestampValues () const\fC [private]\fP"
+
+.SS "bool tsm::NCFileReader::open_file ()\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "netCDF::NcFile tsm::NCFileReader::m_file\fC [private]\fP"
+
+.SS "const fs::path tsm::NCFileReader::m_path\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

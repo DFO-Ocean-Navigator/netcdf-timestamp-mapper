@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['variabledesc',['VariableDesc',['../structtsm_1_1ds_1_1_variable_desc.html#a08bad4196bba56bf61ba5671108a8b04',1,'tsm::ds::VariableDesc']]],
-  ['verify',['verify',['../structtsm_1_1cli_1_1_c_l_i_options.html#a266ff36d701a1950217afe7a0f8c5962',1,'tsm::cli::CLIOptions']]]
+  ['timer',['timer',['../namespacetsm_1_1utils.html#a9af645a3118a826e9a208bf856fae853',1,'tsm::utils']]],
+  ['timestampmapper',['TimestampMapper',['../classtsm_1_1_timestamp_mapper.html#ac3c8052d342ca980d01f7a1956b3e33c',1,'tsm::TimestampMapper']]],
+  ['tostring',['toString',['../namespacetsm.html#a6076c32af7b08808500d59de662f69b0',1,'tsm']]]
 ];

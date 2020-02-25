@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Filesystem.hpp"
+
 #include <cxxopts/include/cxxopts.hpp>
 
 #include <optional>
@@ -16,7 +18,7 @@ public:
         std::string DatasetName;
         std::string OutputDir;
         std::string RegexPattern;
-        std::string FileListPath;
+        fs::path FileListPath;
         std::string RegexEngine;
         std::vector<std::string> STDINfileList;
         bool DryRun{ false };

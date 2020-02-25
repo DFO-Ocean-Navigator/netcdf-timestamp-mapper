@@ -1,7 +1,7 @@
 var classtsm_1_1_database =
 [
     [ "stmtPtr", "classtsm_1_1_database.html#aa9cef6b1485cb990ef7916b7c83c7399", null ],
-    [ "Database", "classtsm_1_1_database.html#a7da921c449709c6fe1ba3a044c2a4596", null ],
+    [ "Database", "classtsm_1_1_database.html#aa70a4ef0884b7c2d1fd3b7f9188a680c", null ],
     [ "~Database", "classtsm_1_1_database.html#a3867f2f3e50a42189504e65bf18936ad", null ],
     [ "closeConnection", "classtsm_1_1_database.html#a788ff55a770147e2a1758089dacc9ba6", null ],
     [ "configureDBConnection", "classtsm_1_1_database.html#a417e827f4c3bc0ba5324490b3ad0ef8f", null ],
@@ -18,7 +18,7 @@ var classtsm_1_1_database =
     [ "populateHistoricalJoinTable", "classtsm_1_1_database.html#ab71a693167d9f26630a787ba65dd1106", null ],
     [ "populateVarsDimTable", "classtsm_1_1_database.html#a79beaf21e7c641f0c01f9b41da86ddca", null ],
     [ "prepareStatement", "classtsm_1_1_database.html#a3f668edca071234dddb665b205307bf0", null ],
+    [ "printErrorMsg", "classtsm_1_1_database.html#aa2663bcb868a3b88ae2bb7e2c17ba5ca", null ],
     [ "m_DBHandle", "classtsm_1_1_database.html#a2690a8463b1297e1b76d8b8852f525f3", null ],
-    [ "m_inputPath", "classtsm_1_1_database.html#a289a94af2ebe7eb00abbfc1853f38396", null ],
-    [ "m_outputFilePath", "classtsm_1_1_database.html#a10d9b91d97063f4e7ae67e5efa5e4478", null ]
+    [ "m_outputFilePath", "classtsm_1_1_database.html#a877be7ce29cbef413fe021727c5452ab", null ]
 ];

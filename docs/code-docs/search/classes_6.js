@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['variabledesc',['VariableDesc',['../structtsm_1_1ds_1_1_variable_desc.html',1,'tsm::ds']]]
+  ['ncfilereader',['NCFileReader',['../classtsm_1_1_n_c_file_reader.html',1,'tsm']]]
 ];

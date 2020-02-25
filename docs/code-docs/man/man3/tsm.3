@@ -1,17 +1,14 @@
-.TH "tsm" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm \- 
+tsm
 .SH SYNOPSIS
 .br
 .PP
 .SS "Namespaces"
 
 .in +1c
-.ti -1c
-.RI " \fBcli\fP"
-.br
 .ti -1c
 .RI " \fBds\fP"
 .br
@@ -23,7 +20,19 @@ tsm \-
 
 .in +1c
 .ti -1c
+.RI "class \fBCommandLine\fP"
+.br
+.ti -1c
 .RI "class \fBDatabase\fP"
+.br
+.ti -1c
+.RI "class \fBFileReader\fP"
+.br
+.ti -1c
+.RI "class \fBGrib2FileReader\fP"
+.br
+.ti -1c
+.RI "class \fBNCFileReader\fP"
 .br
 .ti -1c
 .RI "class \fBTimestampMapper\fP"
@@ -33,16 +42,26 @@ tsm \-
 
 .in +1c
 .ti -1c
+.RI "auto \fBsanitizeDirectoryPath\fP (const std::string &dirPath)"
+.br
+.ti -1c
+.RI "std::string \fBcleanRegexPattern\fP (const std::string &inputPattern)"
+.br
+.ti -1c
 .RI "template<typename T , typename  = typename std::enable_if_t<std::is_arithmetic_v<T>, T>> auto \fBtoString\fP (const T numeric)"
 .br
-.RI "\fIConvert numeric value to std::string properly\&. \fP"
+.RI "Convert numeric value to std::string properly\&. "
 .in -1c
 .SH "Function Documentation"
 .PP 
+.SS "std::string tsm::cleanRegexPattern (const std::string & inputPattern)"
+
+.SS "auto tsm::sanitizeDirectoryPath (const std::string & dirPath)\fC [inline]\fP"
+
 .SS "template<typename T , typename  = typename std::enable_if_t<std::is_arithmetic_v<T>, T>> auto tsm::toString (const T numeric)"
 
 .PP
 Convert numeric value to std::string properly\&. 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

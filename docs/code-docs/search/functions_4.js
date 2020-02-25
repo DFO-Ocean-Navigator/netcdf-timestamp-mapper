@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['getncfilevariables',['getNCFileVariables',['../classtsm_1_1ds_1_1_dataset_desc.html#ae1b4f4599a69ffaadad65c723c5ddc86',1,'tsm::ds::DatasetDesc']]],
-  ['gettimestampvalues',['getTimestampValues',['../classtsm_1_1ds_1_1_dataset_desc.html#a71797fa41ccd8ae6e7bc3bdf7e0c3fcc',1,'tsm::ds::DatasetDesc']]]
+  ['fileordirexists',['fileOrDirExists',['../classtsm_1_1_timestamp_mapper.html#a6874095d09317df51c6b6bce17c4bb8b',1,'tsm::TimestampMapper']]],
+  ['filereader',['FileReader',['../classtsm_1_1_file_reader.html#ab47cc1669d7cc9afda8e2229ecf195ef',1,'tsm::FileReader']]],
+  ['findtimedim',['findTimeDim',['../classtsm_1_1_n_c_file_reader.html#a5b162c66cf7e38895c547f41f69adec2',1,'tsm::NCFileReader']]]
 ];

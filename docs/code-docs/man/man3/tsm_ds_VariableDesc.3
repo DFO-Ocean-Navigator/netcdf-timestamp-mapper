@@ -1,8 +1,8 @@
-.TH "tsm::ds::VariableDesc" 3 "Wed Nov 13 2019" "Version 1.0" "NetCDF Timestamp Mapper" \" -*- nroff -*-
+.TH "tsm::ds::VariableDesc" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-tsm::ds::VariableDesc \- 
+tsm::ds::VariableDesc
 .SH SYNOPSIS
 .br
 .PP
@@ -22,22 +22,22 @@ tsm::ds::VariableDesc \-
 
 .in +1c
 .ti -1c
-.RI "std::string \fBName\fP"
+.RI "const std::string \fBName\fP"
 .br
 .ti -1c
-.RI "std::string \fBUnits\fP"
+.RI "const std::string \fBUnits\fP"
 .br
 .ti -1c
-.RI "std::string \fBLongName\fP"
+.RI "const std::string \fBLongName\fP"
 .br
 .ti -1c
-.RI "float \fBValidMin\fP { 0\&.0f }"
+.RI "const float \fBValidMin\fP { 0\&.0f }"
 .br
 .ti -1c
-.RI "float \fBValidMax\fP { 0\&.0f }"
+.RI "const float \fBValidMax\fP { 0\&.0f }"
 .br
 .ti -1c
-.RI "std::vector< std::string > \fBDimensions\fP"
+.RI "const std::vector< std::string > \fBDimensions\fP"
 .br
 .in -1c
 .SH "Constructor & Destructor Documentation"
@@ -50,19 +50,19 @@ tsm::ds::VariableDesc \-
 
 .SH "Member Data Documentation"
 .PP 
-.SS "std::vector<std::string> tsm::ds::VariableDesc::Dimensions"
+.SS "const std::vector<std::string> tsm::ds::VariableDesc::Dimensions"
 
-.SS "std::string tsm::ds::VariableDesc::LongName"
+.SS "const std::string tsm::ds::VariableDesc::LongName"
 
-.SS "std::string tsm::ds::VariableDesc::Name"
+.SS "const std::string tsm::ds::VariableDesc::Name"
 
-.SS "std::string tsm::ds::VariableDesc::Units"
+.SS "const std::string tsm::ds::VariableDesc::Units"
 
-.SS "float tsm::ds::VariableDesc::ValidMax { 0\&.0f }"
+.SS "const float tsm::ds::VariableDesc::ValidMax { 0\&.0f }"
 
-.SS "float tsm::ds::VariableDesc::ValidMin { 0\&.0f }"
+.SS "const float tsm::ds::VariableDesc::ValidMin { 0\&.0f }"
 
 
 .SH "Author"
 .PP 
-Generated automatically by Doxygen for NetCDF Timestamp Mapper from the source code\&.
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

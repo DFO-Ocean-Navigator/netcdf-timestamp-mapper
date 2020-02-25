@@ -1,0 +1,39 @@
+.TH "src/Utils/HashString.hpp" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/Utils/HashString.hpp
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBtsm::utils::MM< size, idx, dummy >\fP"
+.br
+.ti -1c
+.RI "struct \fBtsm::utils::MM< size, size, dummy >\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBtsm::utils\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBHASH_STR_CRC32\fP(x)   (MM<sizeof(x)\-1>::crc32(x))"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define HASH_STR_CRC32(x)   (MM<sizeof(x)\-1>::crc32(x))"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

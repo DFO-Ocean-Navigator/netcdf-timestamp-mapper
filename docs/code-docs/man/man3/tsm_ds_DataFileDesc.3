@@ -1,0 +1,83 @@
+.TH "tsm::ds::DataFileDesc" 3 "Tue Feb 25 2020" "Version 1.0" "NetCDF Index Tool" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+tsm::ds::DataFileDesc
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <DataFileDesc\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBDataFileDesc\fP () noexcept=default"
+.br
+.ti -1c
+.RI "\fBDataFileDesc\fP (const std::vector< \fBtimestamp_t\fP > &timestamps, const std::vector< \fBVariableDesc\fP > &variables, const fs::path &path)"
+.br
+.ti -1c
+.RI "\fBDataFileDesc\fP (const \fBDataFileDesc\fP &)=default"
+.br
+.ti -1c
+.RI "\fBDataFileDesc\fP (\fBDataFileDesc\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBDataFileDesc\fP & \fBoperator=\fP (const \fBDataFileDesc\fP &)=default"
+.br
+.ti -1c
+.RI "\fBDataFileDesc\fP & \fBoperator=\fP (\fBDataFileDesc\fP &&)=default"
+.br
+.ti -1c
+.RI "\fBoperator bool\fP () const noexcept"
+.br
+.ti -1c
+.RI "auto \fBoperator!\fP () const noexcept"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "const std::vector< \fBtimestamp_t\fP > \fBTimestamps\fP"
+.br
+.ti -1c
+.RI "const std::vector< \fBVariableDesc\fP > \fBVariables\fP"
+.br
+.ti -1c
+.RI "const fs::path \fBNCFilePath\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "tsm::ds::DataFileDesc::DataFileDesc ()\fC [default]\fP, \fC [noexcept]\fP"
+
+.SS "tsm::ds::DataFileDesc::DataFileDesc (const std::vector< \fBtimestamp_t\fP > & timestamps, const std::vector< \fBVariableDesc\fP > & variables, const fs::path & path)\fC [inline]\fP"
+
+.SS "tsm::ds::DataFileDesc::DataFileDesc (const \fBDataFileDesc\fP &)\fC [default]\fP"
+
+.SS "tsm::ds::DataFileDesc::DataFileDesc (\fBDataFileDesc\fP &&)\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "tsm::ds::DataFileDesc::operator bool () const\fC [inline]\fP, \fC [explicit]\fP, \fC [noexcept]\fP"
+
+.SS "auto tsm::ds::DataFileDesc::operator! () const\fC [inline]\fP, \fC [noexcept]\fP"
+
+.SS "\fBDataFileDesc\fP& tsm::ds::DataFileDesc::operator= (const \fBDataFileDesc\fP &)\fC [default]\fP"
+
+.SS "\fBDataFileDesc\fP& tsm::ds::DataFileDesc::operator= (\fBDataFileDesc\fP &&)\fC [default]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "const fs::path tsm::ds::DataFileDesc::NCFilePath"
+
+.SS "const std::vector<\fBtimestamp_t\fP> tsm::ds::DataFileDesc::Timestamps"
+
+.SS "const std::vector<\fBVariableDesc\fP> tsm::ds::DataFileDesc::Variables"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetCDF Index Tool from the source code\&.

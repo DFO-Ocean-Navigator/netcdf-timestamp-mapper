@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['datasetname',['DatasetName',['../structtsm_1_1cli_1_1_c_l_i_options.html#a15739994150fbe7660be1c6f77f92c25',1,'tsm::cli::CLIOptions']]],
-  ['dimensions',['Dimensions',['../structtsm_1_1ds_1_1_variable_desc.html#ac74ae92488c3e82054ecce4199bd5c01',1,'tsm::ds::VariableDesc']]],
-  ['dryrun',['DryRun',['../structtsm_1_1cli_1_1_c_l_i_options.html#a151fc527971a75729ac9c3fc997a6c5d',1,'tsm::cli::CLIOptions']]]
+  ['datasetname',['DatasetName',['../structtsm_1_1_command_line_1_1_options.html#ada6c5e057131c1bdbf3f07042b9a86e9',1,'tsm::CommandLine::Options']]],
+  ['dimensions',['Dimensions',['../structtsm_1_1ds_1_1_variable_desc.html#aae2af3d0b8cc7d4273781af2fe8859b6',1,'tsm::ds::VariableDesc']]],
+  ['dryrun',['DryRun',['../structtsm_1_1_command_line_1_1_options.html#aaddf1bb8001587e43d9e4e3b328f4452',1,'tsm::CommandLine::Options']]]
 ];
