@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "../DataFileDesc.hpp"
 
 // Use the Curiously Recurring Template Pattern
