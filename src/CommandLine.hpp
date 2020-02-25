@@ -20,7 +20,7 @@ public:
         std::string RegexPattern;
         fs::path FileListPath;
         std::string RegexEngine;
-        std::vector<std::string> STDINfileList;
+        std::vector<fs::path> STDINfileList;
         bool DryRun{ false };
         bool KeepIndexFile{ false };
         bool RegenIndices{ false };
@@ -40,8 +40,8 @@ public:
 
 private:
     [[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLine(int argc, char** argv);
-    [[nodiscard]] bool verify(const cxxopts::ParseResult& result, const std::vector<std::string> STDINfileList);
-    [[nodiscard]] std::vector<std::string> readSTDIN() const;
+    [[nodiscard]] bool verify(const cxxopts::ParseResult& result, const std::vector<fs::path> STDINfileList);
+    [[nodiscard]] std::vector<fs::path> readSTDIN() const;
 
     Options m_options;
 };

@@ -87,22 +87,18 @@ bool TimestampMapper::createDirectory(const fs::path& path) const noexcept {
 
 /***********************************************************************************/
 std::vector<fs::path> TimestampMapper::createFileList() const {
-    std::vector<fs::path> paths;
     
     if (!m_cliOptions.STDINfileList.empty()) {
         std::cout << "Using STDIN for input file list..." << std::endl;
-
-        paths.reserve(m_cliOptions.STDINfileList.size());
-        std::transform(m_cliOptions.STDINfileList.cbegin(), m_cliOptions.STDINfileList.cend(), paths.begin(), [](const auto& p) {
-            return fs::path(p);
-        });
-
-        return paths;
+        
+        return m_cliOptions.STDINfileList;
     }
 
 
     if (m_indexFileExists) {
         std::cout << "Found list of non-indexed files. Only the files contained in this list will be indexed..." << std::endl;
+        
+        std::vector<fs::path> paths;
 
         // If file_to_index.txt exists, pull the file paths from there.
         const std::unordered_set<std::string> exts{ ".txt", ".diff", ".lst" };

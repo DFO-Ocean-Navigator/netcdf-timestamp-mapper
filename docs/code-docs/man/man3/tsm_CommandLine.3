@@ -35,10 +35,10 @@ tsm::CommandLine
 .RI "std::optional< cxxopts::ParseResult > \fBparseCmdLine\fP (int argc, char **argv)"
 .br
 .ti -1c
-.RI "bool \fBverify\fP (const cxxopts::ParseResult &result, const std::vector< std::string > STDINfileList)"
+.RI "bool \fBverify\fP (const cxxopts::ParseResult &result, const std::vector< fs::path > STDINfileList)"
 .br
 .ti -1c
-.RI "std::vector< std::string > \fBreadSTDIN\fP () const"
+.RI "std::vector< fs::path > \fBreadSTDIN\fP () const"
 .br
 .in -1c
 .SS "Private Attributes"
@@ -60,9 +60,9 @@ tsm::CommandLine
 
 .SS "std::optional< cxxopts::ParseResult > tsm::CommandLine::parseCmdLine (int argc, char ** argv)\fC [private]\fP"
 
-.SS "std::vector< std::string > tsm::CommandLine::readSTDIN () const\fC [private]\fP"
+.SS "std::vector< fs::path > tsm::CommandLine::readSTDIN () const\fC [private]\fP"
 
-.SS "bool tsm::CommandLine::verify (const cxxopts::ParseResult & result, const std::vector< std::string > STDINfileList)\fC [private]\fP"
+.SS "bool tsm::CommandLine::verify (const cxxopts::ParseResult & result, const std::vector< fs::path > STDINfileList)\fC [private]\fP"
 
 .SH "Member Data Documentation"
 .PP 

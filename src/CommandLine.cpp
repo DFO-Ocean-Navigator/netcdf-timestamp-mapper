@@ -82,7 +82,7 @@ std::optional<cxxopts::ParseResult> CommandLine::parseCmdLine(int argc, char** a
 }
 
 /***********************************************************************************/
-bool CommandLine::verify(const cxxopts::ParseResult& result, const std::vector<std::string> STDINfileList) {
+bool CommandLine::verify(const cxxopts::ParseResult& result, const std::vector<fs::path> STDINfileList) {
 
     m_options.InputDir = result.count("input-dir") > 0 ? sanitizeDirectoryPath(result["input-dir"].as<std::string>()) : "";
     m_options.DatasetName = result.count("dataset-name") > 0 ? result["dataset-name"].as<std::string>() : "";
@@ -127,8 +127,8 @@ bool CommandLine::verify(const cxxopts::ParseResult& result, const std::vector<s
 }
 
 /***********************************************************************************/
-std::vector<std::string> CommandLine::readSTDIN() const {
-    std::vector<std::string> files;
+std::vector<fs::path> CommandLine::readSTDIN() const {
+    std::vector<fs::path> files;
 
     for (std::string line; std::getline(std::cin, line); ) {
         files.emplace_back(line);

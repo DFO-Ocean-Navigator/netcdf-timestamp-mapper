@@ -120,10 +120,10 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aa0771636225b8740023087532725fe69"><td class="memItemLeft" align="right" valign="top">std::optional&lt; cxxopts::ParseResult &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_command_line.html#aa0771636225b8740023087532725fe69">parseCmdLine</a> (int argc, char **argv)</td></tr>
 <tr class="separator:aa0771636225b8740023087532725fe69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab71834958bda2ee824ba7bcc2f464086"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_command_line.html#ab71834958bda2ee824ba7bcc2f464086">verify</a> (const cxxopts::ParseResult &amp;result, const std::vector&lt; std::string &gt; STDINfileList)</td></tr>
-<tr class="separator:ab71834958bda2ee824ba7bcc2f464086"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc4ac45d2ff99b33ddba1eb839dc5bfb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_command_line.html#acc4ac45d2ff99b33ddba1eb839dc5bfb">readSTDIN</a> () const</td></tr>
-<tr class="separator:acc4ac45d2ff99b33ddba1eb839dc5bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed56c1bd6d2b24fc9753b5f5bc4ffaad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_command_line.html#aed56c1bd6d2b24fc9753b5f5bc4ffaad">verify</a> (const cxxopts::ParseResult &amp;result, const std::vector&lt; fs::path &gt; STDINfileList)</td></tr>
+<tr class="separator:aed56c1bd6d2b24fc9753b5f5bc4ffaad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04def078d981b6d140c0fcd07b0c976"><td class="memItemLeft" align="right" valign="top">std::vector&lt; fs::path &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtsm_1_1_command_line.html#aa04def078d981b6d140c0fcd07b0c976">readSTDIN</a> () const</td></tr>
+<tr class="separator:aa04def078d981b6d140c0fcd07b0c976"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -246,8 +246,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="acc4ac45d2ff99b33ddba1eb839dc5bfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc4ac45d2ff99b33ddba1eb839dc5bfb">&#9670;&nbsp;</a></span>readSTDIN()</h2>
+<a id="aa04def078d981b6d140c0fcd07b0c976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04def078d981b6d140c0fcd07b0c976">&#9670;&nbsp;</a></span>readSTDIN()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -256,7 +256,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; std::string &gt; tsm::CommandLine::readSTDIN </td>
+          <td class="memname">std::vector&lt; fs::path &gt; tsm::CommandLine::readSTDIN </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -271,8 +271,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab71834958bda2ee824ba7bcc2f464086"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab71834958bda2ee824ba7bcc2f464086">&#9670;&nbsp;</a></span>verify()</h2>
+<a id="aed56c1bd6d2b24fc9753b5f5bc4ffaad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed56c1bd6d2b24fc9753b5f5bc4ffaad">&#9670;&nbsp;</a></span>verify()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +289,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; std::string &gt;&#160;</td>
+          <td class="paramtype">const std::vector&lt; fs::path &gt;&#160;</td>
           <td class="paramname"><em>STDINfileList</em>&#160;</td>
         </tr>
         <tr>
