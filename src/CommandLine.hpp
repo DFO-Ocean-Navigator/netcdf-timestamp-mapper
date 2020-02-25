@@ -40,7 +40,7 @@ public:
 
 private:
     [[nodiscard]] std::optional<cxxopts::ParseResult> parseCmdLine(int argc, char** argv);
-    [[nodiscard]] bool verify(const cxxopts::ParseResult& result, const std::vector<fs::path> STDINfileList);
+    [[nodiscard]] bool verify(const cxxopts::ParseResult& result, const std::vector<fs::path>& STDINfileList);
     [[nodiscard]] std::vector<fs::path> readSTDIN() const;
 
     Options m_options;
