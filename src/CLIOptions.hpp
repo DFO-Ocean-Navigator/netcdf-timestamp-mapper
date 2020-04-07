@@ -26,6 +26,9 @@ std::string cleanRegexPattern(const std::string& inputPattern);
 
 /***********************************************************************************/
 struct [[nodiscard]] CLIOptions {
+    
+    CLIOptions() = default;
+    
     explicit CLIOptions(const cxxopts::ParseResult& result) :   InputDir{ result.count("input-dir") > 0 ? sanitizeDirectoryPath(result["input-dir"].as<std::string>()) : "" },
                                                                 DatasetName{ result.count("dataset-name") > 0 ? result["dataset-name"].as<std::string>() : "" },
                                                                 OutputDir{ result.count("output-dir") > 0 ? sanitizeDirectoryPath(result["output-dir"].as<std::string>()) : "" },
@@ -41,17 +44,17 @@ struct [[nodiscard]] CLIOptions {
     /// Validate the given inputs.
     [[nodiscard]] bool verify() const;
 
-    const std::string InputDir;
-    const std::string DatasetName;
-    const std::string OutputDir;
-    const std::string RegexPattern;
-    const std::string FileListPath;
-    const std::string RegexEngine;
-    const bool DryRun{ false };
-    const bool KeepIndexFile{ false };
-    const bool RegenIndices{ false };
-    const bool Forecast{ false };
-    const bool Historical{ false };
+    std::string InputDir;
+    std::string DatasetName;
+    std::string OutputDir;
+    std::string RegexPattern{ ".*" };
+    std::string FileListPath;
+    std::string RegexEngine{ "egrep" };
+    bool DryRun{ false };
+    bool KeepIndexFile{ false };
+    bool RegenIndices{ false };
+    bool Forecast{ false };
+    bool Historical{ false };
 };
 
 } // namespace tsm::cli

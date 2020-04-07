@@ -1,5 +1,7 @@
 #include "CLIOptions.hpp"
 
+#include "Filesystem.hpp"
+
 #include <iostream>
 #include <unordered_set>
 
@@ -64,7 +66,7 @@ bool CLIOptions::verify() const {
         return false;
     }
 
-    if (InputDir.empty() && FileListPath.empty()) {
+    if ( (InputDir.empty() || !fs::is_directory(InputDir)) && (FileListPath.empty() || !fs::exists(FileListPath)) ) {
         std::cerr << "Input directory and file list path were not given. One is required. Use --input-dir or --file-list to specify." << std::endl;
         return false;
     }
