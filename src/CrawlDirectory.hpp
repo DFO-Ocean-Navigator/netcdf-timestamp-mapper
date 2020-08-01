@@ -10,7 +10,7 @@
 namespace tsm::utils {
 
 ///
-auto crawlDirectory(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) {
+static inline auto crawlDirectory(const fs::path& inputDirOrIndexFile, const std::string& regex, const std::string& engine) {
     using recursive_dir_iterator = fs::recursive_directory_iterator;
 
     std::vector<fs::path> paths;
