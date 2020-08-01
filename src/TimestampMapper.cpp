@@ -2,6 +2,7 @@
 
 #include "DatasetDesc.hpp"
 #include "CrawlDirectory.hpp"
+#include "FileReaders/SupportedFileTypes.hpp"
 
 #include <exception>
 #include <iostream>
@@ -106,7 +107,7 @@ std::vector<fs::path> TimestampMapper::createFileList(const fs::path& inputDirOr
             std::string line;
             while (std::getline(f, line)) {
                 const fs::path p{line};
-                if (p.extension() == ".nc") {
+                if (supportedFileType(p.extension())) {
                     paths.emplace_back(directory / p);
                 }
             }
