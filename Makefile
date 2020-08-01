@@ -26,7 +26,7 @@ debug: src/main.cpp
 	make clean
 	$(create_output_dir)
 	$(compiler_and_flags) -I./tests/ThirdParty/ -c tests/main.cpp
-	$(compiler_and_flags) -o build/tests main.o tests/Test_VariableDesc.cpp tests/Test_TypeTimestamp.cpp tests/Test_TimestampMapper.cpp tests/Test_CLIOptions.cpp tests/Test_DataFileDesc.cpp tests/Test_NCFileReader.cpp tests/Test_HashString.cpp $(shared_cpp_files) $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
+	$(compiler_and_flags) -o build/tests main.o $(shell find ./tests/ -maxdepth 1 -type f -name 'Test_*.cpp') $(shared_cpp_files) $(libs) -I./src/ThirdParty/ -I./tests/ThirdParty/
 	cp -r ./tests/Fixtures ./build
 
 clean:
