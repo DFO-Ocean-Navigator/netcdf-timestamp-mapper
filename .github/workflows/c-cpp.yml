@@ -20,10 +20,8 @@ jobs:
       uses: conda-incubator/setup-miniconda@v2.1.1
       with:
         environment-file: environment.yml
-        activate-environment: index-tool
     - name: Run tests
       run: |
-        conda activate index-tool
         make test
         cd build
         ./tests
