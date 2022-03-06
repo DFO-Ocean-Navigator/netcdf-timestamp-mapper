@@ -1,0 +1,24 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2.1.1
+      with:
+        environment-file: environment.yml
+        activate-environment: index-tool
+    - name: Run tests
+      run: |
+        make test
+        cd build
+        ./tests
