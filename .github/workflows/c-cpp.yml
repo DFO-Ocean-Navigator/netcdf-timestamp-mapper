@@ -23,6 +23,7 @@ jobs:
         activate-environment: index-tool
     - name: Run tests
       run: |
+        conda activate index-tool
         make test
         cd build
         ./tests
