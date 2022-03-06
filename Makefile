@@ -1,6 +1,6 @@
 
-lib_dir := $(CONDA_PREFIX)/lib
-include_dir := $(CONDA_PREFIX)/include
+lib_dir := ${CONDA_PREFIX}/lib
+include_dir := ${CONDA_PREFIX}/include
 
 compiler_and_flags := $(CXX) -std=c++17 -Wall -Wextra -Wno-unused-variable -march=native -O3 -pedantic -Wshadow -I$(include_dir) -Wl,-rpath=$(lib_dir) -L$(lib_dir)
 
@@ -8,7 +8,7 @@ shared_cpp_files := src/TimestampMapper.cpp src/Utils/ProgressBar.cpp src/Datase
 
 common := -o build/nc-timestamp-mapper -I./src/ThirdParty/ $(shared_cpp_files) src/main.cpp
 
-libs := -lstdc++fs -lnetcdf_c++4 -lsqlite3
+libs := -lstdc++fs -lnetcdf-cxx4 -lnetcdf -lsqlite3
 
 create_output_dir := mkdir -p ./build
 
