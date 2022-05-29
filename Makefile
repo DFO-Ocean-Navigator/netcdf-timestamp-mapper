@@ -10,12 +10,13 @@ common := -o build/nc-timestamp-mapper -I./src/ThirdParty/ $(shared_cpp_files) s
 
 libs := -lstdc++fs -lnetcdf-cxx4 -lnetcdf -lsqlite3
 
-create_output_dir := mkdir -p ./build
+create_output_dir := mkdir -p ./bin ./build
 
 all: src/main.cpp
 	make clean
 	$(create_output_dir)
 	$(compiler_and_flags) $(common) $(libs)
+	ln -s ../build/nc-timestamp-mapper bin/
 
 debug: src/main.cpp
 	make clean
@@ -31,3 +32,4 @@ debug: src/main.cpp
 
 clean:
 	rm -rf ./build
+	rm -rf ./bin
