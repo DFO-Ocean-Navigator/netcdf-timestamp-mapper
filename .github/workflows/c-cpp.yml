@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        submodules: 'true'
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2.1.1
+      with:
+        environment-file: environment.yml
+    - name: Run tests
+      run: |
+        make test
+        cd build
+        ./tests
